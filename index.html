@@ -1,16 +1,13 @@
-<!DOCTYPE html>
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>  
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Nothing Space - Exclusive updates, wallpapers, and tools for Nothing fans.">
-    <title>nothing space only for fans</title>
-    
-    <!-- Google AdSense Verification -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5140781527793808"
-     crossorigin="anonymous"></script>
-
-    
+     crossorigin="anonymous"></script>   
+  
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nothing Space</title>
+      
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
@@ -77,8 +74,8 @@
         .close-icon:hover { opacity: 1; color: var(--text); }
 
         /* NAYA: SW Display Style */
-        .sw-display { display: none; align-items: center; gap: 20px; margin: 15px 0; padding: 15px; background: var(--card); border-radius: 25px; border: 1px solid var(--card); animation: fadeIn 0.3s ease; }
-        .sw-img-box { width: 70px; height: 90px; border-radius: 12px; overflow: hidden; background: var(--card); flex-shrink: 0; border: 0px solid #333; }
+        .sw-display { display: none; align-items: center; gap: 20px; margin: 15px 0; padding: 15px; background: var(--card); border-radius: 25px; border: 1px solid var(--border); animation: fadeIn 0.3s ease; }
+        .sw-img-box { width: 70px; height: 90px; border-radius: 12px; overflow: hidden; background: var(--card); flex-shrink: 0; border: px solid var(--border); }
         .sw-img-box img { width: 120%; height: 100%; object-fit: cover; }
         .sw-info h3 { font-size: 1.8rem; line-height: 1; margin-bottom: 5px; }
 
@@ -151,8 +148,12 @@
     <div class="tile full" onclick="openScreen('scScr')"><h2>SERVICE</h2><p>LOCATE CENTERS</p></div>
     <div class="tile full" onclick="window.open('https://t.me/addlist/gajWpSOzopVlMWY1')"><h2>TELEGRAM</h2><p>COMMUNITY</p></div>
 </div>
-
-<footer>BUILT FOR THE NOTHING COMMUNITY</footer>
+<footer>
+    BUILT FOR THE NOTHING COMMUNITY<br>
+    <span style="font-size: 10px; opacity: 0.6; text-transform: none;">
+        This is a fan-made site
+    </span>
+</footer>
 
 <div id="upScr" class="screen"><div class="modal">
     <span class="close-icon" onclick="closeScreen('upScr')">×</span>
@@ -314,94 +315,71 @@
     'p1': { 
     disp: "V3.2-251219-1652", 
     img:"https://cdn.discordapp.com/attachments/1195752090123898900/1456682965999288521/1000527754-removebg-preview.png?ex=6959413a&is=6957efba&hm=939f9752d923f53dc9a4b5977d162557603d59bb7223cef8865edcfc2fc5006d&",
-   
- url: "https://android.googleapis.com/packages/ota-api/package/d6cb9faafb8c2bc5ae13f50ca1cde7fc5561eda3.zip", 
-    
-logs: ["Nothing OS Stable", "Security Updates"] 
+    url: "https://android.googleapis.com/packages/ota-api/package/d6cb9faafb8c2bc5ae13f50ca1cde7fc5561eda3.zip", 
+    logs: ["Nothing OS Stable", "Security Updates"] 
 },
 
 'p2': { 
    disp: "B4.0-251119-1654", 
-   
-img:"https://cdn.discordapp.com/attachments/1195752090123898900/1456679356741980190/1000527736-removebg-preview.png?ex=69593dde&is=6957ec5e&hm=1cfe43ffa07a71b4e6293ccfdaed9bc40537377a4ebdb2704157986867b221b0&",
-    
-url: "https://android.googleapis.com/packages/ota-api/package/0b1a9c638a70e7454e46a6459d9f20e6cd5953b8.zip", 
-    
-logs: ["Nothing OS Stable", "Glyph Improvements"] 
+   img:"https://cdn.discordapp.com/attachments/1195752090123898900/1456679356741980190/1000527736-removebg-preview.png?ex=69593dde&is=6957ec5e&hm=1cfe43ffa07a71b4e6293ccfdaed9bc40537377a4ebdb2704157986867b221b0&",
+    url: "https://android.googleapis.com/packages/ota-api/package/0b1a9c638a70e7454e46a6459d9f20e6cd5953b8.zip", 
+    logs: ["Nothing OS Stable", "Glyph Improvements"] 
 },
 
 'p2a': { 
     disp: "B4.0-251128-2240", 
     img:"https://cdn.discordapp.com/attachments/1195752090123898900/1456679413612679331/1000527725-removebg-preview.png?ex=69593dec&is=6957ec6c&hm=93648d747847f405896e775f3e73bee112faf9d4d5616918d91158aae032aad4&",
-   
- url: "https://android.googleapis.com/packages/ota-api/package/10c6c89d3c97a6f2338394096035e3129fcf8398.zip", 
-    
-logs: ["Nothing OS Stable", "Performance Optimisation"] 
+    url: "https://android.googleapis.com/packages/ota-api/package/10c6c89d3c97a6f2338394096035e3129fcf8398.zip", 
+    logs: ["Nothing OS Stable", "Performance Optimisation"] 
 },
 
 'p2aplus': { 
     disp: " B4.0-251218-2326", 
-   img:"https://cdn.discordapp.com/attachments/1195752090123898900/1456679432516272302/1000527726-removebg-preview.png?ex=69593df0&is=6957ec70&hm=8c9a0876f9ff97630be6d83894ac9dbcfd6748456691a221880e8e6ac3ca9f4c&",
-   
- url: "https://android.googleapis.com/packages/ota-api/package/f7788a5cb81ba5d86f476b003e4596cbc1133a33.zip", 
-    
-logs: ["Nothing OS Stable", "Battery Enhancements"] 
+    img:"https://cdn.discordapp.com/attachments/1195752090123898900/1456679432516272302/1000527726-removebg-preview.png?ex=69593df0&is=6957ec70&hm=8c9a0876f9ff97630be6d83894ac9dbcfd6748456691a221880e8e6ac3ca9f4c&",
+    url: "https://android.googleapis.com/packages/ota-api/package/f7788a5cb81ba5d86f476b003e4596cbc1133a33.zip", 
+    logs: ["Nothing OS Stable", "Battery Enhancements"] 
 },
 
 'p3': { 
     disp: "B4.0-251224-1229", 
     img: "https://cdn.discordapp.com/attachments/1195752090123898900/1456679935652397116/1000527677-removebg-preview.png?ex=69593e68&is=6957ece8&hm=d7328eaa5146c75c63eb8babfb9e6175155c00234b9a29dd132ebec7cb2b7f7f&",
-   
- url: "https://android.googleapis.com/packages/ota-api/package/8b96a9ad74c44a089a86c213103c624ee74088ae.zip", 
-  
-  logs: ["Nothing OS (Upcoming)", "Next-Gen Glyph UI"] 
+    url: "https://android.googleapis.com/packages/ota-api/package/8b96a9ad74c44a089a86c213103c624ee74088ae.zip", 
+    logs: ["Nothing OS (Upcoming)", "Next-Gen Glyph UI"] 
 },
 
 'p3a': { 
     disp: "B4.0-251118-1551", 
     img:"https://cdn.discordapp.com/attachments/1195752090123898900/1456679928023224411/1000527745-removebg-preview.png?ex=69593e66&is=6957ece6&hm=d4ec05b122fb8a9420c1e092c9ce206922f40096a35b1a1c6e736a13ee78d950&",
-   
- url: "https://android.googleapis.com/packages/ota-api/package/57c73fc36c537c04005cebe08bba0cd91d211f3a.zip", 
-    
-logs: ["Nothing OS (Upcoming)", "Balanced Performance"] 
+    url: "https://android.googleapis.com/packages/ota-api/package/57c73fc36c537c04005cebe08bba0cd91d211f3a.zip", 
+    logs: ["Nothing OS (Upcoming)", "Balanced Performance"] 
 },
 
 'p3apro': { 
     disp: "B4.0-251118-1551", 
-    
-img:"https://cdn.discordapp.com/attachments/1195752090123898900/1456679475457818881/1000527722-removebg-preview.png?ex=69593dfa&is=6957ec7a&hm=7eefe5f5244a53c200d5861ca3da14648bfd91d3aa4478313d9755ffb5c52510&",
-   
- url: "https://android.googleapis.com/packages/ota-api/package/57c73fc36c537c04005cebe08bba0cd91d211f3a.zip", 
-    
-logs: ["Nothing OS (Upcoming)", "Camera & Performance Boost"] 
+    img:"https://cdn.discordapp.com/attachments/1195752090123898900/1456679475457818881/1000527722-removebg-preview.png?ex=69593dfa&is=6957ec7a&hm=7eefe5f5244a53c200d5861ca3da14648bfd91d3aa4478313d9755ffb5c52510&",
+    url: "https://android.googleapis.com/packages/ota-api/package/57c73fc36c537c04005cebe08bba0cd91d211f3a.zip", 
+    logs: ["Nothing OS (Upcoming)", "Camera & Performance Boost"] 
 },
 
 'p3alite': { 
     disp: "V3.5-251222-1801", 
     img: "https://cdn.discordapp.com/attachments/1195752090123898900/1456679503794536694/1000527721-removebg-preview.png?ex=69593e01&is=6957ec81&hm=5958a5b78a72fae6ef356868ff3508bbc34f132ee06d8a968e3b3979fe1d9bbd&",
-   
- url: "https://android.googleapis.com/packages/ota-api/package/1146f774dcd2c969f3f401b14029b60d9364c0c6.zip", 
-   
- logs: ["Nothing OS (Upcoming)", "Lite Optimisations"] 
+    url: "https://android.googleapis.com/packages/ota-api/package/1146f774dcd2c969f3f401b14029b60d9364c0c6.zip", 
+    logs: ["Nothing OS (Upcoming)", "Lite Optimisations"] 
 },
 
 'cmf1': { 
     disp: "B4.0-251216-1717", 
-    
-img:"https://cdn.discordapp.com/attachments/1195752090123898900/1456679449260068998/1000527724-removebg-preview.png?ex=69593df4&is=6957ec74&hm=aabff64c3ebc7fd78779790e1e524eb7b476269541fa997effdfc937a86391f3&",
-   
- url: "https://android.googleapis.com/packages/ota-api/package/248ea05642c639ea459e0d71c70bf9cbdfe48c74.zip", 
-    
-logs: ["Nothing OS Stable", "CMF Custom Features"] 
+    img:"https://cdn.discordapp.com/attachments/1195752090123898900/1456679449260068998/1000527724-removebg-preview.png?ex=69593df4&is=6957ec74&hm=aabff64c3ebc7fd78779790e1e524eb7b476269541fa997effdfc937a86391f3&",
+    url: "https://android.googleapis.com/packages/ota-api/package/248ea05642c639ea459e0d71c70bf9cbdfe48c74.zip", 
+    logs: ["Nothing OS Stable", "CMF Custom Features"] 
 },
 
 'cmf2pro': { 
     disp: "B4.0-251218-2326", 
     img:"https://cdn.discordapp.com/attachments/1195752090123898900/1456679458990850276/1000527723-removebg-preview.png?ex=69593df6&is=6957ec76&hm=9975c35408bb3b75a6587cb4056be19e265b0cd8ff371d22cd22c548611b9555&",
-   
- url: "https://android.googleapis.com/packages/ota-api/package/efa331e5b51ed67ea0dda9e86cba9992a00f222f.zip", 
-   
- logs: ["Nothing OS (Upcoming)", "Advanced CMF Featurese.com/ajax"]
+    url: "https://android.googleapis.com/packages/ota-api/package/efa331e5b51ed67ea0dda9e86cba9992a00f222f.zip", 
+    logs: ["Nothing OS (Upcoming)", "Advanced CMF Featurese.com/ajax"]
     }
         },
         WALLPAPERS: [
@@ -1469,4 +1447,91 @@ function showDetails() {
     transform: rotate(150deg) scale(1.1);
 }
 
-</style>
+</style><style>/* Card ke andar wale button ko chota karne ke liye */
+.wp-overlay .btn {
+    width: 90%;           /* Pura chauda nahi, thoda chota */
+    margin: 0 auto;       /* Center mein rakhne ke liye */
+    padding: 8px 0;       /* Oopar niche se space kam ki */
+    font-size: 1rem;      /* Text size chota kiya */
+    border-radius: 15px;  /* Corners ko thoda kam round kiya */
+    min-height: unset;    /* Extra height hatane ke liye */
+}
+
+/* Button ke andar ka progress bar bhi chota rahe */
+.wp-overlay .btn .progress-bar {
+    border-radius: 12px;
+}
+
+/* Text alignment center rahe */
+.btn-text {
+    font-size: 1.1rem !important; 
+    letter-spacing: 1px;
+}
+
+
+.screen {
+    /* ... purana code ... */
+    overflow-y: auto; /* Modal ke andar ka content scroll hoga */
+    overscroll-behavior: contain; /* Scroll end hone par BG ko nahi chedega */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Background wrapper ko alag rakho */
+#content-wrapper {
+    will-change: transform; /* Browser ko optimized rakhta hai */
+}
+</style><script>function runDownload(btn, typeOrUrl) {
+    const bar = btn.querySelector('.progress-bar');
+    const txt = btn.querySelector('.btn-text');
+    const oldTxt = txt.innerText;
+
+    // Logic to determine the URL
+    let url = "#";
+    if (typeOrUrl === 'BETA_TOOL') {
+        url = CONFIG.BETA_TOOL_URL;
+    } else if (typeOrUrl === 'OTA_ZIP') {
+        const device = document.getElementById('swSelect').value;
+        url = CONFIG.SOFTWARE[device]?.url || "#";
+    } else {
+        // If it's not a config keyword, treat it as a direct URL
+        url = typeOrUrl;
+    }
+
+    btn.style.pointerEvents = 'none'; 
+    txt.innerText = 'WAITING...';
+    bar.style.transition = 'width 2s linear'; 
+    bar.style.width = '100%';
+
+    setTimeout(() => {
+        if (url !== "#") {
+            window.open(url, '_blank');
+        } else {
+            alert("Download link not found!");
+        }
+        
+        txt.innerText = "DONE ✓";
+        setTimeout(() => { 
+            bar.style.transition = 'none'; 
+            bar.style.width = '0%'; 
+            txt.innerText = oldTxt; 
+            btn.style.pointerEvents = 'all'; 
+        }, 1000);
+    }, 2000);
+}
+
+
+// Inside your renderPresets function...
+html += `
+<div class="wp-card">
+    <img src="${currentImg}" alt="Sample ${i}">
+    <div class="wp-overlay">
+        <p>PRESET ${i}</p>
+        <button class="btn" onclick="runDownload(this, '${currentLink}')">
+            <div class="progress-bar"></div>
+            <span class="btn-text">GET</span>
+        </button>
+    </div>
+</div>`;
+
+
+</script>
