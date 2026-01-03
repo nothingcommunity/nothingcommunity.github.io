@@ -9,6 +9,8 @@
     <!-- Google AdSense Verification -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5140781527793808"
      crossorigin="anonymous"></script>
+     
+     google.com, pub-5140781527793808, DIRECT, f08c47fec0942fa0
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,19 +75,19 @@
         .screen.closing .modal { transform: translateY(100%); }
 
         .close-icon { float: right; font-size: 2.5rem; cursor: pointer; opacity: 0.5; margin-top: -15px; transition: 0.2s; }
-        .close-icon:hover { opacity: 1; color: var(--accent); }
+        .close-icon:hover { opacity: 1; color: var(--text); }
 
         /* NAYA: SW Display Style */
-        .sw-display { display: none; align-items: center; gap: 20px; margin: 15px 0; padding: 15px; background: var(--card); border-radius: 25px; border: 1px solid var(--border); animation: fadeIn 0.3s ease; }
-        .sw-img-box { width: 70px; height: 100px; border-radius: 12px; overflow: hidden; background: #1a1a1a; flex-shrink: 0; border: 1px solid #333; }
-        .sw-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .sw-display { display: none; align-items: center; gap: 20px; margin: 15px 0; padding: 15px; background: var(--card); border-radius: 25px; border: 1px solid var(--card); animation: fadeIn 0.3s ease; }
+        .sw-img-box { width: 70px; height: 90px; border-radius: 12px; overflow: hidden; background: var(--card); flex-shrink: 0; border: 0px solid #333; }
+        .sw-img-box img { width: 120%; height: 100%; object-fit: cover; }
         .sw-info h3 { font-size: 1.8rem; line-height: 1; margin-bottom: 5px; }
 
         .dot-arrow { width: 20px; height: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; }
         .dot-row { display: flex; gap: 2px; }
-        .dot { width: 2.5px; height: 2.5px; background: currentColor; border-radius: 50%; }
+        .dot { width: 2.5px; height: 2.5px; background: var(--text); border-radius: 50%; }
 
-        .up-box { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 15px; margin-bottom: 12px; border-left: 4px solid #fff; }
+        .up-box { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 15px; margin-bottom: 12px; border-left: 4px solid #fffff; }
         .up-box h4 { 
     font-size: 1.4rem; 
     color: var(--text); /* <-- Yeh line change karni hai */
@@ -113,7 +115,7 @@
         .guide-content p { color: var(--instr); line-height: 1.4; text-transform: none; font-size: 1.1rem; margin-bottom: 15px; }
 
         .wp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
-        .wp-card { height: 280px; background: #111; border-radius: 25px; position: relative; overflow: hidden; border: 1px solid var(--border); }
+        .wp-card { height: 280px; background: #111; border-radius: 25px; position: relative; overflow: hidden; border: 1px solid var(--text); }
         .wp-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; display: block; }
         .wp-overlay { position: absolute; bottom: 0; width: 100%; padding: 10px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
         
@@ -196,7 +198,7 @@
             <div class="arrow-wrapper" style="position:static; color:#ffffff"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
         </div>
         <div class="guide-content" id="accContent">
-            <p>1. DOWNLOAD THE BETA TOOL APK AND INSTALL IT.<br>2. CREATE "OTA" FOLDER IN INTERNAL STORAGE AND PASTE OTA ZIP INSIDE .<br>3. SETTING - SYSTEM - BETA HUB - IMPORT FILE - ZIP - UPDATE.</p>
+            <p>1. DOWNLOAD THE BETA HUB TOOL APK.<br>2. CREATE "OTA" FOLDER IN INTERNAL STORAGE AND PASTE OTA ZIP INSIDE .<br>3. SETTING - SYSTEM - BETA HUB - IMPORT FILE - ZIP - UPDATE.</p>
             <button class="btn" onclick="runDownload(this, 'BETA_TOOL')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAd BETA TOOL</span></button>
         </div>
     </div>
@@ -204,18 +206,26 @@
     <div class="sw-display" id="swDisplay">
         <div class="sw-img-box"><img src="" id="swPhoneImg"></div>
         <div class="sw-info">
-            <h3 id="swPhoneTitle">DEVICE</h3>
-            <p style="opacity:0.5; font-size:0.9rem;">Official Firmware Zip</p>
+            <h2 id="swPhoneTitle">DEVICE</h2>
+            <p style="opacity:0.5; font-size:0.9rem;"> Official ota Firmware Zip</p>
         </div>
     </div>
 
     <div class="input-group">
         <select id="swSelect" onchange="showLogs()">
             <option value="">SELECT Your Device</option>
-            <option value="p2">PHONE (2) - NOS 3.0</option>
-            <option value="p2a">PHONE (2A) - NOS 2.6</option>
-            <option value="p1">PHONE (1) - NOS 2.6</option>
-        </select>
+            
+<option value="p1">NOTHING PHONE (1)</option>
+<option value="p2">NOTHING PHONE (2)</option>
+<option value="p2a">NOTHING PHONE (2A)</option>
+<option value="p2aplus">NOTHING PHONE (2A) PLUS</option>
+<option value="p3">NOTHING PHONE (3)</option>
+<option value="p3a">NOTHING PHONE (3A)</option>
+<option value="p3apro">NOTHING PHONE (3A) PRO</option>
+<option value="p3alite">NOTHING PHONE (3A) LITE</option>
+<option value="cmf1">CMF PHONE 1</option>
+<option value="cmf2pro">CMF PHONE 2 PRO</option>
+    </select>
         <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
     </div>
 
@@ -301,24 +311,76 @@
     const CONFIG = {
         BETA_TOOL_URL: "https://d2j3l8bo7dc01w.cloudfront.net/NothingOfflineOtaUpdate_signed_I8b71f630b74e3dcb939d33d99815d63507c48298.apk",
         SOFTWARE: {
-            'p2': { 
-                disp: "PHONE (2)", 
-                img: "https://images.unsplash.com/photo-1689333333555-c1f964a75363?w=200",
-                url: "https://t.me/nothinghub", 
-                logs: ["Android 15 Open Beta 2", "New Glyph Progress UI"] 
-            },
-            'p2a': { 
-                disp: "PHONE (2A)", 
-                img: "https://images.unsplash.com/photo-1710340801321-47963d865529?w=200",
-                url: "https://t.me/nothinghub", 
-                logs: ["Nothing OS 2.6 Stable", "Bug Fixes"] 
-            },
-            'p1': { 
-                disp: "PHONE (1)", 
-                img: "https://images.unsplash.com/photo-1660833603713-332309199990?w=200",
-                url: "https://t.me/nothinghub", 
-                logs: ["Nothing OS 2.6 Stable", "Jan Patch"] 
-            }
+            
+    'p1': { 
+    disp: "NOTHING PHONE (1)", 
+    img: "https://cdn.discordapp.com/attachments/1195752090123898900/1456682965999288521/1000527754-removebg-preview.png?ex=6959413a&is=6957efba&hm=939f9752d923f53dc9a4b5977d162557603d59bb7223cef8865edcfc2fc5006d&",
+    url: "", 
+    logs: ["Nothing OS Stable", "Security Updates"] 
+},
+
+'p2': { 
+    disp: "NOTHING PHONE (2)", 
+    img: "https://cdn.discordapp.com/attachments/1195752090123898900/1456679356741980190/1000527736-removebg-preview.png?ex=69593dde&is=6957ec5e&hm=1cfe43ffa07a71b4e6293ccfdaed9bc40537377a4ebdb2704157986867b221b0&",
+    url: "", 
+    logs: ["Nothing OS Stable", "Glyph Improvements"] 
+},
+
+'p2a': { 
+    disp: "NOTHING PHONE (2A)", 
+    img: "https://cdn.discordapp.com/attachments/1195752090123898900/1456679413612679331/1000527725-removebg-preview.png?ex=69593dec&is=6957ec6c&hm=93648d747847f405896e775f3e73bee112faf9d4d5616918d91158aae032aad4&",
+    url: "", 
+    logs: ["Nothing OS Stable", "Performance Optimisation"] 
+},
+
+'p2aplus': { 
+    disp: " B4.0-251218-2326", 
+    img: "https://cdn.discordapp.com/attachments/1195752090123898900/1456679432516272302/1000527726-removebg-preview.png?ex=69593df0&is=6957ec70&hm=8c9a0876f9ff97630be6d83894ac9dbcfd6748456691a221880e8e6ac3ca9f4c&",
+    url: "", 
+    logs: ["Nothing OS Stable", "Battery Enhancements"] 
+},
+
+'p3': { 
+    disp: "PHONE (3)", 
+    img: "https://cdn.discordapp.com/attachments/1195752090123898900/1456679935652397116/1000527677-removebg-preview.png?ex=69593e68&is=6957ece8&hm=d7328eaa5146c75c63eb8babfb9e6175155c00234b9a29dd132ebec7cb2b7f7f&",
+    url: "", 
+    logs: ["Nothing OS (Upcoming)", "Next-Gen Glyph UI"] 
+},
+
+'p3a': { 
+    disp: "PHONE (3A)", 
+    img: "https://cdn.discordapp.com/attachments/1195752090123898900/1456679928023224411/1000527745-removebg-preview.png?ex=69593e66&is=6957ece6&hm=d4ec05b122fb8a9420c1e092c9ce206922f40096a35b1a1c6e736a13ee78d950&",
+    url: "", 
+    logs: ["Nothing OS (Upcoming)", "Balanced Performance"] 
+},
+
+'p3apro': { 
+    disp: "PHONE (3A) PRO", 
+    img: "https://cdn.discordapp.com/attachments/1195752090123898900/1456679475457818881/1000527722-removebg-preview.png?ex=69593dfa&is=6957ec7a&hm=7eefe5f5244a53c200d5861ca3da14648bfd91d3aa4478313d9755ffb5c52510&",
+    url: "", 
+    logs: ["Nothing OS (Upcoming)", "Camera & Performance Boost"] 
+},
+
+'p3alite': { 
+    disp: "PHONE (3A) LITE", 
+    img: "https://cdn.discordapp.com/attachments/1195752090123898900/1456679503794536694/1000527721-removebg-preview.png?ex=69593e01&is=6957ec81&hm=5958a5b78a72fae6ef356868ff3508bbc34f132ee06d8a968e3b3979fe1d9bbd&",
+    url: "", 
+    logs: ["Nothing OS (Upcoming)", "Lite Optimisations"] 
+},
+
+'cmf1': { 
+    disp: "CMF PHONE 1", 
+    img: "https://cdn.discordapp.com/attachments/1195752090123898900/1456679449260068998/1000527724-removebg-preview.png?ex=69593df4&is=6957ec74&hm=aabff64c3ebc7fd78779790e1e524eb7b476269541fa997effdfc937a86391f3&",
+    url: "", 
+    logs: ["Nothing OS Stable", "CMF Custom Features"] 
+},
+
+'cmf2pro': { 
+    disp: "CMF PHONE 2 PRO", 
+    img: "https://cdn.discordapp.com/attachments/1195752090123898900/1456679458990850276/1000527723-removebg-preview.png?ex=69593df6&is=6957ec76&hm=9975c35408bb3b75a6587cb4056be19e265b0cd8ff371d22cd22c548611b9555&",
+    url: "", 
+    logs: ["Nothing OS (Upcoming)", "Advanced CMF Featurese.com/ajax"]
+    }
         },
         WALLPAPERS: [
             { id: 'WP1', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400', url: 'https://t.me/nothinghub' },
@@ -873,18 +935,11 @@
 "351500": "CMF PHONE (1)",
 "353560": "CMF PHONE (2) PRO", 
 "350010": "CMF PHONE (2) PRO",
+"353640": "CMF PHONE (2) PRO",
 }
 
     };
 
-    function renderPresets() {
-        const grid = document.getElementById('presetGrid');
-        let html = '';
-        for(let i=1; i<=20; i++) {
-            html += `<div class="wp-card"><img src="https://picsum.photos/seed/${i+50}/400/600"><div class="wp-overlay"><p>PRESET ${i}</p><button class="btn" style="padding:10px;" onclick="runDownload(this, 'BETA_TOOL')"><div class="progress-bar"></div><span class="btn-text">GET</span></button></div></div>`;
-        }
-        grid.innerHTML = html;
-    }
 
     function isValidIMEI(imei) {
         if (imei.length !== 15) return false;
@@ -930,7 +985,7 @@ function checkImei(btn) {
             res.innerHTML = `
                 <div class="detail-card" style="border-color:#00ff00">
                     <span class="sc-badge" style="color:#00ff00; border-color:#00ff00">GENUINE NOTHING</span>
-                    <h3 style="font-size:22px; color:#fff; margin-top:10px;">${model}</h3>
+                    <h3 style="font-size:22px; color:var(--text); margin-top:10px;">${model}</h3>
                     <p style="opacity:0.6; margin-top:5px;">
                         TAC: ${tac}<br>
                         STATUS: VERIFIED DEVICE
@@ -941,8 +996,8 @@ function checkImei(btn) {
             res.innerHTML = `
                 <div class="detail-card" style="border-color:#aaa">
                     <span class="sc-badge">VERIFIED</span>
-                    <h3 style="font-size:22px; color:#fff; margin-top:10px;">NOTHING DEVICE</h3>
-                    <p style="opacity:0.6;">TAC (${tac}) is valid, but model name not in database.</p>
+                    <h3 style="font-size:22px; color:#fff; margin-top:10px;">UNKNOWN DEVICE</h3>
+                    <p style="opacity:0.6;">TAC (${tac}) is valid <br> model name not in database.</p>
                 </div>`;
         }
     }, 1500);
@@ -1225,4 +1280,149 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tiles ko force show karne ke liye agar scroll na ho
     setTimeout(initScrollReveal, 400); 
 });
-</script>
+</script><style>.screen {
+    /* ... purana code ... */
+    overflow-y: auto; /* Modal ke andar ka content scroll hoga */
+    overscroll-behavior: contain; /* Scroll end hone par BG ko nahi chedega */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Background wrapper ko alag rakho */
+#content-wrapper {
+    will-change: transform; /* Browser ko optimized rakhta hai */
+}
+</style><script>function loadCities() {
+    const s = document.getElementById('state').value;
+    const cSel = document.getElementById('city');
+    const cArr = document.getElementById('cityArrow');
+    cSel.innerHTML = '<option value="">SELECT CITY</option>';
+    
+    if(!s || !CONFIG.SERVICE_DB[s]) { 
+        cSel.style.display = 'none'; cArr.style.display = 'none'; return; 
+    }
+    
+    cSel.style.display = 'block'; cArr.style.display = 'block';
+
+    const keys = Object.keys(CONFIG.SERVICE_DB[s]);
+    
+    // Sabhi names nikalna aur duplicates hatana (Delhi_1 -> Delhi)
+    const uniqueCities = [...new Set(keys.map(c => c.split('_')[0]))];
+
+    uniqueCities.sort().forEach(c => {
+        cSel.innerHTML += `<option value="${c}">${c}</option>`;
+    });
+}
+
+function showDetails() {
+    const s = document.getElementById('state').value;
+    const selectedCity = document.getElementById('city').value;
+    const scInfo = document.getElementById('scInfo');
+    
+    if(!selectedCity) { scInfo.innerHTML = ''; return; }
+
+    scInfo.innerHTML = ''; 
+    const allKeys = Object.keys(CONFIG.SERVICE_DB[s]);
+
+    // Sabhi keys dhoondna jo selected city se match karein
+    const matches = allKeys.filter(key => {
+        return key === selectedCity || key.startsWith(selectedCity + "_");
+    });
+
+    matches.forEach(key => {
+        const d = CONFIG.SERVICE_DB[s][key];
+        scInfo.innerHTML += `
+        <div class="detail-card" style="margin-bottom:20px;">
+            <span class="sc-badge">ID: ${d.c}</span>
+            <h3>${d.n}</h3>
+            <p style="text-transform:none; opacity:0.8; margin:10px 0;">${d.a}</p>
+            <p>TIME: ${d.t} | OFF: ${d.o}</p>
+            <div class="card-row">
+                <button class="btn" style="width:48%; display:inline-flex; align-items:center; justify-content:center; gap:8px;" onclick="window.open('tel:${d.p}')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27c1.12.45 2.33.69 3.58.69a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.24 2.46.69 3.58a1 1 0 01-.27 1.11l-2.2 2.2z"/></svg>
+                    Call
+                </button>
+                <button class="btn" style="width:48%; display:inline-flex; align-items:center; justify-content:center; gap:8px;" onclick="window.open('${d.m}')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
+                   Map 
+                </button>
+            </div>
+        </div>`;
+    });
+}
+
+
+ function renderPresets() {
+        const grid = document.getElementById('presetGrid');
+        if(!grid) return;
+
+        // 1. Sample Images (Aap yahan apne link badal sakte hain)
+        const imageLinks = [
+            "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400", "picsum.photos",
+            "picsum.photos", "picsum.photos",
+            "picsum.photos", "picsum.photos",
+            "picsum.photos", "picsum.photos",
+            "picsum.photos", "picsum.photos",
+            "picsum.photos", "picsum.photos",
+            "picsum.photos", "picsum.photos",
+            "picsum.photos", "picsum.photos",
+            "picsum.photos", "picsum.photos",
+            "picsum.photos", "picsum.photos"
+        ];
+
+        // 2. Download Links
+        const links = [
+            "nothing.community", "https://link2.com", "https://link3.com", "https://link4.com",
+            "https://link5.com", "https://link6.com", "https://link7.com", "https://link8.com",
+            "https://link9.com", "https://link10.com", "https://link11.com", "https://link12.com",
+            "https://link13.com", "https://link14.com", "https://link15.com", "https://link16.com",
+            "https://link17.com", "https://link18.com", "https://link19.com", "https://link20.com"
+        ];
+
+        let html = '';
+        for (let i = 1; i <= 20; i++) {
+            let currentLink = links[i - 1] || "#";
+            let currentImg = imageLinks[i - 1];
+
+            html += `
+            <div class="wp-card">
+                <img src="${currentImg}" alt="Sample ${i}">
+                <div class="wp-overlay">
+                    <p>PRESET ${i}</p>
+                    <button class="btn" onclick="runDownload(this, '${currentLink}')">
+                        <div class="progress-bar"></div>
+                        <span class="btn-text">GET</span>
+                    </button>
+                </div>
+            </div>`;
+        }
+        grid.innerHTML = html;
+    }
+
+    function runDownload(btn, url) {
+        const progressBar = btn.querySelector('.progress-bar');
+        const btnText = btn.querySelector('.btn-text');
+
+        btn.style.pointerEvents = "none";
+        btnText.innerText = "Loading...";
+        progressBar.style.width = "100%";
+
+        setTimeout(() => {
+            window.open(url, '_blank'); 
+            btnText.innerText = "GET";
+            progressBar.style.width = "0%";
+            btn.style.pointerEvents = "auto";
+        }, 2000);
+    }
+
+    // Iske bina code run nahi hoga
+    window.onload = renderPresets;
+    </script>
+</body>
+</html><script>window.onload = () => {
+        const f = document.getElementById('starField');
+        for (let i = 0; i < 200; i++) {
+            const s = document.createElement('div'); s.className = 'star';
+            s.style.cssText = `width:2px; height:2px; top:${Math.random()*100}%; left:${Math.random()*100}%; animation-delay:${Math.random()*8}s`;
+            f.appendChild(s);
+        }
+    };</script>
