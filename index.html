@@ -148,18 +148,117 @@
     <div class="tile full" onclick="openScreen('scScr')"><h2>SERVICE</h2><p>LOCATE CENTERS</p></div>
     <div class="tile full" onclick="window.open('https://t.me/addlist/gajWpSOzopVlMWY1')"><h2>TELEGRAM</h2><p>COMMUNITY</p></div>
 </div>
+<!-- MODALS -->
+<!-- ABOUT -->
+<div id="aboutScr" class="screen">
+  <div class="modal">
+    <span class="close-icon" onclick="closeScreen('aboutScr')">×</span>
+    <h2>ABOUT NOTHING SPACE</h2>
+    <div class="detail-card">
+      <p>Nothing Space is a community-driven portal for Nothing fans. We provide curated OTA links, custom wallpapers, and technical guides to help you get the best out of your device.</p>
+      <p>We are independent and fan-made, aiming to create a hub for Nothing enthusiasts to share and explore resources.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRIVACY -->
+<div id="privacyScr" class="screen">
+  <div class="modal">
+    <span class="close-icon" onclick="closeScreen('privacyScr')">×</span>
+    <h2>PRIVACY POLICY</h2>
+    <div class="detail-card">
+      <p><b>Data:</b> We do not collect personal information such as name, phone number, or address.</p>
+      <p><b>Cookies:</b> We use essential cookies to remember your theme preference (Light/Dark).</p>
+      <p><b>Ads:</b> This site uses Google AdSense. Google may use cookies to serve ads based on your browsing history. You can manage this in your Google account settings.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DISCLAIMER -->
+<div id="disclaimerScr" class="screen">
+  <div class="modal">
+    <span class="close-icon" onclick="closeScreen('disclaimerScr')">×</span>
+    <h2>LEGAL DISCLAIMER</h2>
+    <div class="detail-card">
+      <p>This is a <b>fan-made</b> website and is not affiliated with Nothing Technology Limited or CMF.</p>
+      <p>All content is for educational and informational purposes only. Downloading firmware, files, or tools is at your own risk.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contactScr" class="screen">
+  <div class="modal">
+    <span class="close-icon" onclick="closeScreen('contactScr')">×</span>
+    <h2>CONTACT US</h2>
+    <div class="detail-card">
+      <p>For support or inquiries, contact us at:</p>
+      <p>📧 Email: <b>rkkiller198@gmail.com</b></p>
+      <p>💬 Telegram: <b>@NothingSpaceHub</b></p>
+      <p style="margin-top:10px;">We aim to respond within 24 hours.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
 <footer>
-    BUILT FOR THE NOTHING COMMUNITY<br>
-    <span style="font-size: 10px; opacity: 0.6; text-transform: none;">
-        This is a fan-made site
-    </span>
+  <div class="footer-links">
+    <a href="javascript:void(0)" onclick="openScreen('aboutScr')">ABOUT</a>
+    <a href="javascript:void(0)" onclick="openScreen('privacyScr')">PRIVACY</a>
+    <a href="javascript:void(0)" onclick="openScreen('contactScr')">CONTACT</a>
+    <a href="javascript:void(0)" onclick="openScreen('disclaimerScr')">DISCLAIMER</a>
+  </div>
+  <p style="opacity:0.9; font-size:12px;">
+    NOTHING SPACE © 2026<br>
+    DESIGNED FOR THE COMMUNITY
+  </p>
 </footer>
-<footer>
-  <a href="legal.html#about">ABOUT</a> |
-  <a href="legal.html#privacy">PRIVACY</a> |
-  <a href="legal.html#contact">CONTACT</a> |
-  <a href="legal.html#disclaimer">DISCLAIMER</a>
-</footer>
+
+<!-- STYLES -->
+<style>
+.screen{
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.8);
+  z-index:1000;
+  justify-content:center;
+  align-items:center;
+  display:flex;
+}
+.modal{
+  background:var(--card);
+  padding:20px;
+  border-radius:8px;
+  max-width:500px;
+  width:90%;
+  position:relative;
+}
+.detail-card p{
+  margin:10px 0;
+}
+.footer-links{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-bottom:10px;
+}
+
+footer a{color:var(--text);}
+footer a:hover{color:#fff;}
+</style>
+
+<!-- SCRIPT -->
+<script>
+function openScreen(id){
+  document.getElementById(id).style.display='flex';
+}
+function closeScreen(id){
+  document.getElementById(id).style.display='none';
+}
+</script>
+
 <div id="upScr" class="screen"><div class="modal">
     <span class="close-icon" onclick="closeScreen('upScr')">×</span>
     <h2>WEBSITE LOGS</h2>
@@ -314,7 +413,7 @@
 
 <script>
     const CONFIG = {
-        BETA_TOOL_URL: "https://d2j3l8bo7dc01w.cloudfront.net/NothingOfflineOtaUpdate_signed_I8b71f630b74e3dcb939d33d99815d63507c48298.apk",
+        BETA_TOOL_URL: "https://d2j3l8bo7dc01w.cloudfront.net/NothingOfflineOtaUpdate-_master_signed_I2b0e9336c25c26bf7fc89ff868f05a536a98ba5d.apk?Expires=2020213529&Signature=q7z7pEUcZWPO44JjIvPkwJiORQukBHXNzkrfPCR7aBe1ZY3sJ4tYZiyeT7oN8PqUVoa4dHkDIfYlxuvphYRQZMtaqm34plbC300F25Gl0E7e~pGAwFGl6IOTVQLpXsXYo1KW8FMsO1ZzRRZt3wUUDQgrdhLj3v-prsoZmXBocn86mBx3-6hj0qLRN0NTf~V5RO3sz1R-SlnfTXQJ~QZ0MszEc8mGOM6QWIypUV4H7yzYhbGSJZOgnUHzrl0~tebFMBd95kInxtNk2dx7eZ8TwcW6ksj260VldXMsyMCwkbEni~laoZkEszsFZpO2Rr8EevMrx4fgObR8~oocjZqjnQ__&Key-Pair-Id=K1EOR8HYJKSWP1",
         SOFTWARE: {
             
     'p1': { 
@@ -900,7 +999,7 @@
   },
            NOTHING_TAC: {
 
-    "350778": "NOTHING PHONE (1)", 
+      "35077886": "NOTHING PHONE (1)", 
     "352345": "NOTHING PHONE (1)", 
     "353319": "NOTHING PHONE (1)", 
     "357044": "NOTHING PHONE (1)", 
@@ -910,28 +1009,30 @@
 "356789": "NOTHING PHONE (2)", 
 "354123": "NOTHING PHONE (2)", 
 "351659": "NOTHING PHONE (2)",
-"353238": "NOTHING PHONE (2)", 
+"35323888": "NOTHING PHONE (2)", 
 "355081": "NOTHING PHONE (2)",
 "354422": "NOTHING PHONE (2A)",
 "356073": "NOTHING PHONE (2A)", 
-"353098": "NOTHING PHONE (2A)", 
+"35070641": "NOTHING PHONE (2A)",
+"353098": "NOTHING PHONE (3A) LITE", 
 "351420": "NOTHING PHONE (2A)",
 "359901": "NOTHING PHONE (2A) PLUS",
-"354210": "NOTHING PHONE (2A) PLUS",
+"35713823": "NOTHING PHONE (2A) PLUS",
+"35581031": "NOTHING PHONE (2A) PLUS",
 "353075": "NOTHING PHONE (3)",
-"350367": "NOTHING PHONE (3)", 
+"35036745": "NOTHING PHONE (3)", 
 "350240": "NOTHING PHONE (3)",
-"357502": "NOTHING PHONE (3)",
+"35750244": "NOTHING PHONE (3)",
 "358241": "NOTHING PHONE (3A)",
 "357348": "NOTHING PHONE (3A)",
-"351707": "NOTHING PHONE (3A)", 
+"35170735": "NOTHING PHONE (3A)", 
 "353735": "NOTHING PHONE (3A)",
 "358242": "NOTHING PHONE (3A) PRO", 
-"359951": "NOTHING PHONE (3A) PRO", 
+"35995188": "NOTHING PHONE (3A) PRO", 
 "353458": "NOTHING PHONE (3A) PRO",
 "359866": "NOTHING PHONE (3A) LITE",
 "350756": "NOTHING PHONE (3A) LITE", 
-"354265": "NOTHING PHONE (3A) LITE",
+"35426580": "NOTHING PHONE (3A) LITE",
 "351234": "NOTHING PHONE (4A)", 
 "356980": "NOTHING PHONE (4A)",
 "351235": "NOTHING PHONE (4A) PRO",
@@ -1485,7 +1586,48 @@ function showDetails() {
 #content-wrapper {
     will-change: transform; /* Browser ko optimized rakhta hai */
 }
-</style><script>function runDownload(btn, typeOrUrl) {
+
+
+.screen {
+    /* ... purana code ... */
+    overflow-y: auto; /* Modal ke andar ka content scroll hoga */
+    overscroll-behavior: contain; /* Scroll end hone par BG ko nahi chedega */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Background wrapper ko alag rakho */
+#content-wrapper {
+    will-change: transform; /* Browser ko optimized rakhta hai */
+}
+
+
+
+/* AUTO SYSTEM THEME SUPPORT */
+:root {
+    color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #000;
+        --card: #0c0c0c;
+        --text: #fff;
+        --dot-bg: #250;
+        --border: #1a1a1a;
+        --instr: #bbb;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: #fff;
+        --card: #f5f5f5;
+        --text: #000;
+        --dot-bg: #ddd;
+        --border: #eee;
+        --instr: #333;
+    }
+}</style><script>function runDownload(btn, typeOrUrl) {
     const bar = btn.querySelector('.progress-bar');
     const txt = btn.querySelector('.btn-text');
     const oldTxt = txt.innerText;
