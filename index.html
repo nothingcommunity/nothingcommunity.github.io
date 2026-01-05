@@ -1,4 +1,4 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>  
+<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>  
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
@@ -127,6 +127,25 @@
     </style>
 </head>
 <body>
+<div id="nothing_final" style="position:fixed; top:0; left:0; width:100%; height:100vh; background:#000 !important; display:flex; justify-content:center; align-items:center; z-index:9999999;">
+  <div class="loader-nothing">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  
+  <script>
+    setTimeout(function() {
+      var el = document.getElementById('nothing_final');
+      if(el) {
+        el.style.transition = "opacity 0.8s ease";
+        el.style.opacity = "0";
+        setTimeout(function() { 
+          el.remove(); 
+          console.log("Khatam!");
+        }, 800);
+      }
+    }, 3000); // 3 second baad
+  </script>
+</div>
 
 <div class="stars-container" id="starField"></div>
 <div class="canvas"></div>
@@ -136,12 +155,13 @@
         <p style="opacity: 0.4; letter-spacing: 2px;">ONLY FOR FANS</p>
         <h1>NOTHING<br>SPACE</h1>
     </div>
-    <div class="t-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="t-icon"></i></div>
+    <div class="t-toggle" onclick="toggleTheme()"><i class="fa-solid fa-sun" id="t-icon"></i></div>
 </header>
 
 <div class="bento">
     <div class="tile full" onclick="openScreen('upScr')"><h2>WEB UPDATE</h2><p>WHAT'S NEW ADDED</p></div>
     <div class="tile full" onclick="openScreen('imeiScr')"><h2>IDENTIFY</h2><p>VERIFY NOTHING DEVICE</p></div>
+   <div class="tile full" onclick="openScreen('musicScr')"><h2>RINGTONE</h2><p>DOWNLOAD MP3 🔥</p></div>
     <div class="tile full" onclick="openScreen('pgScr')"><h2>PLAYGROUND</h2><p>presets WIDGETs APPs</p></div>
     <div class="tile full" onclick="openScreen('swScr')"><h2>SOFTWARE</h2><p>NOS ZIP FILE</p></div>
     <div class="tile full" onclick="openScreen('wpScr')"><h2>WALLPAPER</h2><p>EXCLUSIVe Collection</p></div>
@@ -270,6 +290,45 @@ function closeScreen(id){
         <div class="up-box"><h4>ADDED FEATURES</h4><p>New smooth animations and bento grid layout optimization.</p></div>
     </div>
 </div></div>
+
+<div id="musicScr" class="screen">
+    <div class="modal">
+        <span class="close-icon" onclick="handleMusicClose()">×</span>
+        <h2 style="margin-bottom:20px;">RINGTONE PLAYER</h2>
+        
+<div class="music-ui">
+    <div class="search-box-m">
+        <input type="text" id="mQuery" placeholder="SEARCH SONG..." style="color: var(--text);">
+
+        <button class="go-btn" onclick="searchMusic()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </div>
+</div>
+            
+            <div id="music-card">
+                <img src="" id="mArt" class="disc">
+                <h3 id="mTitle">TITLE</h3>
+                <p id="mArtist" style="opacity:0.5;">ARTIST</p>
+                <div class="m-ctrls">
+                    <button class="m-btn" onclick="prevSong()"><i class="fa-solid fa-backward-step"></i></button>
+                    <button class="m-btn" id="play-pause" onclick="togglePlay()"><i class="fa-solid fa-circle-pause"></i></button>
+                    <button class="m-btn" onclick="nextSong()"><i class="fa-solid fa-forward-step"></i></button>
+                </div>
+                <button class="btn" onclick="downloadCurrentSong()"><i class=""></i> DOWNLOAD MP3</button>
+                <audio id="mPlayer" onended="nextSong()"></audio>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="mini-player" onclick="restorePlayer()" 
+     style="position:absolute; top:85; right:90px; width:45px; height:45px; 
+            border-radius:50%; border:2px solid var(--accent); overflow:hidden; 
+            cursor:pointer; display:none; z-index:10; background:#000;">
+    <img src="" id="mini-art" class="spinning" style="width:100%; height:100%; object-fit:cover;">
+</div>
+
 
 <div id="imeiScr" class="screen">
     <div class="modal">
@@ -413,7 +472,7 @@ function closeScreen(id){
 
 <script>
     const CONFIG = {
-        BETA_TOOL_URL: "https://d2j3l8bo7dc01w.cloudfront.net/NothingOfflineOtaUpdate-_master_signed_I2b0e9336c25c26bf7fc89ff868f05a536a98ba5d.apk?Expires=2020213529&Signature=q7z7pEUcZWPO44JjIvPkwJiORQukBHXNzkrfPCR7aBe1ZY3sJ4tYZiyeT7oN8PqUVoa4dHkDIfYlxuvphYRQZMtaqm34plbC300F25Gl0E7e~pGAwFGl6IOTVQLpXsXYo1KW8FMsO1ZzRRZt3wUUDQgrdhLj3v-prsoZmXBocn86mBx3-6hj0qLRN0NTf~V5RO3sz1R-SlnfTXQJ~QZ0MszEc8mGOM6QWIypUV4H7yzYhbGSJZOgnUHzrl0~tebFMBd95kInxtNk2dx7eZ8TwcW6ksj260VldXMsyMCwkbEni~laoZkEszsFZpO2Rr8EevMrx4fgObR8~oocjZqjnQ__&Key-Pair-Id=K1EOR8HYJKSWP1",
+        BETA_TOOL_URL: "https://d2j3l8bo7dc01w.cloudfront.net/NothingOfflineOtaUpdate_signed_I8b71f630b74e3dcb939d33d99815d63507c48298.apk",
         SOFTWARE: {
             
     'p1': { 
@@ -467,7 +526,7 @@ function closeScreen(id){
 
 'p3alite': { 
     disp: "V3.5-251222-1801", 
-    img: "https://cdn.discordapp.com/attachments/1195752090123898900/1457087855397437553/1000527721-removebg-preview.jpg?ex=695aba50&is=695968d0&hm=3999b66a19e051f2f692de03b5e3cef581f9ebf3f3f5b8ece0ea734e3ec71e94&",
+    img: "https://cdn.discordapp.com/attachments/1195752090123898900/1456679503794536694/1000527721-removebg-preview.png?ex=69593e01&is=6957ec81&hm=5958a5b78a72fae6ef356868ff3508bbc34f132ee06d8a968e3b3979fe1d9bbd&",
     url: "https://android.googleapis.com/packages/ota-api/package/1146f774dcd2c969f3f401b14029b60d9364c0c6.zip", 
     logs: ["Nothing OS (Upcoming)", "Lite Optimisations"] 
 },
@@ -999,7 +1058,7 @@ function closeScreen(id){
   },
            NOTHING_TAC: {
 
-      "35077886": "NOTHING PHONE (1)", 
+      "350778": "NOTHING PHONE (1)", 
     "352345": "NOTHING PHONE (1)", 
     "353319": "NOTHING PHONE (1)", 
     "357044": "NOTHING PHONE (1)", 
@@ -1102,14 +1161,12 @@ function checkImei(btn) {
             res.innerHTML = `
                 <div class="detail-card" style="border-color:#aaa">
                     <span class="sc-badge">VERIFIED</span>
-                    <h3 style="font-size:22px; color:#fff; margin-top:10px;">UNKNOWN DEVICE</h3>
+                    <h3 style="font-size:22px; color:var(--text); margin-top:10px;">GENUINE DEVICE</h3>
                     <p style="opacity:0.6;">TAC (${tac}) is valid <br> model name not in database.</p>
                 </div>`;
         }
     }, 1500);
 }
-
-
 
     function showLogs() {
         const m = document.getElementById('swSelect').value;
@@ -1356,7 +1413,7 @@ function toggleTheme() {
     r.setAttribute('data-theme', isDark ? 'light' : 'dark');
     
     const icon = document.getElementById('t-icon');
-    icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-sun';
     
 }
 
@@ -1627,7 +1684,45 @@ function showDetails() {
         --border: #eee;
         --instr: #333;
     }
-}</style><script>function runDownload(btn, typeOrUrl) {
+}
+
+
+.loader-nothing {
+  display: flex !important;
+  gap: 12px !important;
+  visibility: visible !important; /* Forcefully dikhane ke liye */
+}
+
+.loader-nothing span {
+  width: 12px !important;      /* Size thoda bada kiya taaki saaf dikhe */
+  height: 12px !important;
+  background-color: #ffffff !important; /* Pure white color */
+  border-radius: 50% !important;        /* Perfect Round */
+  display: inline-block !important;
+  opacity: 0.1;
+  box-shadow: 0 0 10px rgba(255,255,255,0.5); /* Glow effect */
+  animation: nothing-fade 1.2s infinite ease-in-out !important;
+}
+
+/* Dots timing logic */
+.loader-nothing span:nth-child(1) { animation-delay: 0.0s !important; }
+.loader-nothing span:nth-child(2) { animation-delay: 0.2s !important; }
+.loader-nothing span:nth-child(3) { animation-delay: 0.4s !important; }
+.loader-nothing span:nth-child(4) { animation-delay: 0.6s !important; }
+.loader-nothing span:nth-child(5) { animation-delay: 0.8s !important; }
+.loader-nothing span:nth-child(6) { animation-delay: 1.0s !important; }
+
+@keyframes nothing-fade {
+  0%, 10% { 
+    opacity: 0.1; 
+    transform: scale(1); 
+  }
+  40% { 
+    opacity: 1; 
+    transform: scale(1.3); /* Gol dot thoda bada hoga blink karte waqt */
+  }
+}
+</style><script>function runDownload(btn, typeOrUrl) {
     const bar = btn.querySelector('.progress-bar');
     const txt = btn.querySelector('.btn-text');
     const oldTxt = txt.innerText;
@@ -1681,4 +1776,168 @@ html += `
 </div>`;
 
 
+<script>
+  (function() {
+    // 3 second ka countdown shuru
+    setTimeout(function() {
+      var gate = document.getElementById("nothing_gate");
+      if (gate) {
+        // Smoothly fade out
+        gate.style.transition = "opacity 0.6s ease, visibility 0.6s ease";
+        gate.style.opacity = "0";
+        gate.style.visibility = "hidden";
+        
+        // 0.6s baad element ko jadd se delete karna
+        setTimeout(function() {
+          gate.remove();
+          console.log("Nothing Gate Removed Successfully!");
+        }, 600);
+      }
+    }, 3000); // Aap 3000 ko 2000 (2 sec) bhi kar sakte hain
+  })();
 </script>
+</script><style>.music-ui { text-align: center; }
+.search-box-m { display: flex; background: var(--card); padding: 8px; border-radius: 50px; border: 1px solid var(--border); margin-bottom: 20px; }
+.search-box-m input { flex: 1; background: transparent; border: none; outline: none; color: white; padding: 0 15px; font-size: 1.2rem; }
+.go-btn { width: 45px; height: 45px; border-radius: 50%; border: none; background: var(--text); color: var(--bg); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+#music-card { display: none; margin-top: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 20px; }
+.disc { width: 140px; height: 140px; border-radius: 50%; border: 2px solid var(--border); margin: 0 auto 15px; object-fit: cover; }
+.spinning { animation: rotate 10s linear infinite; }
+@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.m-ctrls { display: flex; justify-content: center; align-items: center; gap: 25px; margin-top: 15px; }
+.m-btn { background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; }
+
+.disc {
+    display: block;
+    margin: 0 auto 15px auto;  /* 👈 ye line MAIN fix hai */
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    object-fit: cover;
+}</style><script>/* ===============================
+   MUSIC PLAYER – FINAL VERSION
+   =============================== */
+
+let songQueue = [];
+let curIdx = 0;
+
+const player = document.getElementById('mPlayer');
+const mini = document.getElementById('mini-player');
+const miniArt = document.getElementById('mini-art');
+const mainArt = document.getElementById('mArt');
+
+/* ---------- SAFE INIT ---------- */
+window.onload = () => {
+    mini.style.display = "none";
+    mainArt.classList.remove('spinning');
+    miniArt.classList.remove('spinning');
+};
+
+/* ---------- SEARCH MUSIC ---------- */
+async function searchMusic() {
+    const q = document.getElementById('mQuery').value;
+    if (!q) return;
+
+    try {
+        const res = await fetch(
+            `https://itunes.apple.com/search?term=${encodeURIComponent(q)}&limit=1000&entity=song`
+        );
+        const data = await res.json();
+
+        if (data.results.length > 0) {
+            songQueue = data.results;
+            curIdx = 0;
+            loadSong(curIdx);
+            document.getElementById('music-card').style.display = "block";
+        }
+    } catch (e) {
+        console.log("Search Error", e);
+    }
+}
+
+/* ---------- LOAD SONG ---------- */
+function loadSong(idx) {
+    const t = songQueue[idx];
+
+    document.getElementById('mTitle').innerText = t.trackName.toUpperCase();
+    document.getElementById('mArtist').innerText = t.artistName.toUpperCase();
+
+    const img = t.artworkUrl100.replace('100x100', '500x500');
+    mainArt.src = img;
+    miniArt.src = img;
+
+    player.src = t.previewUrl;
+    player.play(); // audio events handle everything
+}
+
+/* ---------- AUDIO EVENTS (MASTER) ---------- */
+player.addEventListener("play", () => {
+    mini.style.display = "block";
+    mainArt.classList.add('spinning');
+    miniArt.classList.add('spinning');
+});
+
+player.addEventListener("pause", () => {
+    mainArt.classList.remove('spinning');
+    miniArt.classList.remove('spinning');
+});
+
+player.addEventListener("ended", () => {
+    mini.style.display = "none";
+    mainArt.classList.remove('spinning');
+    miniArt.classList.remove('spinning');
+});
+
+/* ---------- CONTROLS ---------- */
+function togglePlay() {
+    const icon = document.querySelector('#play-pause i');
+
+    if (player.paused) {
+        player.play();
+        icon.className = "fa-solid fa-circle-pause";
+    } else {
+        player.pause();
+        icon.className = "fa-solid fa-circle-play";
+    }
+}
+
+function nextSong() {
+    if (curIdx < songQueue.length - 1) {
+        curIdx++;
+        loadSong(curIdx);
+    }
+}
+
+function prevSong() {
+    if (curIdx > 0) {
+        curIdx--;
+        loadSong(curIdx);
+    }
+}
+
+/* ---------- UI ACTIONS ---------- */
+function handleMusicClose() {
+    closeScreen('musicScr'); // mini state handled by audio
+}
+
+function restorePlayer() {
+    openScreen('musicScr');
+}
+
+/* ---------- DOWNLOAD ---------- */
+function downloadCurrentSong() {
+    const a = document.createElement('a');
+    a.href = player.src;
+    a.download = document.getElementById('mTitle').innerText + ".mp3";
+    a.click();
+}
+
+    window.onload = () => {
+        const f = document.getElementById('starField');
+        for (let i = 0; i < 250; i++) {
+            const s = document.createElement('div'); s.className = 'star';
+            s.style.cssText = `width:2px; height:2px; top:${Math.random()*100}%; left:${Math.random()*100}%; animation-delay:${Math.random()*3}s`;
+            f.appendChild(s);
+        }
+    };</script>
