@@ -1638,7 +1638,7 @@ async function searchMusic() {
     btn.disabled = true;
 
     try {
-        const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(q)}&limit=10&entity=song`);
+        const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(q)}&limit=500&entity=song`);
         const data = await res.json();
         
         if(data.results.length > 0) {
