@@ -1,4 +1,5 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>  
+
+<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>  
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
@@ -153,7 +154,11 @@
     <div class="tile full" onclick="openScreen('swScr')"><h2>SOFTWARE</h2><p>NOS ZIP FILE</p></div>
     <div class="tile full" onclick="openScreen('wpScr')"><h2>WALLPAPER</h2><p>EXCLUSIVe Collection</p></div>
     <div class="tile full" onclick="openScreen('scScr')"><h2>SERVICE</h2><p>LOCATE CENTERS</p></div>
-    <div class="tile full" onclick="window.open('https://t.me/addlist/gajWpSOzopVlMWY1')"><h2>TELEGRAM</h2><p>COMMUNITY</p></div>
+ <div class="tile full" onclick="openScreen('feedbackScr')">
+    <h2>COMMUNITY BOARD</h2>
+    <p>FEEDBACK & SUGGESTIONS</p>
+</div>
+   <div class="tile full" onclick="window.open('https://t.me/addlist/gajWpSOzopVlMWY1')"><h2>TELEGRAM</h2><p>COMMUNITY</p></div>
 </div>
 <!-- MODALS -->
 <!-- ABOUT -->
@@ -201,7 +206,7 @@
     <div class="detail-card">
       <p>For support or inquiries, contact us at:</p>
       <p>📧 Email: <b>techiboy96s@gmail.com</b></p>
-      <p>💬 Telegram: <b>@NothingSpaceHub</b></p>
+      <p>💬 Telegram: <b>@techiboy_discuss</b></p>
       <p style="margin-top:10px;">We aim to respond within 24 hours.</p>
     </div>
   </div>
@@ -278,35 +283,55 @@ function closeScreen(id){
     </div>
 </div></div>
 
+<div id="feedbackScr" class="screen">
+    <div class="modal" style="max-width: 500px; height: 85vh; display: flex; flex-direction: column;">
+        <span class="close-icon" onclick="closeScreen('feedbackScr')">×</span>
+        <h2 style="margin-bottom: 5px;">COMMUNITY BOARD</h2>
+        <p style="opacity: 0.4; font-size: 0.8rem; margin-bottom: 15px;">PUBLIC FEEDBACK & CHAT</p>
+        
+        <div id="msgBoard" style="flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth;">
+            </div>
+
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 5px 5px 5px 15px; display: flex; align-items: center; margin-top: 15px;">
+            <input type="text" id="userMsg" placeholder="SHARE SUGGESTION..." 
+                style="flex: 1; background: transparent; border: none; color: var(--text); outline: none; font-family: 'VT323' !important; font-size: 1.2rem;">
+            <button onclick="sendMsg()" style="width: 45px; height: 45px; border-radius: 50%; background: var(--text); color: var(--bg); border: none; cursor: pointer;">
+                <i class="fa-solid fa-arrow-up"></i>
+            </button>
+        </div>
+    </div>
+</div>
 
 <div id="musicScr" class="screen">
     <div class="modal">
         <span class="close-icon" onclick="handleMusicClose()">×</span>
         <h2 style="margin-bottom:20px;">RINGTONE PLAYER</h2>
         
-<div class="music-ui">
-    <div class="search-box-m">
-        <input type="text" id="mQuery" placeholder="SEARCH SONG..." style="color: var(--text);">
-
-        <button class="go-btn" onclick="searchMusic()">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-    </div>
-</div>
-            
-            <div id="music-card">
-                <img src="" id="mArt" class="disc">
-                <h3 id="mTitle">TITLE</h3>
-                <p id="mArtist" style="opacity:0.5;">ARTIST</p>
-                <div class="m-ctrls">
-                    <button class="m-btn" onclick="prevSong()"><i class="fa-solid fa-backward-step"></i></button>
-                    <button class="m-btn" id="play-pause" onclick="togglePlay()"><i class="fa-solid fa-circle-pause"></i></button>
-                    <button class="m-btn" onclick="nextSong()"><i class="fa-solid fa-forward-step"></i></button>
-                </div>
-                <button class="btn" onclick="downloadCurrentSong()"><i class=""></i> DOWNLOAD MP3</button>
-                <audio id="mPlayer" onended="nextSong()"></audio>
+        <div class="music-ui">
+            <div class="search-box-m" style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <input type="text" id="mQuery" placeholder="SEARCH SONG..." style="flex:1; padding:15px; background:var(--card); border:1px solid var(--border); color:#fff; border-radius:15px;">
+                <button class="go-btn" id="mSearchBtn" onclick="searchMusic()" style="width:50px; border-radius:15px; background:#fff; color:#000; border:none; cursor:pointer;">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
             </div>
         </div>
+            
+        <div id="music-card" style="display: none; text-align: center;">
+            <img src="" id="mArt" class="disc" style="width: 180px; height: 180px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover;">
+            <h3 id="mTitle" style="margin-top:15px;">TITLE</h3>
+            <p id="mArtist" style="opacity:0.5;">ARTIST</p>
+            
+            <div class="m-ctrls" style="display: flex; justify-content: center; gap: 30px; font-size: 1.8rem; margin: 20px 0;">
+                <i class="fa-solid fa-backward-step" onclick="prevSong()" style="cursor:pointer"></i>
+                <span id="play-pause" onclick="togglePlay()" style="cursor:pointer">
+                    <i class="fa-solid fa-circle-play"></i>
+                </span>
+                <i class="fa-solid fa-forward-step" onclick="nextSong()" style="cursor:pointer"></i>
+            </div>
+            
+            <button class="btn" id="mDownloadBtn" onclick="downloadCurrentSong()">DOWNLOAD MP3</button>
+        </div>
+        <audio id="mPlayer" onended="nextSong()"></audio>
     </div>
 </div>
 
@@ -400,7 +425,7 @@ function closeScreen(id){
     <span class="close-icon" onclick="closeScreen('presetScr')">×</span>
     <h2>CAMERA PRESETS</h2>
     
-    <p style="opacity:0.5; margin-bottom:10px;">20 EXCLUSIVE FILTERS</p>
+    <p style="opacity:0.5; margin-bottom:10px;">EXCLUSIVE PRESETS</p>
     <div class="wp-grid" id="presetGrid"></div>
 </div></div>
 
@@ -533,30 +558,6 @@ function closeScreen(id){
    logs: ["Nothing OS (Upcoming)", "Advanced CMF Features"] 
 }
         },
-        WALLPAPERS: [
- 
- { id: 'WP1', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400', url: 'https://t.me/nothinghub' },
-            { id: 'WP2', img: 'https://images.unsplash.com/photo-1635331008243-718619726244?w=400', url: 'https://t.me/nothinghub' },
- { id: 'WP3', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400', url: 'https://t.me/nothinghub' },
-            { id: 'WP4', img: 'https://images.unsplash.com/photo-1635331008243-718619726244?w=400', url: 'https://t.me/nothinghub' },
- { id: 'WP5', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400', url: 'https://t.me/nothinghub' },
-            { id: 'WP6', img: 'https://images.unsplash.com/photo-1635331008243-718619726244?w=400', url: 'https://t.me/nothinghub' },
- { id: 'WP7', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400', url: 'https://t.me/nothinghub' },
-            { id: 'WP8', img: 'https://images.unsplash.com/photo-1635331008243-718619726244?w=400', url: 'https://t.me/nothinghub' },
- { id: 'WP9', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400', url: 'https://t.me/nothinghub' },
-            { id: 'WP10', img: 'https://images.unsplash.com/photo-1635331008243-718619726244?w=400', url: 'https://t.me/nothinghub' },
- { id: 'WP11', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400', url: 'https://t.me/nothinghub' },
-            { id: 'WP12', img: 'https://images.unsplash.com/photo-1635331008243-718619726244?w=400', url: 'https://t.me/nothinghub' },
- { id: 'WP13', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400', url: 'https://t.me/nothinghub' },
-            { id: 'WP14', img: 'https://images.unsplash.com/photo-1635331008243-718619726244?w=400', url: 'https://t.me/nothinghub' },
- { id: 'WP15', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400', url: 'https://t.me/nothinghub' },
-            { id: 'WP16', img: 'https://images.unsplash.com/photo-1635331008243-718619726244?w=400', url: 'https://t.me/nothinghub' },
- { id: 'WP17', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400', url: 'https://t.me/nothinghub' },
-            { id: 'WP18', img: 'https://images.unsplash.com/photo-1635331008243-718619726244?w=400', url: 'https://t.me/nothinghub' }, 
- { id: 'WP19', img: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400', url: 'https://t.me/nothinghub' }
-        ],
-
-
            NOTHING_TAC: {
 
     "350778": "NOTHING PHONE (1)", 
@@ -1002,35 +1003,6 @@ function showDetails() {
         </div>`;
     });
 }
-
-
- function renderPresets() {
-        const grid = document.getElementById('presetGrid');
-        if(!grid) return;
-
-        // 1. Sample Images (Aap yahan apne link badal sakte hain)
-        const imageLinks = [
-            "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400", "picsum.photos",
-            "picsum.photos", "picsum.photos",
-            "picsum.photos", "picsum.photos",
-            "picsum.photos", "picsum.photos",
-            "picsum.photos", "picsum.photos",
-            "picsum.photos", "picsum.photos",
-            "picsum.photos", "picsum.photos",
-            "picsum.photos", "picsum.photos",
-            "picsum.photos", "picsum.photos",
-            "picsum.photos", "picsum.photos"
-        ];
-
-        // 2. Download Links
-        const links = [
-            "nothing.community", "https://link2.com", "https://link3.com", "https://link4.com",
-            "https://link5.com", "https://link6.com", "https://link7.com", "https://link8.com",
-            "https://link9.com", "https://link10.com", "https://link11.com", "https://link12.com",
-            "https://link13.com", "https://link14.com", "https://link15.com", "https://link16.com",
-            "https://link17.com", "https://link18.com", "https://link19.com", "https://link20.com"
-        ];
-
         let html = '';
         for (let i = 1; i <= 20; i++) {
             let currentLink = links[i - 1] || "#";
@@ -1363,28 +1335,62 @@ function downloadCurrentSong() {
     a.href = player.src;
     a.download = document.getElementById('mTitle').innerText + ".mp3";
     a.click();
-}</script><style>.entrance-wrapper {
+}</script>
+
+
+
+<style>/* ================= ROOT VARIABLES ================= */
+:root { 
+    --bg: #000; 
+    --card: #0c0c0c; 
+    --text: #fff; 
+    --dot-bg: rgba(255, 255, 255, 0.1);
+    --border: #1a1a1a; 
+    --accent: #ff0000;
+    --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Theme */
+[data-theme="light"] { 
+    --bg: #fff; 
+    --card: #f5f5f5; 
+    --text: #000; 
+    --dot-bg: #ddd; 
+    --border: #eee; 
+}
+
+/* ================= BASE ================= */
+body { 
+    background: var(--bg); 
+    color: var(--text); 
+    transition: all var(--transition);
+}
+
+/* ================= ENTRANCE LOADER ================= */
+.entrance-wrapper {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000; /* Hamesha black rahega */
+    inset: 0;
+    background: #000;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10000; /* Sabse upar */
+    z-index: 10000;
     transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
+.entrance-wrapper.exit {
+    transform: translateY(-100%);
+}
+
 .nothing-logo {
-    font-family: 'NDOT', sans-serif; /* Agar aapka font hai */
+    font-family: 'NDOT', sans-serif;
     color: #fff;
     letter-spacing: 5px;
     font-size: 2rem;
     animation: pulse 1.5s infinite;
 }
 
+/* ================= LOADER BAR ================= */
 .loader-bar {
     width: 225px;
     height: 2px;
@@ -1403,28 +1409,13 @@ function downloadCurrentSong() {
     animation: loading 10.5s infinite;
 }
 
-@keyframes loading {
-    0% { left: -50px; }
-    100% { left: 100px; }
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-}
-
-/* Jab wrapper exit karega */
-.entrance-wrapper.exit {
-    transform: translateY(-100%);
-}
-
-
-/* Bouncing Dots Container */
+/* ================= DOT LOADER ================= */
 .dot-loader {
     display: flex;
-    gap: 3px;
+    gap: 4px;
     justify-content: center;
     align-items: center;
+    height: 24px;
 }
 
 .dot-loader span {
@@ -1432,99 +1423,46 @@ function downloadCurrentSong() {
     height: 6px;
     background: var(--bg);
     border-radius: 50%;
-    animation: bounce 0.6s infinite alternate;
-}
-
-.dot-loader span:nth-child(2) { animation-delay: 0.2s; }
-.dot-loader span:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes bounce {
-    from { transform: translateY(0); }
-    to { transform: translateY(-8px); }
-}
-.star {
-
-position: absolute; background: #fff;
-
-border-radius: 50%;
-
-pointer-events: none; z-index: -2; /*
-
-Canvas ke peeche */
-
-}
-:root { 
-    --bg: #000; 
-    --card: #0c0c0c; 
-    --text: #fff; 
-    --dot-bg: rgba(255, 255, 255, 0.1); /* Yeh white dots ko halka dikhayega */
-    --border: #1a1a1a; 
-    --accent: #ff0000;
-    --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-:root { 
-    --bg: #000; 
-    --card: #0c0c0c; 
-    --text: #fff; 
-    --dot-bg: rgba(255, 255, 255, 0.1); /* Yeh white dots ko halka dikhayega */
-    --border: #1a1a1a; 
-    --accent: #ff0000;
-    --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-:root { 
-    --bg: #000; --card: #0c0c0c; --text: #fff; --dot-bg: #333; 
-    --border: #1a1a1a; --accent: #ff0000;
-}
-
-/* Light Theme Variables */
-[data-theme="light"] { 
-    --bg: #fff; --card: #f5f5f5; --text: #000; --dot-bg: #ddd; 
-    --border: #eee; 
-}
-
-body { 
-    background: var(--bg); 
-    color: var(--text); 
-    transition: all 0.4s ease; /* Smooth transition ke liye */
-}
-.dot-loader { 
-    display: flex; 
-    gap: 4px; 
-    justify-content: center; 
-    align-items: center; 
-    height: 24px; /* Button ke hisaab se adjust karein */
-}
-
-.dot-loader span { 
-    width: 6px; 
-    height: 6px; 
-    background: var(--bg); /* Light mode mein dark, dark mode mein light */
-    border-radius: 50%; 
-    animation: bounce 0.4s infinite alternate; 
+    animation: bounce 0.4s infinite alternate;
 }
 
 .dot-loader span:nth-child(2) { animation-delay: 0.1s; }
 .dot-loader span:nth-child(3) { animation-delay: 0.2s; }
 
-@keyframes bounce { 
-    from { transform: translateY(4px); } 
-    to { transform: translateY(-4px); } 
+/* ================= STARS ================= */
+.star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -2;
 }
 
+/* ================= GUIDE TEXT ================= */
 .guide-content p {
-    color: var(--text) !important; /* Theme ke hisaab se white ya black */
-    opacity: 0.7 !important;        /* Dim effect khatam karne ke liye */
-    font-size: 1.1rem;            /* Readable size */
-    line-height: 1.2;             /* Lines ke beech gap */
+    color: var(--text) !important;
+    opacity: 0.7 !important;
+    font-size: 1.1rem;
+    line-height: 1.2;
     padding: 10px 0;
     text-align: left;
 }
 
-/* Agar aap dark mode use kar rahe hain toh specific color bhi de sakte hain */
-[data-theme="dark"] .guide-content p {
-    color: #ffffff !important;
+/* ================= ANIMATIONS ================= */
+@keyframes loading {
+    from { left: -50px; }
+    to { left: 100px; }
 }
-</style><script>let SERVICE_DB = {}; // Global variable
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+@keyframes bounce {
+    from { transform: translateY(4px); }
+    to { transform: translateY(-4px); }
+}</style><script>let SERVICE_DB = {}; // Global variable
 
 async function initServiceData() {
     // Hamesha 'main' branch wala URL use karein latest data ke liye
@@ -1768,5 +1706,709 @@ function downloadCurrentSong() {
         btn.innerHTML = originalContent;
         btn.style.pointerEvents = 'auto';
     }, 1000);
+}
+function runDownload(btn, input) {
+    const bar = btn.querySelector('.progress-bar');
+    const txt = btn.querySelector('.btn-text');
+    const oldTxt = txt.innerText;
+
+    let finalUrl = "#";
+
+    // 1. Check if it's a keyword or a direct link
+    if (input === 'BETA_TOOL') {
+        finalUrl = CONFIG.BETA_TOOL_URL;
+    } else if (input === 'OTA_ZIP') {
+        const device = document.getElementById('swSelect').value;
+        if(!device) { alert("PLEASE SELECT A DEVICE FIRST!"); return; }
+        finalUrl = CONFIG.SOFTWARE[device]?.url || "#";
+    } else {
+        // Agar keyword nahi hai, toh matlab wallpaper ka direct link hai
+        finalUrl = input;
+    }
+
+    if (finalUrl === "#" || !finalUrl) {
+        alert("DOWNLOAD LINK NOT FOUND!");
+        return;
+    }
+
+    // 2. Animation Logic
+    btn.style.pointerEvents = 'none'; 
+    txt.innerText = 'WAITING...';
+    bar.style.transition = 'width 1.5s linear'; 
+    bar.style.width = '100%';
+
+    setTimeout(() => {
+        // 3. Trigger Download
+        const link = document.createElement('a');
+        link.href = finalUrl;
+        link.target = "_blank";
+        link.download = "Download_File"; 
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        txt.innerText = "DONE ✓";
+        setTimeout(() => { 
+            bar.style.transition = 'none'; 
+            bar.style.width = '0%'; 
+            txt.innerText = oldTxt; 
+            btn.style.pointerEvents = 'all'; 
+        }, 1000);
+    }, 1500);
+}
+function renderWallpapers() {
+    const grid = document.getElementById('wallpaperGrid');
+    grid.innerHTML = CONFIG.WALLPAPERS.map((w, i) => `
+        <div class="wp-card">
+            <img src="${w.img}">
+            <div class="wp-overlay">
+                <button class="btn" style="padding:12px;" onclick="runDownload(this, '${w.url}')">
+                    <div class="progress-bar"></div>
+                    <span class="btn-text">DOWNLOAD</span>
+                </button>
+            </div>
+        </div>`).join('');
+}
+
+async function initWallpaperData() {
+    const url = "https://raw.githubusercontent.com/nothingcommunity/Testing/main/Wallpapers/Walls/wallpapers.json";
+    const grid = document.getElementById('wallpaperGrid');
+    
+    try {
+        const response = await fetch(url, { cache: "no-cache" });
+        if (!response.ok) throw new Error("Network response was not ok");
+        
+        const data = await response.json();
+        
+        // Handling both cases: if JSON is a direct array or an object containing an array
+        CONFIG.WALLPAPERS = Array.isArray(data) ? data : data.wallpapers;
+        
+        if (CONFIG.WALLPAPERS && CONFIG.WALLPAPERS.length > 0) {
+            renderWallpapers();
+        } else {
+            grid.innerHTML = "<p style='padding:20px; opacity:0.5;'>NO WALLPAPERS FOUND IN JSON</p>";
+        }
+    } catch (err) {
+        console.error("Fetch Error:", err);
+        grid.innerHTML = "<p style='padding:20px; color:red;'>FETCH ERROR: CHECK CONSOLE</p>";
+    }
+}
+
+// Updated OpenScreen to handle the loading state
+async function openScreen(id) { 
+    const s = document.getElementById(id); 
+    if(!s) return;
+
+    s.style.display = 'flex'; 
+    setTimeout(() => s.classList.add('active'), 10);
+
+    if(id === 'wpScr') {
+        const grid = document.getElementById('wallpaperGrid');
+        grid.innerHTML = "<p class='loading-text' style='padding:20px; opacity:0.5;'>LOADING WALLPAPERS...</p>";
+        await initWallpaperData();
+    }
+}
+async function runDownload(btn, url) {
+    const bar = btn.querySelector('.progress-bar');
+    const txt = btn.querySelector('.btn-text');
+    const oldTxt = txt.innerText;
+
+    if (!url || url === "#") {
+        alert("LINK NOT FOUND!");
+        return;
+    }
+
+    btn.style.pointerEvents = 'none'; 
+    txt.innerText = 'FETCHING...';
+    bar.style.transition = 'width 2s linear'; 
+    bar.style.width = '100%';
+
+    try {
+        // Image fetch karke blob banana (CORS proxy agar zaroorat ho)
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        
+        // Hidden anchor tag se download trigger karna
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = "NothingSpace_Preset_" + Date.now() + ".png"; 
+        document.body.appendChild(link);
+        link.click();
+        
+        // Clean up
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(blobUrl);
+
+        txt.innerText = "DONE ✓";
+    } catch (err) {
+        console.error("Download Error:", err);
+        // Fallback: Agar fetch fail ho toh purana method (preview)
+        window.open(url, '_blank');
+        txt.innerText = "OPENED";
+    }
+
+    setTimeout(() => { 
+        bar.style.transition = 'none'; 
+        bar.style.width = '0%'; 
+        txt.innerText = oldTxt; 
+        btn.style.pointerEvents = 'all'; 
+    }, 1500);
+}
+async function runDownload(btn, input) {
+    const bar = btn.querySelector('.progress-bar');
+    const txt = btn.querySelector('.btn-text');
+    const oldTxt = txt.innerText;
+
+    let finalUrl = "";
+
+    // 1. URL Identify Karein
+    if (input === 'BETA_TOOL') {
+        finalUrl = CONFIG.BETA_TOOL_URL;
+    } else if (input === 'OTA_ZIP') {
+        const device = document.getElementById('swSelect').value;
+        if(!device) { alert("PLEASE SELECT A DEVICE!"); return; }
+        finalUrl = CONFIG.SOFTWARE[device]?.url;
+    } else {
+        finalUrl = input; // Wallpaper ya preset link
+    }
+
+    if (!finalUrl) { alert("LINK NOT FOUND!"); return; }
+
+    // Animation Start
+    btn.style.pointerEvents = 'none';
+    txt.innerText = 'PROCESSING...';
+    bar.style.transition = 'width 1.5s linear';
+    bar.style.width = '100%';
+
+    // 2. File Type Check Karein
+    const isZip = finalUrl.toLowerCase().endsWith('.zip') || finalUrl.toLowerCase().endsWith('.apk');
+
+    if (isZip) {
+        // ZIP/APK ke liye direct download (Kyunki Blob memory limit cross kar deta hai)
+        setTimeout(() => {
+            const link = document.createElement('a');
+            link.href = finalUrl;
+            link.target = "_blank"; // New tab mein open karega taaki page refresh na ho
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            finishDownload(btn, txt, bar, oldTxt);
+        }, 1000);
+    } else {
+        // Images ke liye Force Download (Blob Method)
+        try {
+            const response = await fetch(finalUrl);
+            const blob = await response.blob();
+            const blobUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = "NothingSpace_" + Date.now() + ".png";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(blobUrl);
+            finishDownload(btn, txt, bar, oldTxt);
+        } catch (err) {
+            // Fallback: Agar fetch block ho toh direct open karein
+            window.open(finalUrl, '_blank');
+            finishDownload(btn, txt, bar, oldTxt);
+        }
+    }
+}
+
+function finishDownload(btn, txt, bar, oldTxt) {
+    txt.innerText = "DONE ✓";
+    setTimeout(() => {
+        bar.style.transition = 'none';
+        bar.style.width = '0%';
+        txt.innerText = oldTxt;
+        btn.style.pointerEvents = 'all';
+    }, 1000);
+}
+async function initPresetData() {
+    // 1. Grid element ko target karein
+    const grid = document.getElementById('presetGrid');
+    if (!grid) {
+        console.error("ID 'presetGrid' not found in HTML!");
+        return;
+    }
+
+    // 2. GitHub Raw Link
+    const url = "https://raw.githubusercontent.com/nothingcommunity/Testing/main/Camera%20Presets/Presets/presets.json";
+
+    try {
+        const response = await fetch(url, { cache: "no-cache" });
+        if (!response.ok) throw new Error("Fetch failed");
+
+        const data = await response.json();
+
+        // 3. Render logic
+        if (Array.isArray(data) && data.length > 0) {
+            grid.innerHTML = data.map(p => `
+                <div class="wp-card">
+                    <img src="${p.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/150'">
+                    <div class="wp-overlay">
+                        <p>${p.id || 'PRESET'}</p>
+                        <button class="btn" onclick="runDownload(this, '${p.url}')">
+                            <div class="progress-bar"></div>
+                            <span class="btn-text">GET</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        } else {
+            grid.innerHTML = "<p style='padding:20px;'>NO DATA FOUND</p>";
+        }
+    } catch (err) {
+        console.error("Error:", err);
+        grid.innerHTML = "<p style='padding:20px; color:red;'>FETCH ERROR</p>";
+    } finally {
+        // Loading text ko hide karein
+        const loader = document.querySelector('#presetScr .loading-text');
+        if (loader) loader.style.display = 'none';
+    }
+}
+function openScreen(id) {
+    const s = document.getElementById(id);
+    if(!s) return;
+
+    s.style.display = 'flex';
+    setTimeout(() => s.classList.add('active'), 10);
+
+    // Agar Preset screen hai toh fetch start karein
+    if(id === 'presetScr') {
+        initPresetData(); 
+    }
+}
+function openScreen(id) {
+    const s = document.getElementById(id);
+    if(!s) return;
+
+    s.style.display = 'flex';
+    setTimeout(() => s.classList.add('active'), 10);
+
+    // Wallpaper screen ke liye
+    if(id === 'wpScr') {
+        initWallpaperData(); 
+    }
+    
+    // Preset screen ke liye
+    if(id === 'presetScr') {
+        initPresetData();
+    }
+}
+</script><style>/* Search Box Container */
+.search-box-m {
+    display: flex;
+    background: #eef2f7 !important; /* Light background */
+    border-radius: 50px !important;
+    padding: 5px 10px;
+    align-items: center;
+    border: 1px solid var(--border);
+}
+
+/* Input Text Color Fix */
+#mQuery {
+    flex: 1;
+    background: transparent !important;
+    border: none !important;
+    color: #000 !important; /* Text ab kaala dikhega */
+    padding: 12px;
+    font-size: 1.2rem;
+    outline: none;
+}
+
+/* Gol Search Button */
+.go-btn {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important; /* Perfect Round */
+    background: #000 !important;
+    color: #fff !important;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Mini Player Image Fix */
+#mini-art {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block; /* Ensure visibility */
+}
+/* Preset Overlay ke andar ka text hamesha white rahega */
+.wp-overlay p {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Visibility ke liye shadow */
+}
+
+/* Preset button ka text color fix */
+.wp-overlay .btn-text {
+    color: #000000 !important; /* Button background white hota hai, isliye text black/dark */
+}
+
+/* Heading Fix (Jo aapne red box mein mark kiya tha) */
+.up-box h4 {
+    color: var(--text) !important;
+}
+/* Get button ka text hamesha black rahega taaki white background pe dikhe */
+.wp-overlay .btn .btn-text {
+    color: #000000 !important; 
+    font-weight: bold !important;
+    opacity: 1 !important;
+}
+
+/* Button hover/active state fix */
+.wp-overlay .btn {
+    background: #ffffff !important;
+}
+/* Unique User Badge */
+.u-badge {
+    font-size: 0.7rem;
+    background: var(--text);
+    color: var(--bg);
+    padding: 2px 8px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+/* Chat Bubble */
+.msg-bubble {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    padding: 12px 15px;
+    border-radius: 20px;
+    position: relative;
+    max-width: 85%;
+    align-self: flex-start;
+    animation: slideIn 0.3s ease;
+}
+
+/* Admin Reply Glassmorphism */
+.admin-reply-box {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: rgba(255, 0, 0, 0.05);
+    border-left: 2px solid var(--accent);
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+.admin-tag {
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 0.7rem;
+    display: block;
+    margin-bottom: 2px;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* Input container setup */
+.input-container {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 5px 5px 5px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Isse button right mein chala jayega */
+    margin-top: 15px;
+}
+
+/* Send Button Style */
+.send-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* Button dabe nahi */
+}
+.modal {
+    position: relative; /* zaroori hai */
+}
+
+.close-icon {
+    position: absolute;
+    top: 35px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 35px;
+}</style><script>let currentPlaylist = [];
+let currentIndex = 0;
+let lastPlayedArt = "";
+
+async function searchMusic() {
+    const query = document.getElementById('mQuery').value;
+    const btn = document.getElementById('mSearchBtn') || document.querySelector('.go-btn');
+    const card = document.getElementById('music-card');
+    
+    if (!query) return;
+
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+    try {
+        const res = await fetch(`https://itunes.apple.com/search?limit=250&entity=song&term=${encodeURIComponent(query)}`);
+        const data = await res.json();
+
+        if (data.results.length > 0) {
+            currentPlaylist = data.results.map(song => {
+                // FIX: Title se mzaf_ ko hamesha ke liye saaf karna
+                const cleanTitle = song.trackName.replace(/mzaf_\d+/g, "NOTHING TRACK").toUpperCase();
+                return {
+                    url: song.previewUrl,
+                    art: song.artworkUrl100.replace('100x100', '400x400'),
+                    title: cleanTitle,
+                    artist: "NOTHING COMMUNITY"
+                };
+            });
+            
+            currentIndex = 0;
+            btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>';
+            card.style.display = "block"; 
+            loadSong(0);
+        } else {
+            alert("NOTHING FOUND");
+            btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>';
+        }
+    } catch (e) {
+        btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>';
+    }
+}
+
+function loadSong(index) {
+    if (!currentPlaylist[index]) return;
+    
+    const song = currentPlaylist[index];
+    const player = document.getElementById('mPlayer');
+    
+    // UI Update
+    document.getElementById('mArt').src = song.art;
+    document.getElementById('mTitle').innerText = song.title;
+    document.getElementById('mArtist').innerText = song.artist;
+    
+    // Small Icon (Mini Player) ke liye image update
+    lastPlayedArt = song.art;
+    const miniArt = document.getElementById('mini-art');
+    if(miniArt) miniArt.src = lastPlayedArt; 
+    
+    player.src = song.url;
+    player.load();
+    togglePlay(true);
+}
+
+function nextSong() {
+    if (currentPlaylist.length > 0) {
+        currentIndex = (currentIndex + 1) % currentPlaylist.length;
+        loadSong(currentIndex);
+    }
+}
+
+function prevSong() {
+    if (currentPlaylist.length > 0) {
+        currentIndex = (currentIndex - 1 + currentPlaylist.length) % currentPlaylist.length;
+        loadSong(currentIndex);
+    }
+}
+
+function togglePlay(forcePlay = false) {
+    const player = document.getElementById('mPlayer');
+    const playBtn = document.getElementById('play-pause');
+    const icon = playBtn ? playBtn.querySelector('i') : null;
+    
+    if (player.paused || forcePlay) {
+        player.play().catch(() => {});
+        if(icon) icon.className = "fa-solid fa-circle-pause";
+        document.getElementById('mArt').classList.add('spinning');
+    } else {
+        player.pause();
+        if(icon) icon.className = "fa-solid fa-circle-play";
+        document.getElementById('mArt').classList.remove('spinning');
+    }
+}
+
+// DOWNLOAD FIX: No mzaf, only NOTHING SPACE
+async function downloadCurrentSong() {
+    const song = currentPlaylist[currentIndex];
+    const btn = document.querySelector('#music-card .btn');
+    const originalText = btn.innerText;
+
+    try {
+        btn.innerText = "PREPARING...";
+        const response = await fetch(song.url);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        // Pura saaf naam NOTHING SPACE ke sath
+        a.download = song.title.replace(/\s+/g, '_') + "_NOTHING_SPACE.mp3"; 
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        
+        btn.innerText = "DONE ✓";
+        setTimeout(() => { btn.innerText = "DOWNLOAD MP3"; }, 2000);
+    } catch (e) {
+        window.open(song.url, '_blank');
+        btn.innerText = originalText;
+    }
+}
+
+function handleMusicClose() {
+    closeScreen('musicScr');
+    const player = document.getElementById('mPlayer');
+    const miniPlayer = document.getElementById('mini-player');
+    const miniArt = document.getElementById('mini-art');
+
+    if (!player.paused) {
+        miniPlayer.style.display = 'block';
+        miniArt.src = lastPlayedArt; // Modal band hote hi small icon mein pic
+    }
+}
+
+function loadSong(index) {
+    if (!currentPlaylist[index]) return;
+    
+    const song = currentPlaylist[index];
+    const player = document.getElementById('mPlayer');
+    
+    // UI Update (Modal picture)
+    document.getElementById('mArt').src = song.art;
+    document.getElementById('mTitle').innerText = song.title;
+    document.getElementById('mArtist').innerText = song.artist;
+    
+    // Mini Player update
+    lastPlayedArt = song.art;
+    const miniArt = document.getElementById('mini-art');
+    if(miniArt) miniArt.src = lastPlayedArt; 
+    
+    // Audio source update
+    player.src = song.url;
+    player.load();
+    togglePlay(true);
+
+    // FIX: Notification Bar (Android Media Panel) mein image bhejnat
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: song.title,
+            artist: 'NOTHING COMMUNITY',
+            album: 'NOTHING SPACE',
+            artwork: [
+                { src: song.art, sizes: '96x96',   type: 'image/png' },
+                { src: song.art, sizes: '128x128', type: 'image/png' },
+                { src: song.art, sizes: '192x192', type: 'image/png' },
+                { src: song.art, sizes: '256x256', type: 'image/png' },
+                { src: song.art, sizes: '384x384', type: 'image/png' },
+                { src: song.art, sizes: '512x512', type: 'image/png' },
+            ]
+        });
+
+        // Notification bar ke buttons (Next/Prev) ko connect karna
+        navigator.mediaSession.setActionHandler('previoustrack', prevSong);
+        navigator.mediaSession.setActionHandler('nexttrack', nextSong);
+        navigator.mediaSession.setActionHandler('play', () => togglePlay(true));
+        navigator.mediaSession.setActionHandler('pause', () => togglePlay());
+    }
+}
+
+// Sample Data (Real life mein ye database se aayega)
+let messages = [
+    { id: 1, userNum: 1, text: "Bhai Phone 2a ke liye naye presets lao!", reply: "" },
+    { id: 2, userNum: 2, text: "Website ka UI aag hai 🔥", reply: "Thanks for the support!" }
+];
+
+function renderBoard() {
+    const board = document.getElementById('msgBoard');
+    board.innerHTML = messages.map(m => `
+        <div class="msg-bubble" onclick="adminReply(${m.id})">
+            <span class="u-badge">USER #${m.userNum}</span>
+            <p style="text-transform: none; color: var(--text); line-height: 1.3;">${m.text}</p>
+            ${m.reply ? `
+                <div class="admin-reply-box">
+                    <span class="admin-tag">● ADMIN REPLY</span>
+                    <p style="text-transform: none; opacity: 0.8;">${m.reply}</p>
+                </div>
+            ` : ''}
+        </div>
+    `).join('');
+    board.scrollTop = board.scrollHeight;
+}
+
+function sendMsg() {
+    const input = document.getElementById('userMsg');
+    if(!input.value.trim()) return;
+
+    // Har naye msg ko agla number dena
+    const nextUserNum = messages.length + 1;
+
+    messages.push({
+        id: Date.now(),
+        userNum: nextUserNum,
+        text: input.value,
+        reply: ""
+    });
+
+    input.value = "";
+    renderBoard();
+}
+
+function adminReply(msgId) {
+    // Admin password check
+    const pass = prompt("ADMIN ACCESS REQUIRED:");
+    if(pass === "1234") { 
+        const msg = messages.find(m => m.id === msgId);
+        const replyTxt = prompt(`REPLY TO USER #${msg.userNum}:`);
+        if(replyTxt) {
+            msg.reply = replyTxt;
+            renderBoard();
+        }
+    }
+}
+
+// Initial Call
+document.addEventListener('DOMContentLoaded', renderBoard);
+function adminReply(msgId) {
+    const pass = prompt("ADMIN ACCESS REQUIRED:");
+    
+    if (pass === "465610") { // Aapka Password
+        const action = prompt("CHOOSE ACTION: \n1. REPLY \n2. DELETE MESSAGE \n3. DELETE ONLY REPLY");
+        const msg = messages.find(m => m.id === msgId);
+
+        if (!msg) return;
+
+        if (action === "1") {
+            const replyTxt = prompt(`REPLY TO USER #${msg.userNum}:`);
+            if (replyTxt) msg.reply = replyTxt;
+        } 
+        else if (action === "2") {
+            const confirmDel = confirm("DELETE THIS ENTIRE MESSAGE?");
+            if (confirmDel) {
+                messages = messages.filter(m => m.id !== msgId);
+            }
+        } 
+        else if (action === "3") {
+            msg.reply = ""; // Sirf admin ka reply hatega
+        }
+        
+        renderBoard(); // Board refresh karein
+    } else {
+        alert("WRONG PASSWORD!");
+    }
 }
 </script>
