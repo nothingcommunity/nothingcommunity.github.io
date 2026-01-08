@@ -147,13 +147,13 @@
 </header>
 
 <div class="bento">
-    <div class="tile full" onclick="openScreen('upScr')"><h1>WEBSITE UPDATE</h1><p>WHAT'S NEW ADDED</p></div>
-       <div class="tile full" onclick="openScreen('musicScr')"><h1>RINGTONE PLAYER</h1><p>DOWNLOAD MP3</p></div>
-    <div class="tile full" onclick="openScreen('pgScr')"><h1>PLAYGROUND ZONE</h1><p>presets WIDGETs APPs</p></div>
-    <div class="tile full" onclick="openScreen('swScr')"><h1>SOFTWARE UPDATE</h1><p>NOS ZIP FILE</p></div>
-    <div class="tile full" onclick="openScreen('wpScr')"><h1>WALLPAPER GALLERY</h1><p>EXCLUSIVe Collection</p></div>
-    <div class="tile full" onclick="openScreen('scScr')"><h1>SERVICE CENTRE</h1><p>LOCATE CENTERS</p></div>
- <div class="tile full" onclick="openScreen('feedbackScr')"><h1>COMMUNITY BOARD</h1><p>FEEDBACK & SUGGESTIONS</p></div>
+    <div class="tile full" onclick="openScreen('upScr')"><h1>WEBSITE</h1><p>WHAT'S NEW ADDED</p></div>
+       <div class="tile full" onclick="openScreen('musicScr')"><h1>RINGTONE</h1><p>DOWNLOAD MP3</p></div>
+    <div class="tile full" onclick="openScreen('pgScr')"><h1>PLAYGROUND</h1><p>presets WIDGETs APPs</p></div>
+    <div class="tile full" onclick="openScreen('swScr')"><h1>SOFTWARE </h1><p>NOS ZIP FILE</p></div>
+    <div class="tile full" onclick="openScreen('wpScr')"><h1>WALLPAPER </h1><p>EXCLUSIVe Collection</p></div>
+    <div class="tile full" onclick="openScreen('scScr')"><h1>SERVICE </h1><p>LOCATE CENTERS</p></div>
+ <div class="tile full" onclick="openScreen('feedbackScr')"><h1>COMMUNITY </h1><p>FEEDBACK & SUGGESTIONS</p></div>
 
 </div>
 <!-- MODALS -->
@@ -201,7 +201,7 @@
     <h2>CONTACT US</h2>
     <div class="detail-card">
       <p>For support or inquiries, contact us at:</p>
-      <p>📧 Email: <b>techiboy96@gmail.com</b></p>
+      <p>📧 Email: <b>techiboy96s@gmail.com</b></p>
       <p>💬 Telegram: <b>@techiboy_discuss</b></p>
       <p style="margin-top:10px;">We aim to respond within 24 hours.</p>
     </div>
@@ -426,11 +426,68 @@ function closeScreen(id){
     <div class="wp-grid" id="presetGrid"></div>
 </div></div>
 
-<div id="wpScr" class="screen"><div class="modal">
-    <span class="close-icon" onclick="closeScreen('wpScr')">×</span>
-    <h2>GALLERY</h2>
-    <div class="wp-grid" id="wallpaperGrid"></div>
-</div></div>
+<div id="wpScr" class="screen">
+    <div class="modal">
+        <span class="close-icon" onclick="closeScreen('wpScr')">×</span>
+        <h2>GALLERY</h2>
+        
+        <div onclick="openScreen('aiWpScr')" style="
+            background: var(--text); 
+            border: 1px solid var(--border); 
+            border-radius: 20px; 
+            padding: 16px; 
+            margin-bottom: 15px; 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;">
+            
+            <span style="color: var(--bg); font-weight: bold; font-size: 1.2rem;"> CREATE WITH AI</span>
+            <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--bg);"></i>
+        </div>
+
+        <div class="wp-grid" id="wallpaperGrid"></div>
+    </div>
+</div>
+<div id="aiWpScr" class="screen">
+    <div class="modal">
+        <span class="close-icon" onclick="closeScreen('aiWpScr')">×</span>
+        
+        <h2 style="margin-bottom: 15px;">AI STUDIO</h2>
+        
+        <div class="input-group">
+            <input type="text" id="aiPrompt" class="imei-box" placeholder="Typing..." style="text-align: left;">
+        </div>
+
+        <div class="input-group">
+            <select id="aiRatio">
+                <option value="9:16">MOBILE (9:16)</option>
+                <option value="16:9">PC (16:9)</option>
+                <option value="1:1">SQUARE (1:1)</option>
+            </select>
+            <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+        </div>
+
+        <button class="btn" id="genBtn" onclick="generateAIWall()">
+            <div class="progress-bar"></div>
+            <span class="btn-text">GENERATE</span>
+        </button>
+
+        <div id="aiResult" style="margin-top: 20px; display: none;">
+            <div class="wp-card" style="height: 400px; border: 1px solid var(--border);">
+                <img id="aiImg" src="" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="wp-overlay">
+                    <button class="btn" onclick="downloadAIWall(this)">
+                        <div class="progress-bar"></div><span class="btn-text">DOWNLOAD</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <div id="scScr" class="screen"><div class="modal">
     <span class="close-icon" onclick="closeScreen('scScr')">×</span>
@@ -489,70 +546,70 @@ function closeScreen(id){
     disp: "V3.2-251219-1652", 
     img:"https://raw.githubusercontent.com/nothingcommunity/Testing/main/PHONE%20PICS/Nothing%20Phone%20(1).png",
     url: "https://android.googleapis.com/packages/ota-api/package/d6cb9faafb8c2bc5ae13f50ca1cde7fc5561eda3.zip", 
-    logs: ["Improved Performance", "Enhanced Stability"]
+    logs: ["Nothing OS Stable", "Security Updates"] 
 },
 
 'p2': { 
    disp: "B4.0-251119-1654", 
    img: "https://raw.githubusercontent.com/nothingcommunity/Testing/main/PHONE%20PICS/Nothing%20Phone%20(2).png",
    url: "https://android.googleapis.com/packages/ota-api/package/0b1a9c638a70e7454e46a6459d9f20e6cd5953b8.zip", 
-   logs: ["Improved Performance", "Enhanced Stability"]
+   logs: ["Nothing OS Stable", "Glyph Improvements"] 
 },
 
 'p2a': { 
    disp: "B4.0-251128-2240", 
    img: "https://raw.githubusercontent.com/nothingcommunity/Testing/main/PHONE%20PICS/Nothing%20Phone%20(2a).png",
    url: "https://android.googleapis.com/packages/ota-api/package/10c6c89d3c97a6f2338394096035e3129fcf8398.zip", 
-   logs: ["Improved Performance", "Enhanced Stability"]
+   logs: ["Nothing OS Stable", "Performance Optimisation"] 
 },
 
 'p2aplus': { 
    disp: "B4.0-251218-2326", 
    img: "https://raw.githubusercontent.com/nothingcommunity/Testing/main/PHONE%20PICS/Nothing%20Phone%20(2a)%20Plus.png",
    url: "https://android.googleapis.com/packages/ota-api/package/f7788a5cb81ba5d86f476b003e4596cbc1133a33.zip", 
-   logs: ["Improved Performance", "Enhanced Stability"]
+   logs: ["Nothing OS Stable", "Battery Enhancements"] 
 },
 
 'p3': { 
    disp: "B4.0-251224-1229", 
    img: "https://raw.githubusercontent.com/nothingcommunity/Testing/main/PHONE%20PICS/Nothing%20Phone%20(3).png",
    url: "https://android.googleapis.com/packages/ota-api/package/8b96a9ad74c44a089a86c213103c624ee74088ae.zip", 
-   logs: ["Improved Performance", "Enhanced Stability"]
+   logs: ["Nothing OS (Upcoming)", "Next-Gen Glyph UI"] 
 },
 
 'p3a': { 
    disp: "B4.0-251118-1551", 
    img: "https://raw.githubusercontent.com/nothingcommunity/Testing/main/PHONE%20PICS/Nothing%20Phone%20(3a).png",
    url: "https://android.googleapis.com/packages/ota-api/package/57c73fc36c537c04005cebe08bba0cd91d211f3a.zip", 
-   logs: ["Improved Performance", "Enhanced Stability"]   
+   logs: ["Nothing OS (Upcoming)", "Balanced Performance"] 
 },
 
 'p3apro': { 
    disp: "B4.0-251118-1551", 
    img: "https://raw.githubusercontent.com/nothingcommunity/Testing/main/PHONE%20PICS/Nothing%20Phone%20(3a)%20Pro.png",
    url: "https://android.googleapis.com/packages/ota-api/package/57c73fc36c537c04005cebe08bba0cd91d211f3a.zip", 
-   logs: ["Improved Performance", "Enhanced Stability"]
+   logs: ["Nothing OS (Upcoming)", "Camera & Performance Boost"] 
 },
 
 'p3alite': { 
    disp: "V3.5-251222-1801", 
    img: "https://raw.githubusercontent.com/nothingcommunity/Testing/main/PHONE%20PICS/Nothing%20Phone%20(3a)%20Lite.png",
    url: "https://android.googleapis.com/packages/ota-api/package/1146f774dcd2c969f3f401b14029b60d9364c0c6.zip", 
-   logs: ["Improved Performance", "Enhanced Stability"]
+   logs: ["Nothing OS (Upcoming)", "Lite Optimisations"] 
 },
 
 'cmf1': { 
    disp: "B4.0-251216-1717", 
    img: "https://raw.githubusercontent.com/nothingcommunity/Testing/main/PHONE%20PICS/CMF%20Phone%20(1).png",
    url: "https://android.googleapis.com/packages/ota-api/package/248ea05642c639ea459e0d71c70bf9cbdfe48c74.zip", 
-   logs: ["Improved Performance", "Enhanced Stability"]
+   logs: ["Nothing OS Stable", "CMF Custom Features"] 
 },
 
 'cmf2pro': { 
    disp: "B4.0-251218-2326", 
    img: "https://raw.githubusercontent.com/nothingcommunity/Testing/main/PHONE%20PICS/CMF%20Phone%20(2)%20Pro.png",
    url: "https://android.googleapis.com/packages/ota-api/package/efa331e5b51ed67ea0dda9e86cba9992a00f222f.zip", 
-   logs: ["Improved Performance", "Enhanced Stability"]
+   logs: ["Nothing OS (Upcoming)", "Advanced CMF Features"] 
 }
         },
            NOTHING_TAC: {
@@ -2495,6 +2552,17 @@ document.addEventListener('DOMContentLoaded', loadMessages);
     min-width: 40px;
     height: 40px;
 }
+/* SABHI MODAL HEADINGS KE LIYE GAP FIX */
+.modal h2 {
+    margin-bottom: 15px !important;  /* Niche gap dega */
+    margin-top: 5px !important;      /* Upar thoda space */
+    line-height: 1;                  /* Text height fix */
+}
+
+/* Close Icon ki position thodi adjust taaki wo heading se na takraye */
+.close-icon {
+    margin-top: -5px !important;
+}
 </style><script>async function sendMsg() {
     const input = document.getElementById('userMsg');
     const btn = document.querySelector('#feedbackScr button');
@@ -2617,5 +2685,109 @@ async function adminControl(msgId, currentName) {
     } else if (pass !== null) {
         alert("WRONG PASSWORD!");
     }
+}
+async function generateAIWall() {
+    const promptInput = document.getElementById('aiPrompt');
+    const ratio = document.getElementById('aiRatio').value;
+    const btn = document.getElementById('genBtn');
+    const bar = btn.querySelector('.progress-bar');
+    const txt = btn.querySelector('.btn-text');
+    const resultDiv = document.getElementById('aiResult');
+    const aiImg = document.getElementById('aiImg');
+
+    const prompt = promptInput.value.trim();
+
+    if (!prompt) {
+        alert("PLEASE ENTER SOMETHING");
+        return;
+    }
+
+    // 1. UI Loading State
+    btn.style.pointerEvents = 'none';
+    txt.innerText = 'IMAGINING...';
+    bar.style.transition = 'width 4s cubic-bezier(0.4, 0, 0.2, 1)'; // Slow smooth progress
+    bar.style.width = '90%';
+    
+    // Hide previous result if any
+    resultDiv.style.display = 'none';
+    aiImg.style.opacity = '0';
+
+    // 2. Calculate Dimensions based on ratio
+    let width = 1080, height = 1920; // Default 9:16
+    if (ratio === "16:9") { width = 1920; height = 1080; }
+    if (ratio === "1:1") { width = 1080; height = 1080; }
+
+    // 3. Construct URL (Auto-adding Nothing Style keywords)
+    // Random seed ensures every click gives a new image even for same prompt
+    const seed = Math.floor(Math.random() * 100000);
+    const enhancedPrompt = encodeURIComponent(`${prompt}, nothing technology style, aesthetic, minimalist, high quality, 8k, dark mode`);
+    const apiUrl = `https://image.pollinations.ai/prompt/${enhancedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true&model=flux`;
+
+    // 4. Load Image
+    const tempImg = new Image();
+    tempImg.src = apiUrl;
+    
+    tempImg.onload = () => {
+        // Image loaded successfully
+        aiImg.src = apiUrl;
+        resultDiv.style.display = 'block';
+        
+        // Slight delay for animation
+        setTimeout(() => {
+            aiImg.style.opacity = '1';
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            // Reset Button
+            bar.style.width = '0%';
+            bar.style.transition = 'none';
+            txt.innerText = 'GENERATE AGAIN';
+            btn.style.pointerEvents = 'all';
+        }, 100);
+    };
+
+    tempImg.onerror = () => {
+        alert("SERVER BUSY. TRY AGAIN.");
+        bar.style.width = '0%';
+        txt.innerText = 'TRY AGAIN';
+        btn.style.pointerEvents = 'all';
+    };
+}
+
+async function downloadAIWall(btn) {
+    const imgUrl = document.getElementById('aiImg').src;
+    const bar = btn.querySelector('.progress-bar');
+    const txt = btn.querySelector('.btn-text');
+    const oldTxt = txt.innerText;
+
+    btn.style.pointerEvents = 'none';
+    txt.innerText = 'SAVING...';
+    bar.style.width = '100%';
+
+    try {
+        // Fetch blob to force download (bypassing browser preview)
+        const response = await fetch(imgUrl);
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = "NothingSpace_AI_" + Date.now() + ".jpg";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(blobUrl);
+
+        txt.innerText = "SAVED ✓";
+    } catch (e) {
+        // Fallback if fetch fails (CORS issues)
+        window.open(imgUrl, '_blank');
+        txt.innerText = "OPENED";
+    }
+
+    setTimeout(() => {
+        bar.style.width = '0%';
+        txt.innerText = oldTxt;
+        btn.style.pointerEvents = 'all';
+    }, 2000);
 }
 </script>
