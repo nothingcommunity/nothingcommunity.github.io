@@ -1,5 +1,4 @@
-
-<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>  
+<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>  
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
@@ -148,17 +147,13 @@
 
 <div class="bento">
     <div class="tile full" onclick="openScreen('upScr')"><h2>WEB UPDATE</h2><p>WHAT'S NEW ADDED</p></div>
-    <div class="tile full" onclick="openScreen('imeiScr')"><h2>IDENTIFY</h2><p>VERIFY NOTHING DEVICE</p></div>
-      <div class="tile full" onclick="openScreen('musicScr')"><h2>RINGTONE</h2><p>DOWNLOAD MP3 🔥</p></div>
+       <div class="tile full" onclick="openScreen('musicScr')"><h2>RINGTONE</h2><p>DOWNLOAD MP3 🔥</p></div>
     <div class="tile full" onclick="openScreen('pgScr')"><h2>PLAYGROUND</h2><p>presets WIDGETs APPs</p></div>
     <div class="tile full" onclick="openScreen('swScr')"><h2>SOFTWARE</h2><p>NOS ZIP FILE</p></div>
     <div class="tile full" onclick="openScreen('wpScr')"><h2>WALLPAPER</h2><p>EXCLUSIVe Collection</p></div>
     <div class="tile full" onclick="openScreen('scScr')"><h2>SERVICE</h2><p>LOCATE CENTERS</p></div>
- <div class="tile full" onclick="openScreen('feedbackScr')">
-    <h2>COMMUNITY BOARD</h2>
-    <p>FEEDBACK & SUGGESTIONS</p>
-</div>
-   <div class="tile full" onclick="window.open('https://t.me/addlist/gajWpSOzopVlMWY1')"><h2>TELEGRAM</h2><p>COMMUNITY</p></div>
+ <div class="tile full" onclick="openScreen('feedbackScr')"><h2>COMMUNITY BOARD</h2><p>FEEDBACK & SUGGESTIONS</p></div>
+
 </div>
 <!-- MODALS -->
 <!-- ABOUT -->
@@ -561,46 +556,6 @@ function closeScreen(id){
            NOTHING_TAC: {
 
     "350778": "NOTHING PHONE (1)", 
-    "352345": "NOTHING PHONE (1)", 
-    "353319": "NOTHING PHONE (1)", 
-    "357044": "NOTHING PHONE (1)", 
-    "358902": "NOTHING PHONE (1)",
-    "354721": "NOTHING PHONE (1)",
-"352840": "NOTHING PHONE (2)",
-"356789": "NOTHING PHONE (2)", 
-"354123": "NOTHING PHONE (2)", 
-"351659": "NOTHING PHONE (2)",
-"353238": "NOTHING PHONE (2)", 
-"355081": "NOTHING PHONE (2)",
-"354422": "NOTHING PHONE (2A)",
-"356073": "NOTHING PHONE (2A)", 
-"353098": "NOTHING PHONE (3A) LITE", 
-"351420": "NOTHING PHONE (2A)",
-"359901": "NOTHING PHONE (2A) PLUS",
-"354210": "NOTHING PHONE (2A) PLUS",
-"353075": "NOTHING PHONE (3)",
-"350367": "NOTHING PHONE (3)", 
-"350240": "NOTHING PHONE (3)",
-"357502": "NOTHING PHONE (3)",
-"358241": "NOTHING PHONE (3A)",
-"357348": "NOTHING PHONE (3A)",
-"351707": "NOTHING PHONE (3A)", 
-"353735": "NOTHING PHONE (3A)",
-"358242": "NOTHING PHONE (3A) PRO", 
-"359951": "NOTHING PHONE (3A) PRO", 
-"353458": "NOTHING PHONE (3A) PRO",
-"359866": "NOTHING PHONE (3A) LITE",
-"350756": "NOTHING PHONE (3A) LITE", 
-"354265": "NOTHING PHONE (3A) LITE",
-"351234": "NOTHING PHONE (4A)", 
-"356980": "NOTHING PHONE (4A)",
-"351235": "NOTHING PHONE (4A) PRO",
-"356981": "NOTHING PHONE (4A) PRO",
-"351122": "CMF PHONE (1)", 
-"351500": "CMF PHONE (1)",
-"353560": "CMF PHONE (2) PRO", 
-"350010": "CMF PHONE (2) PRO",
-"353640": "CMF PHONE (2) PRO",
 }
 
     };
@@ -2371,7 +2326,7 @@ function sendMsg() {
 function adminReply(msgId) {
     // Admin password check
     const pass = prompt("ADMIN ACCESS REQUIRED:");
-    if(pass === "1234") { 
+    if(pass === "465610") { 
         const msg = messages.find(m => m.id === msgId);
         const replyTxt = prompt(`REPLY TO USER #${msg.userNum}:`);
         if(replyTxt) {
@@ -2408,6 +2363,256 @@ function adminReply(msgId) {
         
         renderBoard(); // Board refresh karein
     } else {
+        alert("WRONG PASSWORD!");
+    }
+}
+// 1. Aapka Firebase Database URL
+const DB_URL = "https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat.json";
+
+// 2. Database se messages load karke screen par dikhana
+async function loadMessages() {
+    try {
+        const res = await fetch(DB_URL);
+        const data = await res.json();
+        const board = document.getElementById('msgBoard');
+        
+        if (!data) {
+            board.innerHTML = '<p style="opacity:0.4; text-align:center; font-family:var(--nothing-font);">NO MESSAGES YET. BE THE FIRST!</p>';
+            return;
+        }
+
+        // Firebase data (Object) ko Array mein badalna
+        const messages = Object.keys(data).map(key => ({ id: key, ...data[key] }));
+
+        board.innerHTML = messages.map(m => `
+            <div class="msg-bubble" onclick="adminControl('${m.id}', ${m.userNum})">
+                <span class="u-badge">USER #${m.userNum}</span>
+                <p style="text-transform:none; margin:5px 0;">${m.text}</p>
+                ${m.reply ? `
+                    <div class="admin-reply-box">
+                        <span class="admin-tag">● ADMIN REPLY</span>
+                        <p style="text-transform:none; opacity:0.8;">${m.reply}</p>
+                    </div>
+                ` : ''}
+            </div>
+        `).join('');
+        
+        // Auto scroll to bottom
+        board.scrollTop = board.scrollHeight;
+    } catch (error) {
+        console.error("Error loading chat:", error);
+    }
+}
+
+// 3. Naya message bhejte hi Firebase mein save karna
+async function sendMsg() {
+    const input = document.getElementById('userMsg');
+    const msgText = input.value.trim();
+    if(!msgText) return;
+
+    // User Number calculate karne ke liye current count check karein
+    const res = await fetch(DB_URL);
+    const data = await res.json();
+    const nextNum = data ? Object.keys(data).length + 1 : 1;
+
+    const newEntry = {
+        userNum: nextNum,
+        text: msgText,
+        reply: "",
+        timestamp: Date.now()
+    };
+
+    // Firebase API call (POST se naya message add hota hai)
+    await fetch(DB_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newEntry)
+    });
+
+    input.value = "";
+    loadMessages(); // Refresh chat
+}
+
+// 4. Admin Control: Reply or Delete
+async function adminControl(msgId, userNum) {
+    const pass = prompt("ADMIN PASSWORD:");
+    if (pass === "465610") { // Apna password change kar sakte ho
+        const action = prompt("WHAT TO DO? \n1. REPLY \n2. DELETE MESSAGE \n3. REMOVE ONLY REPLY");
+        const itemUrl = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${msgId}.json`;
+
+        if (action === "1") {
+            const txt = prompt(`REPLY TO USER #${userNum}:`);
+            if(txt) await fetch(itemUrl, { method: 'PATCH', body: JSON.stringify({ reply: txt }) });
+        } 
+        else if (action === "2") {
+            if(confirm("Bhai, user ka message hamesha ke liye delete karein?")) {
+                await fetch(itemUrl, { method: 'DELETE' });
+            }
+        } 
+        else if (action === "3") {
+            await fetch(itemUrl, { method: 'PATCH', body: JSON.stringify({ reply: "" }) });
+        }
+        loadMessages();
+    } else if (pass !== null) {
+        alert("WRONG PASSWORD!");
+    }
+}
+
+// Website khulte hi chat load karein
+document.addEventListener('DOMContentLoaded', loadMessages);
+</script><style>/* Red Dot Pulse Animation */
+.red-dot-loader {
+    width: 12px;
+    height: 12px;
+    background-color: #ff0000; /* Pure Red */
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse-red 0.8s ease-in-out infinite;
+}
+
+@keyframes pulse-red {
+    0% {
+        transform: scale(0.8);
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    }
+    70% {
+        transform: scale(1.2);
+        box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+    }
+    100% {
+        transform: scale(0.8);
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    }
+}
+
+/* Button fix taaki icon/loader center mein rahe */
+#feedbackScr button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+}
+</style><script>async function sendMsg() {
+    const input = document.getElementById('userMsg');
+    const btn = document.querySelector('#feedbackScr button');
+    const msgText = input.value.trim();
+
+    if (!msgText) return;
+
+    // 1. Message bhejte waqt Button ko lock karo aur Red Loader dikhao
+    const originalHTML = btn.innerHTML; // Arrow ko save kar liya
+    btn.disabled = true;
+    btn.innerHTML = '<span class="red-dot-loader"></span>'; // Red animation yahan aayega
+
+    try {
+        const response = await fetch(DB_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                text: msgText,
+                timestamp: Date.now()
+            })
+        });
+
+        if (response.ok) {
+            input.value = ""; // Input clear karo
+            if (typeof loadMessages === "function") await loadMessages(); // Messages refresh karo
+        }
+    } catch (e) {
+        console.error("Sending failed:", e);
+        alert("Message nahi gaya, check net!");
+    } finally {
+        // 2. Kaam khatam hone par wapas Arrow le aao
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+    }
+}
+async function sendMsg() {
+    const input = document.getElementById('userMsg');
+    const btn = document.querySelector('#feedbackScr button');
+    const msgText = input.value.trim();
+
+    if (!msgText) return;
+
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="red-dot-loader"></span>';
+
+    try {
+        const newEntry = {
+            userName: "USER", // Default name jo baad mein admin badal sakta hai
+            text: msgText,
+            reply: "",
+            timestamp: Date.now()
+        };
+
+        await fetch(DB_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newEntry)
+        });
+
+        input.value = "";
+        await loadMessages();
+    } catch (e) {
+        console.error("Error:", e);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+    }
+}
+async function loadMessages() {
+    try {
+        const res = await fetch(DB_URL);
+        const data = await res.json();
+        const board = document.getElementById('msgBoard');
+        
+        if (!data) {
+            board.innerHTML = '<p style="opacity:0.4; text-align:center;">NO MESSAGES YET.</p>';
+            return;
+        }
+
+        const messages = Object.keys(data).map(key => ({ id: key, ...data[key] }));
+
+        board.innerHTML = messages.map(m => `
+            <div class="msg-bubble" onclick="adminControl('${m.id}', '${m.userName}')">
+                <span class="u-badge">${m.userName || 'USER'}</span> 
+                <p style="text-transform:none; margin:5px 0;">${m.text}</p>
+                ${m.reply ? `
+                    <div class="admin-reply-box">
+                        <span class="admin-tag">● ADMIN REPLY</span>
+                        <p style="text-transform:none; opacity:0.8;">${m.reply}</p>
+                    </div>
+                ` : ''}
+            </div>
+        `).join('');
+        
+        board.scrollTop = board.scrollHeight;
+    } catch (error) { console.log(error); }
+}
+async function adminControl(msgId, currentName) {
+    const pass = prompt("ADMIN PASSWORD:");
+    if (pass === "465610") {
+        const action = prompt("CHOOSE ACTION: \n1. REPLY \n2. EDIT NAME \n3. DELETE MESSAGE \n4. REMOVE ONLY REPLY");
+        const itemUrl = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${msgId}.json`;
+
+        if (action === "1") {
+            const txt = prompt(`REPLY TO ${currentName}:`);
+            if(txt) await fetch(itemUrl, { method: 'PATCH', body: JSON.stringify({ reply: txt }) });
+        } 
+        else if (action === "2") {
+            const newName = prompt("ENTER NEW NAME FOR THIS USER:", currentName);
+            if(newName) await fetch(itemUrl, { method: 'PATCH', body: JSON.stringify({ userName: newName.toUpperCase() }) });
+        }
+        else if (action === "3") {
+            if(confirm("DELETE THIS MESSAGE?")) await fetch(itemUrl, { method: 'DELETE' });
+        } 
+        else if (action === "4") {
+            await fetch(itemUrl, { method: 'PATCH', body: JSON.stringify({ reply: "" }) });
+        }
+        loadMessages();
+    } else if (pass !== null) {
         alert("WRONG PASSWORD!");
     }
 }
