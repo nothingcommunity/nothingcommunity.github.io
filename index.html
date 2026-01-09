@@ -1,1 +1,854 @@
 
+<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nothing Space</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+    <meta name="google-adsense-account" content="ca-pub-5140781527793808">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5140781527793808" crossorigin="anonymous"></script>
+
+    <style>
+        /* ================= ROOT & THEME ================= */
+        :root { 
+            --bg: #000; --card: #0c0c0c; --text: #fff; --dot-bg: #222; 
+            --border: #1a1a1a; --instr: #bbb; --accent: #ff0000;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color-scheme: light dark;
+        }
+        [data-theme="light"] { --bg: #fff; --card: #f5f5f5; --text: #000; --dot-bg: #ddd; --border: #eee; --instr: #333; }
+        [data-theme="dark"] { --bg: #000; --card: #0c0c0c; --text: #fff; --dot-bg: #250; --border: #1a1a1a; --instr: #bbb; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            background: var(--bg); color: var(--text); font-family: 'VT323', monospace; 
+            transition: background var(--transition); width: 100%; overflow-x: hidden; min-height: 100vh; 
+        }
+        
+        h1, h2, h3, span, button, select, input, p { font-family: 'VT323', monospace !important; text-transform: uppercase; }
+
+        /* ================= BACKGROUND ANIMATIONS ================= */
+        .stars-container { position: fixed; inset: 0; z-index: -1; background: var(--bg); overflow: hidden; pointer-events: none; }
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0; will-change: opacity; animation: blink 3s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 0.7; } }
+        
+        .canvas { 
+            position: fixed; inset: 0; background-image: radial-gradient(var(--dot-bg) 1.2px, transparent 1.2px); 
+            background-size: 32px 32px; z-index: -1; opacity: 0.5; pointer-events: none;
+        }
+
+        /* MOON (LEFT SIDE) */
+        .moon {
+            position: fixed; width: 80px; height: 80px; 
+            top: 10%; left: 10%; 
+            background: #d1d1d1; border-radius: 50%; z-index: -1; opacity: 0.5;
+            box-shadow: inset -15px -15px 30px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.2);
+            background-image: radial-gradient(circle at 30% 30%, #adadad 10%, transparent 15%), radial-gradient(circle at 60% 70%, #adadad 8%, transparent 12%);
+        }
+
+        /* ================= ENTRANCE LOADER ================= */
+        .entrance-wrapper {
+            position: fixed; inset: 0; background: #000; display: flex; justify-content: center; align-items: center; z-index: 10000;
+            transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .entrance-wrapper.exit { transform: translateY(-100%); }
+        .nothing-logo { font-family: 'NDOT', sans-serif; color: #fff; letter-spacing: 5px; font-size: 2rem; animation: pulse 1.5s infinite; }
+        .loader-bar { width: 225px; height: 2px; background: #333; margin-top: 10px; position: relative; overflow: hidden; }
+        .loader-bar::after { content: ''; position: absolute; width: 60px; height: 100%; background: #fff; animation: loading 10.5s infinite; }
+        @keyframes loading { from { left: -50px; } to { left: 100px; } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* ================= HEADER & BENTO ================= */
+        header { max-width: 1000px; margin: 50px auto 20px; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo h1 { font-size: 3.5rem; letter-spacing: -1px; line-height: 0.9; }
+        
+        .t-toggle { width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--border); display: grid; place-items: center; cursor: pointer; background: var(--card); transition: var(--transition); }
+        .t-toggle:hover { border-color: var(--text); }
+        #t-icon { transition: transform .3s ease; }
+        .t-toggle:active #t-icon { transform: rotate(150deg) scale(1.1); }
+
+        .bento { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 1000px; margin: 0 auto; padding: 0 20px 20px; }
+        @media (min-width: 768px) { .bento { grid-template-columns: repeat(3, 1fr); } }
+
+        /* --- UPDATED: NO ANIMATION HERE --- */
+        .tile { 
+            background: var(--card); border: 1px solid var(--border); border-radius: 35px; padding: 25px; cursor: pointer; transition: var(--transition);
+            opacity: 1; transform: none; /* Removed entry animation */
+        }
+        .tile:hover { border-color: #333; transform: translateY(-2px); }
+        .tile:active { transform: scale(0.95); }
+        .tile h2 { font-size: 2.2rem; }
+        .tile p { opacity: 0.4; font-size: 1rem; }
+        .full { grid-column: span 2; }
+        @media (min-width: 768px) { .full { grid-column: span 1; } }
+
+        /* ================= MODALS (FIXED WIDTH) ================= */
+        .screen { 
+            position: fixed; inset: 0; 
+            background: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(15px); 
+            z-index: 2000; 
+            display: none; 
+            align-items: center; justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .screen.active { display: flex !important; opacity: 1; }
+
+        .modal { 
+            background: var(--bg); 
+            border: 1px solid var(--border); 
+            width: 90%; 
+            max-width: 500px; 
+            max-height: 85vh;
+            border-radius: 35px;
+            padding: 30px; 
+            position: relative; 
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+
+            /* Close: Smooth Retract */
+            opacity: 0;
+            transform: scale(0.9) translateY(30px);
+            transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.35s ease;
+            will-change: transform, opacity;
+        }
+
+        /* Open: Bouncy Effect */
+        .screen.active .modal { 
+            opacity: 1; 
+            transform: scale(1) translateY(0); 
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+        }
+
+        .close-icon { 
+            position: absolute; right: 25px; top: 25px;
+            font-size: 2.2rem; cursor: pointer; opacity: 0.5; 
+            transition: 0.2s; /* No Spin */
+            z-index: 10;
+        }
+        .close-icon:hover { opacity: 1; color: var(--text); }
+        .modal h2 { margin-bottom: 20px !important; margin-top: 5px !important; line-height: 1; }
+
+        /* ================= BUTTONS & INPUTS ================= */
+        .input-group { position: relative; width: 100%; margin-bottom: 18px; display: flex; align-items: center; }
+        select, input.imei-box, input[type="text"] { width: 100%; padding: 20px; background: var(--card); border: 1px solid var(--border); color: var(--text); border-radius: 22px; font-size: 1.6rem; outline: none; appearance: none; }
+        input.imei-box { text-align: center; letter-spacing: 2px; }
+        .arrow-wrapper { position: absolute; right: 25px; pointer-events: none; color: #ffffff; }
+
+        /* GLOBAL BUTTON */
+        .btn { 
+            position: relative; width: 100%; padding: 18px; border-radius: 22px; border: none; 
+            background: var(--text); color: var(--bg); font-size: 1.6rem; 
+            cursor: pointer; font-weight: bold; margin-top: 5px; overflow: hidden;
+            display: flex; justify-content: center; align-items: center; transition: 0.2s;
+        }
+        .progress-bar { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: rgba(128,128,128,0.5); z-index: 1; }
+        .btn-text { position: relative; z-index: 2; }
+        
+        /* --- UPDATED: PLAYGROUND BUTTONS --- */
+        .pg-btn {
+            width: 100%;
+            padding: 20px 30px; /* Big padding */
+            border-radius: 22px; /* Pill Shape */
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1.2rem; /* Smaller, cleaner text */
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 15px;
+            font-weight: thin;
+            transition: 0.2s;
+            text-transform: uppercase;
+        }
+        .pg-btn i { font-size: 1.2rem; } /* Icon size */
+        .pg-btn:hover { border-color: var(--text); }
+        .pg-btn:active { transform: scale(0.98); background: var(--border); }
+
+        /* DOT ARROWS */
+        .dot-arrow { width: 20px; height: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; }
+        .dot-row { display: flex; gap: 2px; }
+        .dot { width: 2.5px; height: 2.5px; background: var(--text); border-radius: 50%; }
+
+        /* ================= CHAT STYLES ================= */
+        .red-dot-loader { width: 12px; height: 12px; background-color: #ff0000; border-radius: 50%; display: inline-block; animation: pulse-red 0.8s ease-in-out infinite; }
+        @keyframes pulse-red { 0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); } 70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); } 100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
+        
+        .msg-bubble { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 12px 15px; border-radius: 20px; position: relative; max-width: 85%; align-self: flex-start; margin-bottom: 10px; }
+        .u-badge { font-size: 0.7rem; background: var(--text); color: var(--bg); padding: 2px 8px; border-radius: 5px; margin-bottom: 5px; display: inline-block; }
+        .admin-reply-box { margin-top: 10px; padding: 8px 12px; background: rgba(255, 0, 0, 0.05); border-left: 2px solid var(--accent); border-radius: 10px; font-size: 0.9rem; }
+        .admin-tag { color: var(--accent); font-weight: bold; font-size: 0.7rem; display: block; margin-bottom: 2px; }
+
+        /* ================= MUSIC UI ================= */
+        .music-ui { text-align: center; }
+        .search-box-m { display: flex; background: #eef2f7 !important; padding: 5px 10px; border-radius: 50px !important; border: 1px solid var(--border); margin-bottom: 20px; align-items: center; }
+        .search-box-m input { flex: 1; background: transparent !important; border: none !important; color: #000 !important; padding: 12px; font-size: 1.2rem; outline: none; }
+        .go-btn { width: 40px !important; height: 40px !important; border-radius: 50% !important; border: none; background: #000 !important; color: #fff !important; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        #music-card { display: none; margin-top: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 20px; text-align: center; }
+        .disc { width: 140px; height: 140px; border-radius: 50%; border: 2px solid var(--border); margin: 0 auto 15px auto; object-fit: cover; display: block; }
+        .spinning { animation: rotate 10s linear infinite; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .m-ctrls { display: flex; justify-content: center; align-items: center; gap: 30px; font-size: 1.8rem; margin: 20px 0; }
+        
+        #mini-player { position:absolute; top:85px; right:90px; width:45px; height:45px; border-radius:50%; border:2px solid var(--accent); overflow:hidden; cursor:pointer; display:none; z-index:10; background:#000; }
+        #mini-art { width:100%; height:100%; object-fit:cover; display:block; }
+
+        /* ================= WALLPAPERS (FIXED HEIGHT) ================= */
+        .wp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+        .wp-card { height: 250px; background: #111; border-radius: 25px; position: relative; overflow: hidden; border: 1px solid var(--text); }
+        .wp-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; display: block; }
+        .wp-overlay { position: absolute; bottom: 0; width: 100%; padding: 10px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); text-align: center; }
+        .wp-overlay p { color: #fff !important; opacity: 1 !important; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+        .wp-overlay .btn { width: 90%; margin: 5px auto 0; padding: 8px 0; font-size: 1rem; border-radius: 15px; background: #fff !important; }
+        .wp-overlay .btn .btn-text { color: #000 !important; font-weight: bold !important; opacity: 1 !important; }
+
+        /* ================= OTHER MODULES ================= */
+        .up-box { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 15px; margin-bottom: 12px; }
+        .up-box h4 { font-size: 1.4rem; color: var(--text) !important; }
+        .up-box p { font-size: 0.9rem; opacity: 0.5; margin-top: 4px; text-transform: none; }
+        
+        .sw-display { display: none; align-items: center; gap: 20px; margin: 15px 0; padding: 15px; background: var(--card); border-radius: 25px; border: 1px solid var(--border); animation: fadeIn 0.3s ease; }
+        .sw-img-box { width: 70px; height: 90px; border-radius: 12px; overflow: hidden; background: var(--card); flex-shrink: 0; }
+        .sw-img-box img { width: 120%; height: 100%; object-fit: cover; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .guide-box { border: 1px solid var(--border); border-radius: 22px; margin-bottom: 15px; overflow: hidden; margin-top: 20px; background: var(--card); }
+        .guide-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .guide-content { max-height: 0; overflow: hidden; transition: 0.4s ease; padding: 0 20px; opacity: 0; }
+        .guide-content.open { max-height: 500px; padding: 20px; opacity: 1; border-top: 1px solid var(--border); }
+        .guide-content p { color: var(--text) !important; opacity: 0.7 !important; text-transform: none; font-size: 1.1rem; margin-bottom: 15px; }
+
+        .detail-card { background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 25px; margin-top: 20px; animation: fadeIn 0.3s ease; }
+        .sc-badge { background: #222; color: #888; padding: 4px 10px; border-radius: 8px; font-size: 0.9rem; border: 1px solid var(--border); }
+        .card-row { display: flex; gap: 10px; margin-top: 15px; }
+
+        footer { text-align: center; padding: 30px; opacity: 0.3; font-size: 0.8rem; letter-spacing: 1px; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 10px; }
+        footer a { color: var(--text); }
+    </style>
+</head>
+<body>
+
+<div id="wrapper" class="entrance-wrapper">
+    <div class="wrapper-content">
+        <h1 class="nothing-logo">NOTHING SPACE</h1>
+        <div class="loader-bar"></div>
+    </div>
+</div>
+
+<div class="stars-container" id="starField"></div>
+<div class="canvas"></div>
+
+<header>
+    <div class="logo">
+        <p style="opacity: 0.4; letter-spacing: 2px;">ONLY FOR FANS</p>
+        <h1>NOTHING<br>SPACE</h1>
+    </div>
+    <div class="t-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="t-icon"></i></div>
+</header>
+
+<div class="bento">
+    <div class="tile full" onclick="openScreen('upScr')"><h1>WEBSITE</h1><p>WHAT'S NEW ADDED</p></div>
+    <div class="tile full" onclick="openScreen('musicScr')"><h1>RINGTONE</h1><p>DOWNLOAD MP3</p></div>
+    <div class="tile full" onclick="openScreen('pgScr')"><h1>PLAYGROUND</h1><p>presets WIDGETs APPs</p></div>
+    <div class="tile full" onclick="openScreen('swScr')"><h1>SOFTWARE </h1><p>NOS ZIP FILE</p></div>
+    <div class="tile full" onclick="openScreen('wpScr')"><h1>WALLPAPER </h1><p>EXCLUSIVe Collection</p></div>
+    <div class="tile full" onclick="openScreen('scScr')"><h1>SERVICE </h1><p>LOCATE CENTERS</p></div>
+    <div class="tile full" onclick="openScreen('feedbackScr')"><h1>COMMUNITY </h1><p>FEEDBACK & SUGGESTIONS</p></div>
+</div>
+
+<div id="mini-player" onclick="restorePlayer()">
+    <img src="" id="mini-art" class="spinning">
+</div>
+
+<div id="upScr" class="screen"><div class="modal">
+    <span class="close-icon" onclick="closeScreen('upScr')">×</span>
+    <h2>WEBSITE LOGS</h2>
+    <div style="margin-top:20px;">
+        <div class="up-box"><h4>COMMUNITY BOARD</h4><p>Now you can share feedback, ideas & suggestions.</p></div>
+        <div class="up-box"><h4>NEW RINGTONE PLAYER</h4><p>Ad-free nonstop ringtones & background Playble.</p></div>
+        <div class="up-box"><h4>NEW WALLPAPERS</h4><p>Added high-quality art works in the gallery.</p></div>
+        <div class="up-box"><h4>SOFTWARE UPDATE</h4><p>Now supports all phones with latest NOS ZIPs.</p></div>
+        <div class="up-box"><h4>SERVICE DATABASE</h4><p>Call or open maps directly, no more hassle.</p></div>
+    </div>
+</div></div>
+
+<div id="feedbackScr" class="screen">
+    <div class="modal" style="height: 80vh; display: flex; flex-direction: column;">
+        <span class="close-icon" onclick="closeScreen('feedbackScr')">×</span>
+        <h2>COMMUNITY BOARD</h2>
+        <p style="opacity: 0.4; font-size: 0.8rem; margin-bottom: 15px;">PUBLIC FEEDBACK & CHAT</p>
+        <div id="msgBoard" style="flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth;"></div>
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 5px 5px 5px 15px; display: flex; align-items: center; margin-top: 15px;">
+            <input type="text" id="userMsg" placeholder="SHARE SUGGESTION..." style="flex: 1; background: transparent; border: none; color: var(--text); outline: none; font-family: 'VT323' !important; font-size: 1.2rem;">
+            <button onclick="sendMsg()" style="width: 45px; height: 45px; border-radius: 50%; background: var(--text); color: var(--bg); border: none; cursor: pointer; display: flex; justify-content: center; align-items: center;">
+                <i class="fa-solid fa-arrow-up"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="musicScr" class="screen">
+    <div class="modal">
+        <span class="close-icon" onclick="handleMusicClose()">×</span>
+        <h2>RINGTONE PLAYER</h2>
+        <div class="music-ui">
+            <div class="search-box-m">
+                <input type="text" id="mQuery" placeholder="SEARCH SONG...">
+                <button class="go-btn" id="mSearchBtn" onclick="searchMusic()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+        <div id="music-card">
+            <img src="" id="mArt" class="disc">
+            <h3 id="mTitle" style="margin-top:15px;">TITLE</h3>
+            <p id="mArtist" style="opacity:0.5;">ARTIST</p>
+            <div class="m-ctrls">
+                <i class="fa-solid fa-backward-step" onclick="prevSong()" style="cursor:pointer"></i>
+                <span id="play-pause" onclick="togglePlay()" style="cursor:pointer"><i class="fa-solid fa-circle-play"></i></span>
+                <i class="fa-solid fa-forward-step" onclick="nextSong()" style="cursor:pointer"></i>
+            </div>
+            <button class="btn" onclick="downloadCurrentSong()">DOWNLOAD MP3</button>
+        </div>
+        <audio id="mPlayer" onended="nextSong()"></audio>
+    </div>
+</div>
+
+<div id="swScr" class="screen"><div class="modal">
+    <span class="close-icon" onclick="closeScreen('swScr')">×</span>
+    <h2>SYSTEM UPDATE</h2>
+    <div class="guide-box">
+        <div class="guide-header" onclick="toggleAccordion()">
+            <span>HOW TO UPDATE?</span>
+            <div class="arrow-wrapper" style="position:static;"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+        </div>
+        <div class="guide-content" id="accContent">
+            <p>1. DOWNLOAD THE BETA HUB TOOL APK.<br>2. CREATE "OTA" FOLDER IN INTERNAL STORAGE AND PASTE OTA ZIP INSIDE.<br>3. SETTING - SYSTEM - BETA HUB - IMPORT FILE - ZIP - UPDATE.</p>
+            <button class="btn" onclick="runDownload(this, 'BETA_TOOL')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD BETA TOOL</span></button>
+        </div>
+    </div>
+    <div class="sw-display" id="swDisplay">
+        <div class="sw-img-box"><img src="" id="swPhoneImg"></div>
+        <div class="sw-info"><h2 id="swPhoneTitle">DEVICE</h2><p style="opacity:0.5; font-size:0.9rem;">Official OTA Firmware Zip</p></div>
+    </div>
+    <div class="input-group">
+        <select id="swSelect" onchange="showLogs()">
+            <option value="">SELECT YOUR DEVICE</option>
+            
+<option value="p1">NOTHING PHONE (1)</option>
+<option value="p2">NOTHING PHONE (2)</option>
+<option value="p2a">NOTHING PHONE (2A)</option>
+<option value="p2aplus">NOTHING PHONE (2A) PLUS</option>
+<option value="p3">NOTHING PHONE (3)</option>
+<option value="p3a">NOTHING PHONE (3A)</option>
+<option value="p3apro">NOTHING PHONE (3A) PRO</option>
+<option value="p3alite">NOTHING PHONE (3A) LITE</option>
+<option value="cmf1">CMF PHONE 1</option>
+<option value="cmf2pro">CMF PHONE 2 PRO</option>
+       </select>
+        <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+    </div>
+    <div id="logBox" style="display:none;" class="detail-card">
+        <h3>CHANGELOG:</h3>
+        <ul id="swList" style="margin:15px 0; opacity:0.7; list-style: inside; text-transform: none;"></ul>
+        <button class="btn" onclick="runDownload(this, 'OTA_ZIP')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD OTA ZIP</span></button>
+    </div>
+</div></div>
+
+<div id="pgScr" class="screen"><div class="modal">
+    <span class="close-icon" onclick="closeScreen('pgScr')">×</span>
+    <h2>PLAYGROUND</h2>
+    <div style="margin-top:20px;">
+        <div class="pg-btn" onclick="openScreen('presetScr')"><span>CAMERA PRESETS</span><i class="fa-solid fa-camera"></i></div>
+        <div class="pg-btn" onclick="alert('Coming Soon')"><span>COMMUNITY WIDGETS</span><i class="fa-solid fa-shapes"></i></div>
+    </div>
+</div></div>
+
+<div id="presetScr" class="screen"><div class="modal">
+    <span class="close-icon" onclick="closeScreen('presetScr')">×</span>
+    <h2>CAMERA PRESETS</h2>
+    <p style="opacity:0.5; margin-bottom:10px;">EXCLUSIVE PRESETS</p>
+    <div class="wp-grid" id="presetGrid"></div>
+</div></div>
+
+<div id="wpScr" class="screen"><div class="modal">
+    <span class="close-icon" onclick="closeScreen('wpScr')">×</span>
+    <h2>GALLERY</h2>
+    <div onclick="openScreen('aiWpScr')" style="background: var(--text); border: 1px solid var(--border); border-radius: 20px; padding: 16px; margin-bottom: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+        <span style="color: var(--bg); font-weight: bold; font-size: 1.2rem;"> CREATE WITH AI</span><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--bg);"></i>
+    </div>
+    <div class="wp-grid" id="wallpaperGrid"></div>
+</div></div>
+
+<div id="aiWpScr" class="screen"><div class="modal">
+    <span class="close-icon" onclick="closeScreen('aiWpScr')">×</span>
+    <h2>AI STUDIO</h2>
+    <div class="input-group"><input type="text" id="aiPrompt" placeholder="DESCRIBE YOUR IDEA..." style="text-align: left;"></div>
+    <div class="input-group">
+        <select id="aiRatio"><option value="9:16">MOBILE (9:16)</option><option value="16:9">PC (16:9)</option><option value="1:1">SQUARE (1:1)</option></select>
+        <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+    </div>
+    <button class="btn" id="genBtn" onclick="generateAIWall()"><div class="progress-bar"></div><span class="btn-text">GENERATE</span></button>
+    <div id="aiResult" style="margin-top: 20px; display: none;">
+        <div class="wp-card" style="height: 400px; border: 1px solid var(--border);">
+            <img id="aiImg" src="" style="width: 100%; height: 100%; object-fit: cover;">
+            <div class="wp-overlay"><button class="btn" onclick="downloadAIWall(this)"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD</span></button></div>
+        </div>
+    </div>
+</div></div>
+
+<div id="scScr" class="screen"><div class="modal">
+    <span class="close-icon" onclick="closeScreen('scScr')">×</span>
+    <h2>SERVICE CENTERS</h2>
+    <div class="input-group" style="margin-top:20px;">
+        <select id="state" onchange="loadCities()">
+            <option value="">SELECT STATE</option>
+<option value="ANDHRA PRADESH">ANDHRA PRADESH</option>
+<option value="ASSAM">ASSAM</option>
+<option value="BIHAR">BIHAR</option>
+<option value="CHANDIGARH">CHANDIGARH</option>
+<option value="CHHATTISGARH">CHHATTISGARH</option>
+<option value="DELHI">DELHI</option>
+<option value="GOA">GOA</option>
+<option value="GUJARAT">GUJARAT</option>
+<option value="HARYANA">HARYANA</option>
+<option value="HIMACHAL PRADESH">HIMACHAL PRADESH</option>
+<option value="JAMMU & KASHMIR">JAMMU & KASHMIR</option>
+<option value="JHARKHAND">JHARKHAND</option>
+<option value="KARNATAKA">KARNATAKA</option>
+<option value="KERALA">KERALA</option>
+<option value="MADHYA PRADESH">MADHYA PRADESH</option>
+<option value="MAHARASHTRA">MAHARASHTRA</option>
+<option value="MEGHALAYA">MEGHALAYA</option>
+<option value="NAGALAND">NAGALAND</option>
+<option value="ODISHA">ODISHA</option>
+<option value="PUDUCHERRY">PUDUCHERRY</option>
+<option value="PUNJAB">PUNJAB</option>
+<option value="RAJASTHAN">RAJASTHAN</option>
+<option value="TAMIL NADU">TAMIL NADU</option>
+<option value="TELANGANA">TELANGANA</option>
+<option value="TRIPURA">TRIPURA</option>
+<option value="UTTAR PRADESH">UTTAR PRADESH</option>
+<option value="UTTARAKHAND">UTTARAKHAND</option>
+<option value="WEST BENGAL">WEST BENGAL</option>
+      </select>
+        <div class="arrow-wrapper"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+    </div>
+    <div class="input-group">
+        <select id="city" onchange="showDetails()" style="display:none"></select>
+        <div class="arrow-wrapper" id="cityArrow" style="display:none"><div class="dot-arrow"><div class="dot-row"><div class="dot"></div><div class="dot" style="visibility:hidden"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div><div class="dot"></div></div><div class="dot-row"><div class="dot"></div></div></div></div>
+    </div>
+    <div id="scInfo"></div>
+</div></div>
+
+<footer>
+  <div class="footer-links">
+<a href="javascript:void(0)" onclick="openScreen('aboutScr')">ABOUT</a>
+<a href="javascript:void(0)" onclick="openScreen('privacyScr')">PRIVACY</a>
+<a href="javascript:void(0)" onclick="openScreen('disclaimerScr')">DISCLAIMER</a>
+<a href="javascript:void(0)" onclick="openScreen('contactScr')">CONTACT</a>
+ </div>
+  <p>NOTHING SPACE © 2026<br>DESIGNED FOR THE COMMUNITY</p>
+</footer>
+<div id="aboutScr" class="screen"><div class="modal"><span class="close-icon" onclick="closeScreen('aboutScr')">×</span><h2>ABOUT NOTHING SPACE</h2><div class="detail-card"><p>Nothing Space is a community-driven portal for Nothing fans. We provide curated OTA links, custom wallpapers, and technical guides to help you get the best out of your device.</p><p>We are independent and fan-made, aiming to create a hub for Nothing enthusiasts to share and explore resources.</p></div></div></div>
+<div id="privacyScr" class="screen"><div class="modal"><span class="close-icon" onclick="closeScreen('privacyScr')">×</span><h2>PRIVACY POLICY</h2><div class="detail-card"><p><b>Data:</b> We do not collect personal information such as name, phone number, or address.</p><p><b>Cookies:</b> We use essential cookies to remember your theme preference (Light/Dark).</p><p><b>Ads:</b> This site uses Google AdSense. Google may use cookies to serve ads based on your browsing history. You can manage this in your Google account settings.</p></div></div></div>
+<div id="disclaimerScr" class="screen"><div class="modal"><span class="close-icon" onclick="closeScreen('disclaimerScr')">×</span><h2>LEGAL DISCLAIMER</h2><div class="detail-card"><p>This is a <b>fan-made</b> website and is not affiliated with Nothing Technology Limited or CMF.</p><p>All content is for educational and informational purposes only. Downloading firmware, files, or tools is at your own risk.</p></div></div></div>
+<div id="contactScr" class="screen"><div class="modal"><span class="close-icon" onclick="closeScreen('contactScr')">×</span><h2>CONTACT US</h2><div class="detail-card"><p>For support or inquiries, contact us at:</p><p>📧 Email: <b>techiboy96s@gmail.com</b></p><p>💬 Telegram: <b>@techiboy_discuss</b></p><p style="margin-top:10px;">We aim to respond within 24 hours.</p></div></div></div>
+<script>
+    const CONFIG = {
+        BETA_TOOL_URL: "https://github.com/nothingcommunity/Testing/raw/refs/heads/main/Apps/Beta%20Updates%20Hub.apk",
+        SOFTWARE: {}, SERVICE_DB: {}, WALLPAPERS: []
+    };
+    const DB_URL = "https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat.json";
+    let SERVICE_DB = {}; 
+    let currentPlaylist = [], currentIndex = 0, lastPlayedArt = "";
+
+    window.addEventListener('load', () => {
+        applyAutoTheme();
+        createStars();
+        createMoon();
+        // Removed initScrollReveal call for instant loading
+        
+        initSoftwareData();
+        initServiceData();
+        loadMessages();
+
+        const wrapper = document.getElementById('wrapper');
+        setTimeout(() => { if(wrapper) { wrapper.classList.add('exit'); setTimeout(() => { wrapper.style.display = 'none'; }, 1300); } }, 2000);
+    });
+
+    function applyAutoTheme() {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+        updateThemeIcon(prefersDark ? 'dark' : 'light');
+    }
+    function toggleTheme() {
+        const root = document.documentElement;
+        const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', newTheme);
+        updateThemeIcon(newTheme);
+    }
+    function updateThemeIcon(theme) { document.getElementById('t-icon').className = theme === 'dark' ? "fa-solid fa-circle" : "fa-solid fa-sun"; }
+    
+    function createStars() {
+        const field = document.getElementById('starField');
+        field.innerHTML = '';
+        for(let i=0; i<300; i++) {
+            const s = document.createElement('div'); s.className = 'star';
+            const size = Math.random() * 3;
+            Object.assign(s.style, { width:size+'px', height:size+'px', top:Math.random()*100+'%', left:Math.random()*100+'%', animation:`blink ${2+Math.random()*3}s infinite`, opacity:Math.random() });
+            field.appendChild(s);
+        }
+    }
+    function createMoon() {
+        if(!document.querySelector('.moon')) { const moon = document.createElement('div'); moon.className = 'moon'; document.body.appendChild(moon); }
+    }
+    
+    // --- SMOOTH ANIMATION LOGIC ---
+    function openScreen(id) {
+        const s = document.getElementById(id);
+        if(!s) return;
+        s.style.display = 'flex'; 
+        void s.offsetWidth; 
+        s.classList.add('active');
+        
+        if(id === 'wpScr') initWallpaperData();
+        if(id === 'presetScr') initPresetData();
+    }
+    function closeScreen(id) {
+        const s = document.getElementById(id);
+        if(!s) return;
+        s.classList.remove('active'); 
+        setTimeout(() => { s.style.display = 'none'; }, 500);
+    }
+
+    // --- MUSIC DOWNLOAD FIX (Clean Name) ---
+    async function downloadCurrentSong() {
+        const song = currentPlaylist[currentIndex];
+        const btn = document.querySelector('#music-card .btn');
+        const originalText = btn.innerText;
+        if(!song) return;
+        btn.style.pointerEvents = "none"; btn.innerText = "FETCHING...";
+        try {
+            const response = await fetch(song.url);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const cleanTitle = song.title.replace(/[^a-zA-Z0-9\s]/g, '').trim(); 
+            const fileName = `${cleanTitle} - NothingSpace.mp3`;
+            const a = document.createElement('a'); a.href = url; a.download = fileName;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a); window.URL.revokeObjectURL(url);
+            btn.innerText = "DONE ✓";
+        } catch (e) {
+            console.error(e); window.open(song.url, '_blank'); btn.innerText = "OPENED";
+        }
+        setTimeout(() => { btn.innerText = originalText; btn.style.pointerEvents = "all"; }, 2000);
+    }
+
+    async function runDownload(btn, input) {
+        const bar = btn.querySelector('.progress-bar');
+        const txt = btn.querySelector('.btn-text');
+        const oldTxt = txt.innerText;
+        let finalUrl = "";
+
+        if (input === 'BETA_TOOL') finalUrl = CONFIG.BETA_TOOL_URL;
+        else if (input === 'OTA_ZIP') {
+            const device = document.getElementById('swSelect').value;
+            if(!device) { alert("PLEASE SELECT A DEVICE!"); return; }
+            finalUrl = CONFIG.SOFTWARE[device]?.url;
+        } else finalUrl = input;
+
+        if (!finalUrl || finalUrl === "#") { alert("LINK NOT FOUND!"); return; }
+
+        btn.style.pointerEvents = 'none'; txt.innerText = 'PROCESSING...';
+        bar.style.transition = 'width 1.5s linear'; bar.style.width = '100%';
+
+        const isZip = finalUrl.toLowerCase().endsWith('.zip') || finalUrl.toLowerCase().endsWith('.apk');
+        if (isZip) {
+            setTimeout(() => {
+                const link = document.createElement('a'); link.href = finalUrl; link.target = "_blank";
+                document.body.appendChild(link); link.click(); document.body.removeChild(link);
+                finishDownload(btn, txt, bar, oldTxt);
+            }, 1000);
+        } else {
+            try {
+                const response = await fetch(finalUrl);
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                const link = document.createElement('a'); link.href = blobUrl; link.download = "NothingSpace_" + Date.now() + ".png";
+                document.body.appendChild(link); link.click(); document.body.removeChild(link); window.URL.revokeObjectURL(blobUrl);
+                finishDownload(btn, txt, bar, oldTxt);
+            } catch (err) {
+                window.open(finalUrl, '_blank'); finishDownload(btn, txt, bar, oldTxt);
+            }
+        }
+    }
+    function finishDownload(btn, txt, bar, oldTxt) {
+        txt.innerText = "DONE ✓"; setTimeout(() => { bar.style.transition = 'none'; bar.style.width = '0%'; txt.innerText = oldTxt; btn.style.pointerEvents = 'all'; }, 1000);
+    }
+
+    async function initSoftwareData() {
+        try {
+            const response = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Software/software.json", { cache: "no-cache" });
+            const data = await response.json();
+            if (data.SOFTWARE) CONFIG.SOFTWARE = data.SOFTWARE;
+        } catch (err) { console.error("SW Error:", err); }
+    }
+    function showLogs() {
+        const m = document.getElementById('swSelect').value;
+        const box = document.getElementById('logBox'), disp = document.getElementById('swDisplay');
+        if(!m || !CONFIG.SOFTWARE[m]) { box.style.display = 'none'; disp.style.display = 'none'; return; }
+        const data = CONFIG.SOFTWARE[m];
+        document.getElementById('swPhoneImg').src = data.img;
+        document.getElementById('swPhoneTitle').innerText = data.disp;
+        disp.style.display = 'flex';
+        document.getElementById('swList').innerHTML = (data.logs && Array.isArray(data.logs)) ? data.logs.map(l => `<li>${l}</li>`).join('') : "<li>Details not available</li>";
+        box.style.display = 'block';
+    }
+    function toggleAccordion() { document.getElementById('accContent').classList.toggle('open'); }
+
+    async function searchMusic() {
+        const query = document.getElementById('mQuery').value;
+        const btn = document.getElementById('mSearchBtn');
+        const card = document.getElementById('music-card');
+        if (!query) return;
+        const originalBtn = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+        try {
+            const res = await fetch(`https://itunes.apple.com/search?limit=250&entity=song&term=${encodeURIComponent(query)}`);
+            const data = await res.json();
+            if (data.results.length > 0) {
+                currentPlaylist = data.results.map(song => ({
+                    url: song.previewUrl, art: song.artworkUrl100.replace('100x100', '400x400'),
+                    title: song.trackName.replace(/mzaf_\d+/g, "NOTHING TRACK").toUpperCase(), artist: "NOTHING COMMUNITY"
+                }));
+                currentIndex = 0; card.style.display = "block"; loadSong(0);
+            } else alert("NOTHING FOUND");
+        } catch (e) { console.error(e); } finally { btn.innerHTML = originalBtn; }
+    }
+    function loadSong(index) {
+        if (!currentPlaylist[index]) return;
+        const song = currentPlaylist[index];
+        const player = document.getElementById('mPlayer');
+        document.getElementById('mArt').src = song.art;
+        document.getElementById('mTitle').innerText = song.title;
+        document.getElementById('mArtist').innerText = song.artist;
+        lastPlayedArt = song.art;
+        if(document.getElementById('mini-art')) document.getElementById('mini-art').src = lastPlayedArt; 
+        player.src = song.url; player.load(); togglePlay(true);
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({ title: song.title, artist: 'NOTHING COMMUNITY', artwork: [{ src: song.art, sizes: '512x512', type: 'image/png' }] });
+            navigator.mediaSession.setActionHandler('previoustrack', prevSong); navigator.mediaSession.setActionHandler('nexttrack', nextSong);
+            navigator.mediaSession.setActionHandler('play', () => togglePlay(true)); navigator.mediaSession.setActionHandler('pause', () => togglePlay());
+        }
+    }
+    function togglePlay(forcePlay = false) {
+        const player = document.getElementById('mPlayer');
+        const icon = document.querySelector('#play-pause i');
+        const art = document.getElementById('mArt');
+        if (player.paused || forcePlay) { player.play().catch(()=>{}); icon.className = "fa-solid fa-circle-pause"; art.classList.add('spinning'); } 
+        else { player.pause(); icon.className = "fa-solid fa-circle-play"; art.classList.remove('spinning'); }
+    }
+    function nextSong() { if(currentPlaylist.length) { currentIndex = (currentIndex + 1) % currentPlaylist.length; loadSong(currentIndex); } }
+    function prevSong() { if(currentPlaylist.length) { currentIndex = (currentIndex - 1 + currentPlaylist.length) % currentPlaylist.length; loadSong(currentIndex); } }
+    function handleMusicClose() { closeScreen('musicScr'); if (!document.getElementById('mPlayer').paused) { document.getElementById('mini-player').style.display = 'block'; document.getElementById('mini-art').src = lastPlayedArt; document.getElementById('mini-art').classList.add('spinning'); } }
+    function restorePlayer() { document.getElementById('mini-player').style.display = 'none'; openScreen('musicScr'); }
+
+    async function initServiceData() {
+        try { const response = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Service%20Centre/service_centre.json"); SERVICE_DB = await response.json(); } catch (err) { console.error("Service Data Error"); }
+    }
+    function loadCities() {
+        const s = document.getElementById('state').value, cSel = document.getElementById('city'), cArr = document.getElementById('cityArrow');
+        cSel.innerHTML = '<option value="">SELECT CITY</option>';
+        if(!s || !SERVICE_DB[s]) { cSel.style.display = 'none'; cArr.style.display = 'none'; return; }
+        cSel.style.display = 'block'; cArr.style.display = 'block';
+        [...new Set(Object.keys(SERVICE_DB[s]).map(c => c.split('_')[0]))].sort().forEach(c => cSel.innerHTML += `<option value="${c}">${c}</option>`);
+    }
+    function showDetails() {
+        const s = document.getElementById('state').value, c = document.getElementById('city').value, scInfo = document.getElementById('scInfo');
+        if(!c || !SERVICE_DB[s]) return;
+        scInfo.innerHTML = ''; 
+        Object.keys(SERVICE_DB[s]).filter(key => key === c || key.startsWith(c + "_")).forEach(key => {
+            const d = SERVICE_DB[s][key];
+            scInfo.innerHTML += `<div class="detail-card"><div style="display:flex;justify-content:space-between;margin-bottom:10px;"><h3 style="font-size:1.4rem;">${d.n}</h3><span class="sc-badge">ID: ${d.c}</span></div><p style="text-transform:none;opacity:0.7;font-size:1rem;margin-bottom:15px;">${d.a}</p><div style="font-size:0.9rem;margin-bottom:15px;"><p>🕒 ${d.t}</p><p>🚫 OFF: ${d.o}</p></div><div class="card-row"><button class="btn" style="flex:1;padding:12px;" onclick="window.open('tel:${d.p}')">CALL</button><button class="btn" style="flex:1;padding:12px;" onclick="window.open('${d.m}')">MAPS</button></div></div>`;
+        });
+    }
+
+    async function initWallpaperData() {
+        const grid = document.getElementById('wallpaperGrid');
+        if(!grid.innerHTML.trim()) grid.innerHTML = "<p style='padding:20px'>LOADING...</p>";
+        try { const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Wallpapers/Walls/wallpapers.json"); const data = await res.json(); const walls = Array.isArray(data) ? data : data.wallpapers; grid.innerHTML = walls.map(w => `<div class="wp-card"><img src="${w.img}"><div class="wp-overlay"><button class="btn" onclick="runDownload(this, '${w.url}')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD</span></button></div></div>`).join(''); } catch(e) { grid.innerHTML = "ERROR LOADING"; }
+    }
+    async function initPresetData() {
+        const grid = document.getElementById('presetGrid');
+        if(!grid.innerHTML.trim()) grid.innerHTML = "<p style='padding:20px'>LOADING...</p>";
+        try { const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Camera%20Presets/Presets/presets.json"); const data = await res.json(); grid.innerHTML = data.map(p => `<div class="wp-card"><img src="${p.img}"><div class="wp-overlay"><p>${p.id || 'PRESET'}</p><button class="btn" onclick="runDownload(this, '${p.url}')"><div class="progress-bar"></div><span class="btn-text">GET</span></button></div></div>`).join(''); } catch(e) { grid.innerHTML = "ERROR"; }
+    }
+    async function generateAIWall() {
+        const prompt = document.getElementById('aiPrompt').value.trim();
+        const ratio = document.getElementById('aiRatio').value;
+        const btn = document.getElementById('genBtn'), aiImg = document.getElementById('aiImg'), resultDiv = document.getElementById('aiResult'), bar = btn.querySelector('.progress-bar'), txt = btn.querySelector('.btn-text');
+        if (!prompt) { alert("PLEASE ENTER SOMETHING"); return; }
+        btn.style.pointerEvents = 'none'; txt.innerText = 'IMAGINING...'; bar.style.transition = 'width 60s cubic-bezier(0.4, 0, 0.2, 1)'; bar.style.width = '90%'; resultDiv.style.display = 'none'; aiImg.style.opacity = '0';
+        let w = 1080, h = 1920; if (ratio === "16:9") { w = 1920; h = 1080; } else if (ratio === "1:1") { w = 1080; h = 1080; }
+        const seed = Math.floor(Math.random() * 100000);
+        const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt + ", nothing style, minimal, 8k")}?width=${w}&height=${h}&seed=${seed}&nologo=true&model=flux`;
+        try {
+            const res = await fetch(url); if (!res.ok) throw new Error("Error"); const blob = await res.blob();
+            if (blob.size > 1000000) throw new Error("Rate Limit");
+            aiImg.src = URL.createObjectURL(blob); resultDiv.style.display = 'block'; setTimeout(() => { aiImg.style.opacity = '1'; resultDiv.scrollIntoView({behavior:'smooth'}); }, 100);
+            bar.style.width = '0%'; bar.style.transition = 'none'; txt.innerText = 'GENERATE AGAIN';
+        } catch (e) { alert("SERVER BUSY. TRY LATER."); bar.style.width = '0%'; bar.style.transition = 'none'; txt.innerText = 'TRY AGAIN'; } finally { btn.style.pointerEvents = 'all'; }
+    }
+    async function downloadAIWall(btn) { runDownload(btn, document.getElementById('aiImg').src); }
+
+    async function loadMessages() {
+        try {
+            const res = await fetch(DB_URL); const data = await res.json(); const board = document.getElementById('msgBoard');
+            if (!data) { board.innerHTML = '<p style="opacity:0.4; text-align:center;">NO MESSAGES YET.</p>'; return; }
+            const messages = Object.keys(data).map(key => ({ id: key, ...data[key] }));
+            board.innerHTML = messages.map(m => `<div class="msg-bubble" onclick="adminControl('${m.id}', '${m.userName || 'USER'}')"><span class="u-badge">${m.userName || 'USER'}</span><p style="text-transform:none; margin:5px 0;">${m.text}</p>${m.reply ? `<div class="admin-reply-box"><span class="admin-tag">● ADMIN REPLY</span><p style="text-transform:none; opacity:0.8;">${m.reply}</p></div>` : ''}</div>`).join('');
+            board.scrollTop = board.scrollHeight;
+        } catch (e) { console.log(e); }
+    }
+    async function sendMsg() {
+        const input = document.getElementById('userMsg');
+        const btn = document.querySelector('#feedbackScr button');
+        const msg = input.value.trim();
+        if (!msg) return;
+        const originalHTML = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="red-dot-loader"></span>';
+        try { await fetch(DB_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userName: "USER", text: msg, reply: "", timestamp: Date.now() }) }); input.value = ""; await loadMessages(); } catch (e) { alert("FAILED TO SEND"); } finally { btn.disabled = false; btn.innerHTML = originalHTML; }
+    }
+    async function adminControl(msgId, currentName) {
+        const pass = prompt("ADMIN PASSWORD:");
+        if (pass === "465610") {
+            const action = prompt("1. REPLY \n2. EDIT NAME \n3. DELETE MESSAGE");
+            const url = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${msgId}.json`;
+            if (action === "1") { const txt = prompt("REPLY:"); if(txt) await fetch(url, { method: 'PATCH', body: JSON.stringify({ reply: txt }) }); }
+            else if (action === "2") { const name = prompt("NEW NAME:", currentName); if(name) await fetch(url, { method: 'PATCH', body: JSON.stringify({ userName: name.toUpperCase() }) }); }
+            else if (action === "3") { if(confirm("DELETE?")) await fetch(url, { method: 'DELETE' }); }
+            loadMessages();
+        }
+    }
+    function checkImei(btn) {
+        const val = document.getElementById('imeiInput').value;
+        if(val.length !== 15) { alert("ENTER 15 DIGITS"); return; }
+        const bar = btn.querySelector('.progress-bar');
+        bar.style.width = "100%"; bar.style.transition = "width 1s";
+        setTimeout(() => { bar.style.width = "0%"; bar.style.transition = "none"; document.getElementById('imeiResult').innerHTML = `<div class="detail-card"><h3>VERIFIED</h3><p>Valid Nothing Device Structure.</p></div>`; }, 1000);
+    }
+</script>
+
+</body>
+</html>
+<style>/* --- SAFE SCROLL ANIMATION CSS --- */
+.wp-card {
+    /* Opacity 1 rakha hai taaki images gayab na ho */
+    opacity: 1; 
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Ye class JS lagayega animation ke liye */
+.wp-card.hidden-state {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+}
+
+.wp-card.scroll-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+</style><script> // Is function ko script me sabse neeche rakhna
+function attachScrollAnimation() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.remove('hidden-state'); // Chupa hua state hatao
+                entry.target.classList.add('scroll-active');    // Active state lagao
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    // Sirf unhi cards ko pakdo jo abhi load huye hain
+    document.querySelectorAll('.wp-card').forEach(card => {
+        // Pehle JS se invisible karo, taaki agar JS fail ho toh CSS se invisible na rahe
+        card.classList.add('hidden-state'); 
+        observer.observe(card);
+    });
+}
+
+// Updated Preset Function
+async function initPresetData() {
+    const grid = document.getElementById('presetGrid');
+    
+    // Loading text dikhao
+    grid.innerHTML = "<p style='padding:20px; text-align:center;'>LOADING PRESETS...</p>";
+    
+    try { 
+        const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Camera%20Presets/Presets/presets.json"); 
+        const data = await res.json(); 
+        
+        // HTML banao
+        grid.innerHTML = data.map(p => `
+            <div class="wp-card">
+                <img src="${p.img}" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+                <div class="wp-overlay">
+                    <p>${p.id || 'PRESET'}</p>
+                    <button class="btn" onclick="runDownload(this, '${p.url}')">
+                        <div class="progress-bar"></div>
+                        <span class="btn-text">GET</span>
+                    </button>
+                </div>
+            </div>
+        `).join(''); 
+
+        // Animation trigger karo
+        setTimeout(attachScrollAnimation, 100);
+
+    } catch(e) { 
+        console.error(e);
+        grid.innerHTML = "<p style='padding:20px; color:red;'>ERROR LOADING IMAGES</p>"; 
+    }
+}
+
+// Updated Wallpaper Function (Isko bhi same logic se update kar lo)
+async function initWallpaperData() {
+    const grid = document.getElementById('wallpaperGrid');
+    grid.innerHTML = "<p style='padding:20px; text-align:center;'>LOADING WALLPAPERS...</p>";
+    
+    try { 
+        const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Wallpapers/Walls/wallpapers.json"); 
+        const data = await res.json(); 
+        const walls = Array.isArray(data) ? data : data.wallpapers; 
+        
+        grid.innerHTML = walls.map(w => `
+            <div class="wp-card">
+                <img src="${w.img}" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+                <div class="wp-overlay">
+                    <button class="btn" onclick="runDownload(this, '${w.url}')">
+                        <div class="progress-bar"></div>
+                        <span class="btn-text">DOWNLOAD</span>
+                    </button>
+                </div>
+            </div>
+        `).join(''); 
+
+        setTimeout(attachScrollAnimation, 100); 
+
+    } catch(e) { 
+        grid.innerHTML = "ERROR LOADING"; 
+    }
+}
+</script>
