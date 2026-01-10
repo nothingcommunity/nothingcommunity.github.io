@@ -3,390 +3,613 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Unofficial Nothing Phone Community Hub. Firmware, Tools, Wallpapers and Support.">
-    <title>Nothing Community Hub | Unofficial</title>
+    <meta name="description" content="Nothing Community Hub - Download Nothing OS Firmware, Camera Presets, Wallpapers and Ringtones. Unofficial resource for Nothing Phone (1), (2), and (2a).">
+    <meta name="keywords" content="Nothing Phone, Nothing OS, Firmware, Wallpapers, Ringtones, CMF, Tech Support">
+    <meta name="author" content="Rohit">
+    <title>Nothing Community Hub | Resources & Tools</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <meta name="google-adsense-account" content="ca-pub-5140781527793808">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5140781527793808" crossorigin="anonymous"></script>
-
+    <meta name="google-adsense-account" content="ca-pub-5609008553928037">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5609008553928037"
+     crossorigin="anonymous"></script>
     <style>
         :root {
-            --bg: #0a0a0a;
-            --card: #141414;
-            --border: #2a2a2a;
-            --text: #ffffff;
-            --text-dim: #888888;
-            --accent: #D71921; /* Nothing Red */
+            --primary: #D71921; /* Nothing Red */
+            --bg: #F4F4F5;
+            --sidebar: #FFFFFF;
+            --text-main: #111111;
+            --text-sec: #666666;
+            --border: #E5E7EB;
+            --card-bg: #FFFFFF;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f0f0f;
+            --sidebar: #1a1a1a;
+            --text-main: #ffffff;
+            --text-sec: #a0a0a0;
+            --border: #333333;
+            --card-bg: #1a1a1a;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         
-        body { background-color: var(--bg); color: var(--text); padding-bottom: 50px; }
-
-        /* HEADER */
-        header {
-            border-bottom: 1px solid var(--border);
+        body { background: var(--bg); color: var(--text-main); display: flex; min-height: 100vh; flex-direction: column; }
+        
+        /* --- LAYOUT --- */
+        .app-container { display: flex; flex: 1; max-width: 1400px; margin: 0 auto; width: 100%; }
+        
+        /* SIDEBAR (Desktop) */
+        aside {
+            width: 260px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
             padding: 20px;
-            background: rgba(10,10,10,0.95);
-            position: sticky; top: 0; z-index: 100;
-            display: flex; justify-content: space-between; align-items: center;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        .brand { font-weight: 800; font-size: 1.4rem; letter-spacing: -1px; }
-        .brand span { color: var(--accent); }
 
-        /* NAVIGATION TABS */
-        .nav-wrapper {
-            overflow-x: auto; white-space: nowrap;
-            padding: 15px 20px; background: var(--bg);
-            border-bottom: 1px solid var(--border);
+        /* MOBILE HEADER */
+        .mobile-header { display: none; padding: 15px; background: var(--sidebar); border-bottom: 1px solid var(--border); align-items: center; justify-content: space-between; }
+        
+        .brand { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 30px; display: flex; align-items: center; gap: 10px; }
+        .brand span { color: var(--primary); }
+        
+        .nav-links { list-style: none; display: flex; flex-direction: column; gap: 5px; flex: 1; }
+        .nav-item { padding: 12px 15px; border-radius: var(--radius); cursor: pointer; color: var(--text-sec); font-weight: 500; transition: 0.2s; display: flex; align-items: center; gap: 12px; }
+        .nav-item:hover, .nav-item.active { background: rgba(215, 25, 33, 0.1); color: var(--primary); }
+        .nav-item i { width: 20px; }
+
+        /* MAIN CONTENT AREA */
+        main { flex: 1; padding: 30px; overflow-y: auto; height: 100vh; }
+        
+        .page-header { margin-bottom: 25px; }
+        .page-header h1 { font-size: 2rem; font-weight: 700; }
+        .page-header p { color: var(--text-sec); margin-top: 5px; }
+
+        /* ADSENSE PLACEHOLDERS */
+        .ad-banner {
+            width: 100%;
+            height: 90px;
+            background: #e0e0e0;
+            margin-bottom: 30px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 0.8rem;
+            border: 1px dashed #bbb;
         }
-        .nav-btn {
-            background: transparent; border: 1px solid var(--border);
-            color: var(--text-dim); padding: 8px 18px; border-radius: 50px;
-            margin-right: 10px; cursor: pointer; font-size: 0.9rem; font-weight: 600;
+
+        /* GRIDS & CARDS */
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        
+        .card { 
+            background: var(--card-bg); 
+            border: 1px solid var(--border); 
+            border-radius: var(--radius); 
+            padding: 20px; 
             transition: 0.2s;
+            box-shadow: var(--shadow);
+            display: flex; flex-direction: column;
         }
-        .nav-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
-        .nav-btn:hover { border-color: var(--text); color: var(--text); }
-
-        /* CONTENT AREAS */
-        .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
-        .section { display: none; animation: fadeIn 0.4s ease; }
-        .section.active { display: block; }
-        @keyframes fadeIn { from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:translateY(0)} }
-
-        /* CARDS */
-        .card {
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 12px; padding: 25px; margin-bottom: 20px;
-        }
-        .card h2 { font-size: 1.5rem; margin-bottom: 10px; letter-spacing: -0.5px; }
-        .card h3 { font-size: 1.1rem; margin: 20px 0 10px; color: var(--text); }
-        .card p { color: var(--text-dim); line-height: 1.6; font-size: 0.95rem; margin-bottom: 15px; }
-        .card ul { margin-left: 20px; color: var(--text-dim); margin-bottom: 15px; }
-        .card li { margin-bottom: 5px; }
-
-        /* FORMS & BUTTONS */
+        .card:hover { transform: translateY(-3px); border-color: var(--primary); }
+        
+        .card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .card p { font-size: 0.9rem; color: var(--text-sec); flex: 1; margin-bottom: 15px; }
+        
         .btn {
-            background: var(--text); color: var(--bg); border: none;
-            padding: 12px 25px; border-radius: 8px; font-weight: 700;
-            cursor: pointer; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px;
+            background: var(--text-main); color: var(--bg); border: none; padding: 12px 20px;
+            border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%; text-align: center;
+            transition: 0.2s; position: relative; overflow: hidden;
         }
-        .btn-red { background: var(--accent); color: #fff; }
-        .btn:hover { opacity: 0.9; }
-        
-        select, input {
-            width: 100%; padding: 12px; background: #000; border: 1px solid var(--border);
-            color: #fff; border-radius: 8px; margin-bottom: 15px; outline: none;
+        .btn:hover { background: var(--primary); color: #fff; }
+
+        /* FUNCTIONALITY SPECIFIC STYLES */
+        .section-view { display: none; animation: fadeIn 0.4s ease; }
+        .section-view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Input Styles */
+        select, input[type="text"] {
+            width: 100%; padding: 12px; border: 1px solid var(--border);
+            border-radius: 8px; background: var(--bg); color: var(--text-main);
+            margin-bottom: 15px; outline: none;
         }
-
-        /* LEGAL TEXT STYLING (Important for AdSense) */
-        .legal-text { font-size: 0.85rem !important; text-align: justify; }
-        .legal-block { border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px; }
         
-        /* UTILS */
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
-        .grid-img { width: 100%; aspect-ratio: 9/16; object-fit: cover; border-radius: 8px; background: #222; }
+        /* Music Player UI */
+        .music-player-ui { text-align: center; background: var(--card-bg); padding: 30px; border-radius: var(--radius); border: 1px solid var(--border); max-width: 500px; margin: 0 auto; }
+        .disc-art { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin: 20px auto; animation: spin 10s linear infinite; animation-play-state: paused; }
+        .disc-art.playing { animation-play-state: running; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        
+        /* Wallpaper Grid */
+        .wp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .wp-item { aspect-ratio: 9/16; border-radius: var(--radius); overflow: hidden; position: relative; background: #333; }
+        .wp-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .wp-item:hover img { transform: scale(1.05); }
+        .wp-overlay { position: absolute; bottom: 0; width: 100%; padding: 10px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); opacity: 0; transition: 0.3s; }
+        .wp-item:hover .wp-overlay { opacity: 1; }
 
+        /* FOOTER */
+        footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.9rem; color: var(--text-sec); display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .footer-links a { color: var(--text-sec); text-decoration: none; margin-right: 15px; }
+        .footer-links a:hover { color: var(--primary); }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .app-container { flex-direction: column; }
+            aside { display: none; position: fixed; z-index: 100; width: 80%; box-shadow: 10px 0 20px rgba(0,0,0,0.2); }
+            aside.mobile-open { display: flex; }
+            .mobile-header { display: flex; position: sticky; top: 0; z-index: 99; }
+            main { padding: 20px; height: auto; }
+            footer { grid-template-columns: 1fr; text-align: center; }
+            .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="brand">NOTHING <span>HUB</span></div>
-        <a href="#legal" onclick="openTab('legal')" style="color:var(--text-dim); font-size:1.5rem; text-decoration:none;"><i class="fa-solid fa-circle-info"></i></a>
-    </header>
+<div class="mobile-header">
+    <div class="brand">NOTHING<span>HUB</span></div>
+    <button onclick="toggleSidebar()" style="background:none; border:none; font-size:1.5rem; color:var(--text-main);"><i class="fa-solid fa-bars"></i></button>
+</div>
 
-    <div class="nav-wrapper">
-        <button class="nav-btn active" onclick="openTab('home', this)">Home</button>
-        <button class="nav-btn" onclick="openTab('software', this)">Firmware</button>
-        <button class="nav-btn" onclick="openTab('walls', this)">Gallery</button>
-        <button class="nav-btn" onclick="openTab('service', this)">Centers</button>
-        <button class="nav-btn" onclick="openTab('legal', this)" style="border-color: var(--accent); color: var(--accent);">About & Legal</button>
-    </div>
+<div class="app-container">
+    <aside id="sidebar">
+        <div class="brand">NOTHING<span>HUB</span></div>
+        <ul class="nav-links">
+            <li class="nav-item active" onclick="switchTab('home')"><i class="fa-solid fa-house"></i> Home</li>
+            <li class="nav-item" onclick="switchTab('software')"><i class="fa-solid fa-download"></i> Firmware / OS</li>
+            <li class="nav-item" onclick="switchTab('music')"><i class="fa-solid fa-music"></i> Ringtones</li>
+            <li class="nav-item" onclick="switchTab('wallpapers')"><i class="fa-solid fa-image"></i> Wallpapers</li>
+            <li class="nav-item" onclick="switchTab('ai-studio')"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Generator</li>
+            <li class="nav-item" onclick="switchTab('service')"><i class="fa-solid fa-screwdriver-wrench"></i> Service Centers</li>
+            <li class="nav-item" onclick="switchTab('community')"><i class="fa-solid fa-comments"></i> Community</li>
+        </ul>
+        <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border);">
+            <div class="nav-item" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i> Switch Theme</div>
+        </div>
+    </aside>
 
-    <div class="container">
-
-        <div id="home" class="section active">
-            <div class="card">
-                <h2>Welcome to the Community.</h2>
-                <p>This is an unofficial resource hub designed for Nothing Phone enthusiasts. We provide direct access to official firmware updates, GCam configuration files, and a curated gallery of aesthetic wallpapers.</p>
-                <button class="btn" onclick="openTab('software', document.querySelectorAll('.nav-btn')[1])">Browse Firmware</button>
-            </div>
-
-            <div class="card">
-                <h2><i class="fa-solid fa-wand-magic-sparkles"></i> AI Wallpaper Studio</h2>
-                <p>Generate unique, abstract backgrounds using our integrated AI tool.</p>
-                <input type="text" id="aiPrompt" placeholder="e.g. Red and Black glass texture...">
-                <button class="btn btn-red" onclick="generateAI()" id="aiBtn">Generate</button>
-                <div id="aiRes" style="margin-top:20px; display:none;">
-                    <img id="aiImg" src="" style="width:100%; border-radius:10px; margin-bottom:10px;">
-                    <button class="btn" onclick="window.open(document.getElementById('aiImg').src)">Download High Res</button>
-                </div>
-            </div>
+    <main>
+        <div class="ad-banner">
+            <span>GOOGLE ADSENSE BANNER SLOT (LEADERBOARD)</span>
         </div>
 
-        <div id="software" class="section">
-            <div class="card">
-                <h2>Firmware Repository</h2>
-                <p>Download official OTA (Over-The-Air) update packages. These links are sourced directly from official servers.</p>
-                
-                <div style="background:#222; padding:15px; border-radius:8px; margin-bottom:20px;">
-                    <h4 style="margin-bottom:10px;">Required Tool</h4>
-                    <p style="font-size:0.8rem; margin-bottom:10px;">To install these updates manually, you need the official 'Offline Updater' tool.</p>
-                    <button class="btn" style="padding:8px 15px; font-size:0.8rem;" onclick="window.open('https://github.com/nothingcommunity/Testing/raw/refs/heads/main/Apps/Beta%20Updates%20Hub.apk')">Download APK</button>
-                </div>
+        <section id="home" class="section-view active">
+            <div class="page-header">
+                <h1>Welcome to Nothing Hub</h1>
+                <p>The unofficial community resource for Firmware, Tools, and Customization.</p>
+            </div>
 
-                <select id="devSel" onchange="checkUpd()">
-                    <option value="">Select Device Model</option>
+            <div class="grid-cards">
+                <div class="card" onclick="switchTab('software')">
+                    <div style="font-size: 2rem; color: var(--primary); margin-bottom:10px;"><i class="fa-brands fa-android"></i></div>
+                    <h3>System Updates</h3>
+                    <p>Download official OTA Zip files for manual updating.</p>
+                    <button class="btn">View Updates</button>
+                </div>
+                <div class="card" onclick="switchTab('wallpapers')">
+                    <div style="font-size: 2rem; color: var(--primary); margin-bottom:10px;"><i class="fa-solid fa-image"></i></div>
+                    <h3>Wallpapers</h3>
+                    <p>High-quality stock and community wallpapers.</p>
+                    <button class="btn">Explore Gallery</button>
+                </div>
+                <div class="card" onclick="switchTab('music')">
+                    <div style="font-size: 2rem; color: var(--primary); margin-bottom:10px;"><i class="fa-solid fa-music"></i></div>
+                    <h3>Ringtones</h3>
+                    <p>Listen and download unique glyph ringtones.</p>
+                    <button class="btn">Listen Now</button>
+                </div>
+            </div>
+
+            <div class="ad-banner" style="margin-top:30px; height:250px;">
+                <span>GOOGLE ADSENSE RECTANGLE SLOT</span>
+            </div>
+
+            <div class="card" style="margin-top: 30px;">
+                <h3>Latest Community News</h3>
+                <p>Stay updated with the latest changes in Nothing OS 3.0 and beyond. We track beta releases and stable rollouts daily.</p>
+            </div>
+        </section>
+
+        <section id="software" class="section-view">
+            <div class="page-header">
+                <h1>Firmware Database</h1>
+                <p>Select your device to find the latest OTA ZIP files.</p>
+            </div>
+            
+            <div class="card" style="max-width: 600px;">
+                <label style="font-weight:600; margin-bottom:5px; display:block;">Select Device Model</label>
+                <select id="swSelect" onchange="showLogs()">
+                    <option value="">-- Choose Phone --</option>
                     <option value="p1">Nothing Phone (1)</option>
                     <option value="p2">Nothing Phone (2)</option>
                     <option value="p2a">Nothing Phone (2a)</option>
+                    <option value="p2aplus">Nothing Phone (2a) Plus</option>
+                    <option value="p3">Nothing Phone (3)</option>
                     <option value="cmf1">CMF Phone 1</option>
                 </select>
 
-                <div id="updRes" style="display:none; border-top:1px solid var(--border); padding-top:20px;">
-                    <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
-                        <img id="fwImg" src="" style="width:50px; height:70px; object-fit:cover; border-radius:4px;">
+                <div id="swDisplay" style="display:none; margin-top:20px; border-top:1px solid var(--border); padding-top:20px;">
+                    <div style="display:flex; gap:20px; align-items:center;">
+                        <img src="" id="swPhoneImg" style="width:60px; height:80px; object-fit:contain;">
                         <div>
-                            <h3 id="fwName" style="margin:0;">Device</h3>
-                            <span style="color:#0f0; font-size:0.8rem;">● Official Signed Zip</span>
+                            <h2 id="swPhoneTitle" style="font-size:1.5rem;">Device Name</h2>
+                            <span style="background:var(--primary); color:#fff; padding:2px 8px; border-radius:4px; font-size:0.8rem;">OFFICIAL BUILD</span>
                         </div>
                     </div>
-                    <ul id="fwLog" style="font-size:0.85rem;"></ul>
-                    <button class="btn btn-red" onclick="dlUpd()">Download Zip</button>
+                    <div style="background:var(--bg); padding:15px; border-radius:8px; margin:15px 0;">
+                        <h4>Changelog:</h4>
+                        <ul id="swList" style="margin-left:20px; margin-top:10px; opacity:0.8;"></ul>
+                    </div>
+                    <button class="btn" onclick="runDownload(this, 'OTA_ZIP')">Download OTA Zip</button>
                 </div>
             </div>
-        </div>
 
-        <div id="walls" class="section">
-            <div class="card">
-                <h2>Community Wallpapers</h2>
-                <div class="grid-2" id="wallGrid">
-                    <p>Loading gallery...</p>
-                </div>
+            <div class="card" style="margin-top:20px;">
+                <h3>How to Install?</h3>
+                <p>1. Create a folder named "ota" in your internal storage.<br>2. Copy the downloaded ZIP file into that folder.<br>3. Dial *#*#682#*#* to open the update tool.</p>
+                <button class="btn" style="background: #333;" onclick="runDownload(this, 'BETA_TOOL')">Download Beta Tool APK</button>
+            </div>
+        </section>
+
+        <section id="music" class="section-view">
+            <div class="page-header">
+                <h1>Ringtone Library</h1>
+                <p>Search via iTunes API and download MP3s.</p>
             </div>
             
-            <div class="card">
-                <h2>Ringtones</h2>
-                <input type="text" id="mQuery" placeholder="Search Song Name...">
-                <button class="btn" onclick="searchM()">Search</button>
-                <div id="mRes" style="margin-top:20px;"></div>
-            </div>
-            <audio id="player"></audio>
-        </div>
-
-        <div id="service" class="section">
-            <div class="card">
-                <h2>Service Centers</h2>
-                <p>Find authorized support locations.</p>
-                <select id="stSel" onchange="loadCi()"><option>Select State</option></select>
-                <select id="ciSel" onchange="findSc()" style="display:none;"></select>
-                <div id="scRes" style="margin-top:20px;"></div>
-            </div>
-        </div>
-
-        <div id="legal" class="section">
-            
-            <div class="card">
-                <h2>About Us</h2>
-                <p class="legal-text">
-                    Welcome to <b>Nothing Hub</b>. We are a community-driven platform established in 2026 by Rohit. Our mission is to simplify the software experience for Nothing Phone users by providing a centralized archive for firmware updates, aesthetic resources, and service information.
-                </p>
-                <p class="legal-text">
-                    This project is maintained independently and aims to provide safe, verified tools for the enthusiast community.
-                </p>
-                <div style="margin-top:15px; padding:15px; background:rgba(255,255,255,0.05); border-radius:8px;">
-                    <h3 style="margin:0 0 5px 0; font-size:1rem;">Contact Administration</h3>
-                    <p style="margin:0; font-size:0.9rem;">For queries, DMCA, or feedback:</p>
-                    <a href="mailto:rkkiller198@gmail.com" style="color:var(--accent); font-weight:bold; text-decoration:none;">rkkiller198@gmail.com</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2>Disclaimer</h2>
-                <p class="legal-text" style="color: #ff4444;">
-                    <b>IMPORTANT:</b> Nothing Hub is an <u>unofficial fan website</u>. We are NOT affiliated, associated, authorized, endorsed by, or in any way officially connected with <b>Nothing Technology Limited</b>, CMF, or any of their subsidiaries or its affiliates.
-                </p>
-                <p class="legal-text">
-                    The names "Nothing", "Phone (1)", "Phone (2)", and related names, marks, emblems, and images are registered trademarks of their respective owners.
-                </p>
-                <p class="legal-text">
-                    <b>Software Risk:</b> The firmware links provided are mirrored from official sources, but the installation process (sideloading) carries inherent risks. Nothing Hub and its creators are not responsible for bricked devices, dead SD cards, or data loss. Please proceed at your own risk.
-                </p>
-            </div>
-
-            <div class="card">
-                <h2>Privacy Policy</h2>
-                <p class="legal-text">Last Updated: January 2026</p>
+            <div class="music-player-ui">
+                <input type="text" id="mQuery" placeholder="Search song or artist...">
+                <button class="btn" onclick="searchMusic()" style="margin-bottom:20px;">Search</button>
                 
-                <div class="legal-block">
-                    <h3>1. Information We Collect</h3>
-                    <p class="legal-text">Nothing Hub accesses specific device information (like User Agent) only for the purpose of displaying the correct website layout. We do not collect personal identifiable information (PII) such as names, addresses, or phone numbers unless voluntarily provided via email.</p>
-                </div>
-
-                <div class="legal-block">
-                    <h3>2. Log Files</h3>
-                    <p class="legal-text">Like many other websites, Nothing Hub makes use of log files. The information inside the log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date/time stamp, and referring/exit pages. This is standard procedure for hosting services and is used for analytics.</p>
-                </div>
-
-                <div class="legal-block">
-                    <h3>3. Google AdSense & Cookies</h3>
-                    <p class="legal-text">We use Google AdSense to display advertisements. Google, as a third-party vendor, uses cookies to serve ads on our site.</p>
-                    <ul>
-                        <li class="legal-text">Google uses the DART cookie to enable it to serve ads to our users based on their visit to our site and other sites on the Internet.</li>
-                        <li class="legal-text">Users may opt-out of the use of the DART cookie by visiting the Google Ad and Content Network Privacy Policy.</li>
-                    </ul>
-                </div>
-
-                <div class="legal-block">
-                    <h3>4. External Links</h3>
-                    <p class="legal-text">Our website contains links to external sites (e.g., GitHub, Apple iTunes). We are not responsible for the content or privacy practices of these external sites.</p>
-                </div>
-
-                <div class="legal-block">
-                    <h3>5. Consent</h3>
-                    <p class="legal-text">By using our website, you hereby consent to our Privacy Policy and agree to its Terms and Conditions.</p>
+                <div id="music-card" style="display:none;">
+                    <img src="" id="mArt" class="disc-art">
+                    <h3 id="mTitle">Track Title</h3>
+                    <p id="mArtist">Artist Name</p>
+                    
+                    <div style="display:flex; justify-content:center; gap:20px; font-size:2rem; margin:20px 0;">
+                        <i class="fa-solid fa-backward-step" onclick="prevSong()" style="cursor:pointer"></i>
+                        <i class="fa-solid fa-circle-play" id="play-pause" onclick="togglePlay()" style="cursor:pointer; color:var(--primary);"></i>
+                        <i class="fa-solid fa-forward-step" onclick="nextSong()" style="cursor:pointer"></i>
+                    </div>
+                    
+                    <button class="btn" onclick="downloadCurrentSong()">Download MP3</button>
+                    <audio id="mPlayer" onended="nextSong()"></audio>
                 </div>
             </div>
+        </section>
 
-        </div>
+        <section id="wallpapers" class="section-view">
+            <div class="page-header">
+                <h1>Wallpaper Gallery</h1>
+                <p>Curated aesthetic backgrounds for your device.</p>
+            </div>
+            <div class="wp-grid" id="wallpaperGrid">
+                </div>
+        </section>
 
-    </div>
+        <section id="ai-studio" class="section-view">
+            <div class="page-header">
+                <h1>AI Wallpaper Studio</h1>
+                <p>Create unique backgrounds using Flux AI.</p>
+            </div>
+            <div class="card" style="max-width: 600px;">
+                <input type="text" id="aiPrompt" placeholder="Describe your imagination (e.g. Red cyberpunk city)...">
+                <select id="aiRatio">
+                    <option value="9:16">Mobile Portrait (9:16)</option>
+                    <option value="16:9">Desktop Landscape (16:9)</option>
+                    <option value="1:1">Square (1:1)</option>
+                </select>
+                <button class="btn" id="genBtn" onclick="generateAIWall()">Generate Artwork</button>
+                
+                <div id="aiResult" style="display:none; margin-top:20px;">
+                    <img id="aiImg" src="" style="width:100%; border-radius:8px;">
+                    <button class="btn" onclick="downloadAIWall(this)" style="margin-top:10px;">Download</button>
+                </div>
+            </div>
+        </section>
 
-    <div style="text-align:center; padding:20px; color:var(--text-dim); font-size:0.8rem; border-top:1px solid var(--border);">
-        <p>© 2026 Nothing Hub. Built by Rohit.</p>
-        <p style="margin-top:5px;">
-            <a href="#" onclick="openTab('legal')" style="color:var(--text-dim);">Privacy</a> • 
-            <a href="#" onclick="openTab('legal')" style="color:var(--text-dim);">Disclaimer</a> • 
-            <a href="#" onclick="openTab('legal')" style="color:var(--text-dim);">Contact</a>
-        </p>
-    </div>
+        <section id="service" class="section-view">
+             <div class="page-header">
+                <h1>Service Center Locator</h1>
+                <p>Find authorized support nearby.</p>
+            </div>
+            <div class="card">
+                <select id="state" onchange="loadCities()">
+                    <option value="">Select State</option>
+                    </select>
+                <select id="city" onchange="showDetails()" style="display:none"></select>
+                <div id="scInfo" style="margin-top:20px;"></div>
+            </div>
+        </section>
 
-    <script>
-        // DATA SOURCES
-        const REPO = "https://raw.githubusercontent.com/nothingcommunity/Testing/main";
-        let swData = {}, scData = {};
+        <section id="community" class="section-view">
+            <div class="page-header">
+                <h1>Community Chat</h1>
+                <p>Discuss, share feedback, and request features.</p>
+            </div>
+            <div class="card" style="height: 60vh; display:flex; flex-direction:column;">
+                <div id="msgBoard" style="flex:1; overflow-y:auto; padding:10px; background:var(--bg); border-radius:8px; margin-bottom:15px;"></div>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" id="userMsg" placeholder="Type a message..." style="margin-bottom:0;">
+                    <button class="btn" style="width:auto;" onclick="sendMsg()"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </section>
 
-        // TAB LOGIC
-        function openTab(id, btn) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            window.scrollTo(0,0);
-            
-            if(btn) {
-                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            }
+        <section id="policy" class="section-view">
+            <div class="page-header"><h1>Privacy Policy & Terms</h1></div>
+            <div class="card">
+                <h3>Disclaimer</h3>
+                <p>NothingHub is an unofficial community project and is not affiliated with Nothing Technology Limited. All trademarks belong to their respective owners.</p>
+                <hr style="margin:20px 0; border-color:var(--border);">
+                <h3>Privacy Policy</h3>
+                <p>We use third-party vendors like Google AdSense which may use cookies to serve ads based on your visits to this website. You can opt out of personalized advertising by visiting Ads Settings.</p>
+                <hr style="margin:20px 0; border-color:var(--border);">
+                <h3>Contact</h3>
+                <p>Email: rkkiller198@gmail.com</p>
+            </div>
+        </section>
 
-            // Lazy Load
-            if(id === 'walls') loadWalls();
-            if(id === 'software' && !swData.p1) loadSw();
-            if(id === 'service' && !scData.DELHI) loadSc();
-        }
+        <footer>
+            <div>
+                <strong class="brand" style="font-size:1.2rem; margin-bottom:10px;">NOTHING<span>HUB</span></strong>
+                <p>© 2026 Nothing Hub Community.</p>
+            </div>
+            <div class="footer-links" style="justify-content: flex-end;">
+                <a href="#" onclick="switchTab('policy')">Privacy Policy</a>
+                <a href="#" onclick="switchTab('policy')">Terms of Use</a>
+                <a href="#" onclick="switchTab('policy')">Contact Us</a>
+            </div>
+        </footer>
+    </main>
+</div>
 
-        // --- SOFTWARE ---
-        async function loadSw() {
-            try {
-                let r = await fetch(`${REPO}/Software/software.json`);
-                let d = await r.json(); swData = d.SOFTWARE;
-            } catch(e){}
-        }
-        function checkUpd() {
-            let v = document.getElementById('devSel').value;
-            let box = document.getElementById('updRes');
-            if(!v || !swData[v]) { box.style.display='none'; return; }
-            let d = swData[v];
-            document.getElementById('fwImg').src = d.img;
-            document.getElementById('fwName').innerText = d.disp;
-            document.getElementById('fwLog').innerHTML = d.logs.map(l=>`<li>${l}</li>`).join('');
-            box.style.display = 'block'; box.dataset.url = d.url;
-        }
-        function dlUpd() { window.open(document.getElementById('updRes').dataset.url); }
+<script>
+    const CONFIG = {
+        BETA_TOOL_URL: "https://github.com/nothingcommunity/Testing/raw/refs/heads/main/Apps/Beta%20Updates%20Hub.apk",
+        SOFTWARE: {}, SERVICE_DB: {}
+    };
+    
+    // States List for Service Center
+    const STATES = ["ANDHRA PRADESH","ASSAM","BIHAR","CHANDIGARH","CHHATTISGARH","DELHI","GOA","GUJARAT","HARYANA","HIMACHAL PRADESH","JAMMU & KASHMIR","JHARKHAND","KARNATAKA","KERALA","MADHYA PRADESH","MAHARASHTRA","MEGHALAYA","NAGALAND","ODISHA","PUDUCHERRY","PUNJAB","RAJASTHAN","TAMIL NADU","TELANGANA","TRIPURA","UTTAR PRADESH","UTTARAKHAND","WEST BENGAL"];
 
-        // --- WALLPAPERS ---
-        async function loadWalls() {
-            let g = document.getElementById('wallGrid');
-            if(g.children.length > 1) return;
-            try {
-                let r = await fetch(`${REPO}/Wallpapers/Walls/wallpapers.json`);
-                let d = await r.json();
-                let arr = Array.isArray(d) ? d : d.wallpapers;
-                g.innerHTML = arr.map(w => `<img src="${w.img}" class="grid-img" onclick="window.open('${w.url}')" style="cursor:pointer">`).join('');
-            } catch(e) { g.innerHTML = "Error loading."; }
-        }
+    // Initialization
+    window.addEventListener('load', () => {
+        initSoftwareData();
+        initServiceData();
+        loadStates();
+        loadMessages();
+        // Load Wallpaper on Start to populate gallery
+        initWallpaperData();
+    });
 
-        // --- AUDIO ---
-        async function searchM() {
-            let q = document.getElementById('mQuery').value;
-            let box = document.getElementById('mRes');
-            if(!q) return; box.innerHTML = "Searching...";
-            try {
-                let r = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(q)}&limit=5&entity=song`);
-                let d = await r.json();
-                box.innerHTML = d.results.map(s => `
-                    <div style="display:flex; align-items:center; gap:10px; padding:10px; border-bottom:1px solid #222;">
-                        <img src="${s.artworkUrl60}" style="width:40px; border-radius:4px;">
-                        <div style="flex:1;">
-                            <div style="font-weight:bold; font-size:0.9rem;">${s.trackName}</div>
-                            <div style="font-size:0.8rem; color:#666;">${s.artistName}</div>
-                        </div>
-                        <i class="fa-solid fa-play" onclick="playA('${s.previewUrl}')" style="cursor:pointer; padding:10px;"></i>
+    // Navigation Logic
+    function switchTab(tabId) {
+        document.querySelectorAll('.section-view').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        // Highlight logic simplistic for demo
+        
+        // Close mobile sidebar if open
+        const sidebar = document.getElementById('sidebar');
+        if(window.innerWidth < 768) sidebar.classList.remove('mobile-open');
+    }
+
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('mobile-open');
+    }
+
+    // Theme Toggle
+    function toggleTheme() {
+        const body = document.documentElement;
+        const isDark = body.getAttribute('data-theme') === 'dark';
+        body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    }
+
+    // --- DATA FUNCTIONS ---
+    async function initSoftwareData() {
+        try {
+            const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Software/software.json");
+            const data = await res.json();
+            if (data.SOFTWARE) CONFIG.SOFTWARE = data.SOFTWARE;
+        } catch (e) { console.error("SW Error", e); }
+    }
+
+    function showLogs() {
+        const val = document.getElementById('swSelect').value;
+        const display = document.getElementById('swDisplay');
+        if(!val || !CONFIG.SOFTWARE[val]) { display.style.display = 'none'; return; }
+        
+        const data = CONFIG.SOFTWARE[val];
+        document.getElementById('swPhoneImg').src = data.img;
+        document.getElementById('swPhoneTitle').innerText = data.disp;
+        document.getElementById('swList').innerHTML = data.logs.map(l => `<li>${l}</li>`).join('');
+        display.style.display = 'block';
+    }
+
+    async function initWallpaperData() {
+        const grid = document.getElementById('wallpaperGrid');
+        try {
+            const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Wallpapers/Walls/wallpapers.json");
+            const data = await res.json();
+            const walls = Array.isArray(data) ? data : data.wallpapers;
+            grid.innerHTML = walls.map(w => `
+                <div class="wp-item">
+                    <img src="${w.img}" loading="lazy">
+                    <div class="wp-overlay">
+                         <button class="btn" style="padding:8px; font-size:0.8rem;" onclick="runDownload(this, '${w.url}')">Download</button>
                     </div>
-                `).join('');
-            } catch(e){}
-        }
-        function playA(u) { let p = document.getElementById('player'); p.src = u; p.play(); }
+                </div>
+            `).join('');
+        } catch(e) { grid.innerHTML = "Error loading gallery."; }
+    }
 
-        // --- SERVICE ---
-        async function loadSc() {
-            try {
-                let r = await fetch(`${REPO}/Service%20Centre/service_centre.json`);
-                scData = await r.json();
-                let s = document.getElementById('stSel');
-                Object.keys(scData).forEach(k => s.innerHTML += `<option value="${k}">${k}</option>`);
-            } catch(e){}
+    // --- DOWNLOAD LOGIC ---
+    async function runDownload(btn, urlKey) {
+        let url = urlKey;
+        if(urlKey === 'OTA_ZIP') {
+             const dev = document.getElementById('swSelect').value;
+             if(!dev) return alert("Select Device First");
+             url = CONFIG.SOFTWARE[dev].url;
+        } else if (urlKey === 'BETA_TOOL') {
+            url = CONFIG.BETA_TOOL_URL;
         }
-        function loadCi() {
-            let s = document.getElementById('stSel').value;
-            let c = document.getElementById('ciSel');
-            c.innerHTML = "<option>Select City</option>"; c.style.display = 'block';
-            if(scData[s]) [...new Set(Object.keys(scData[s]).map(k=>k.split('_')[0]))].forEach(city => c.innerHTML += `<option value="${city}">${city}</option>`);
-        }
-        function findSc() {
-            let s = document.getElementById('stSel').value;
-            let c = document.getElementById('ciSel').value;
-            let box = document.getElementById('scRes');
-            box.innerHTML = '';
-            Object.keys(scData[s]).filter(k=>k.startsWith(c)).forEach(k => {
-                let d = scData[s][k];
-                box.innerHTML += `
-                <div style="background:#1a1a1a; padding:15px; border-radius:8px; margin-bottom:10px; border:1px solid #333;">
-                    <h3 style="font-size:1rem; margin-bottom:5px;">${d.n}</h3>
-                    <p style="font-size:0.8rem; color:#888;">${d.a}</p>
-                    <div style="margin-top:10px;">
-                        <button class="btn" style="padding:5px 10px; font-size:0.8rem;" onclick="window.open('tel:${d.p}')">Call</button>
-                    </div>
-                </div>`;
-            });
-        }
+        
+        const originalText = btn.innerText;
+        btn.innerText = "Downloading...";
+        btn.disabled = true;
+        
+        setTimeout(() => {
+            window.open(url, '_blank');
+            btn.innerText = "Done!";
+            setTimeout(() => { btn.innerText = originalText; btn.disabled = false; }, 2000);
+        }, 1000);
+    }
 
-        // --- AI ---
-        function generateAI() {
-            let p = document.getElementById('aiPrompt').value;
-            if(!p) return alert("Enter text!");
-            document.getElementById('aiBtn').innerText = "Generating...";
-            let u = `https://image.pollinations.ai/prompt/${encodeURIComponent(p)}?width=1080&height=1920&nologo=true&seed=${Math.random()}`;
-            let i = document.getElementById('aiImg');
-            i.onload = () => { document.getElementById('aiRes').style.display='block'; document.getElementById('aiBtn').innerText="Generate"; };
-            i.src = u;
-        }
+    // --- MUSIC LOGIC ---
+    let currentPlaylist = [], currentIndex = 0;
+    async function searchMusic() {
+        const q = document.getElementById('mQuery').value;
+        if(!q) return;
+        try {
+            const res = await fetch(`https://itunes.apple.com/search?limit=50&entity=song&term=${encodeURIComponent(q)}`);
+            const data = await res.json();
+            if(data.results.length) {
+                currentPlaylist = data.results.map(s => ({
+                    url: s.previewUrl, art: s.artworkUrl100.replace('100x100','400x400'),
+                    title: s.trackName, artist: s.artistName
+                }));
+                currentIndex = 0;
+                document.getElementById('music-card').style.display = 'block';
+                loadSong(0);
+            } else alert("No songs found");
+        } catch(e) { alert("Error fetching music"); }
+    }
+    
+    function loadSong(idx) {
+        const s = currentPlaylist[idx];
+        document.getElementById('mArt').src = s.art;
+        document.getElementById('mTitle').innerText = s.title;
+        document.getElementById('mArtist').innerText = s.artist;
+        const p = document.getElementById('mPlayer');
+        p.src = s.url; p.play();
+        document.getElementById('mArt').classList.add('playing');
+        document.getElementById('play-pause').className = "fa-solid fa-circle-pause";
+    }
 
-        // Init
-        loadSw();
-    </script>
+    function togglePlay() {
+        const p = document.getElementById('mPlayer');
+        if(p.paused) { p.play(); document.getElementById('mArt').classList.add('playing'); document.getElementById('play-pause').className = "fa-solid fa-circle-pause"; }
+        else { p.pause(); document.getElementById('mArt').classList.remove('playing'); document.getElementById('play-pause').className = "fa-solid fa-circle-play"; }
+    }
+    function nextSong() { if(currentPlaylist.length) loadSong((currentIndex + 1) % currentPlaylist.length); }
+    function prevSong() { if(currentPlaylist.length) loadSong((currentIndex - 1 + currentPlaylist.length) % currentPlaylist.length); }
+    async function downloadCurrentSong() {
+        const song = currentPlaylist[currentIndex];
+        if(!song) return;
+        window.open(song.url, '_blank');
+    }
+
+    // --- AI LOGIC ---
+    async function generateAIWall() {
+        const p = document.getElementById('aiPrompt').value;
+        const r = document.getElementById('aiRatio').value;
+        if(!p) return alert("Enter prompt");
+        
+        const btn = document.getElementById('genBtn');
+        btn.innerText = "Generating..."; btn.disabled = true;
+        
+        let w = 1080, h = 1920;
+        if(r === "16:9") { w=1920; h=1080; } else if(r === "1:1") { w=1080; h=1080; }
+        
+        const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(p)}?width=${w}&height=${h}&nologo=true&model=flux`;
+        
+        const img = document.getElementById('aiImg');
+        img.onload = () => { 
+            document.getElementById('aiResult').style.display = 'block'; 
+            btn.innerText = "Generate Artwork"; btn.disabled = false;
+        };
+        img.src = url;
+    }
+    function downloadAIWall() {
+        const src = document.getElementById('aiImg').src;
+        const a = document.createElement('a'); a.href = src; a.download = "NothingAI.png"; a.click();
+    }
+
+    // --- SERVICE CENTER LOGIC ---
+    async function initServiceData() {
+        try { const r = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Service%20Centre/service_centre.json"); CONFIG.SERVICE_DB = await r.json(); } catch(e){}
+    }
+    function loadStates() {
+        const sel = document.getElementById('state');
+        STATES.forEach(s => sel.innerHTML += `<option value="${s}">${s}</option>`);
+    }
+    function loadCities() {
+        const s = document.getElementById('state').value;
+        const cSel = document.getElementById('city');
+        cSel.innerHTML = '<option>Select City</option>';
+        if(!s || !CONFIG.SERVICE_DB[s]) { cSel.style.display='none'; return; }
+        cSel.style.display = 'block';
+        const cities = [...new Set(Object.keys(CONFIG.SERVICE_DB[s]).map(k => k.split('_')[0]))];
+        cities.forEach(c => cSel.innerHTML += `<option value="${c}">${c}</option>`);
+    }
+    function showDetails() {
+        const s = document.getElementById('state').value;
+        const c = document.getElementById('city').value;
+        const div = document.getElementById('scInfo');
+        div.innerHTML = '';
+        const db = CONFIG.SERVICE_DB[s];
+        Object.keys(db).filter(k => k.startsWith(c)).forEach(k => {
+            const d = db[k];
+            div.innerHTML += `<div style="background:#f9f9f9; border:1px solid #eee; padding:15px; margin-bottom:10px; border-radius:8px;">
+                <strong>${d.n}</strong><br><small>${d.a}</small><br>
+                <div style="margin-top:10px; display:flex; gap:10px;">
+                    <button class="btn" style="padding:5px;" onclick="window.open('tel:${d.p}')">Call</button>
+                    <button class="btn" style="padding:5px;" onclick="window.open('${d.m}')">Map</button>
+                </div>
+            </div>`;
+        });
+    }
+
+    // --- CHAT LOGIC ---
+    const DB_URL = "https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat.json";
+    async function loadMessages() {
+        try {
+            const res = await fetch(DB_URL); const data = await res.json();
+            const board = document.getElementById('msgBoard');
+            if(!data) { board.innerHTML = "<p>No messages yet.</p>"; return; }
+            board.innerHTML = Object.values(data).map(m => `
+                <div style="background:rgba(0,0,0,0.05); padding:8px; border-radius:8px; margin-bottom:8px;">
+                    <strong style="font-size:0.8rem; color:var(--primary);">${m.userName || 'User'}</strong>
+                    <p>${m.text}</p>
+                </div>
+            `).join('');
+            board.scrollTop = board.scrollHeight;
+        } catch(e){}
+    }
+    async function sendMsg() {
+        const txt = document.getElementById('userMsg').value;
+        if(!txt) return;
+        await fetch(DB_URL, { method:'POST', body:JSON.stringify({userName:'User', text:txt, timestamp: Date.now()}) });
+        document.getElementById('userMsg').value = "";
+        loadMessages();
+    }
+</script>
+
 </body>
 </html>
