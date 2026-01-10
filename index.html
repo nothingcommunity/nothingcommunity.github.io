@@ -3,117 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechBase - Firmware & Tools</title>
+    <title>NOTHING ARCHIVE | FIRMWARE HUB</title>
     
     <meta name="google-adsense-account" content="ca-pub-5140781527793808">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5140781527793808"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5140781527793808" crossorigin="anonymous"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --sidebar-width: 260px;
-            --bg-body: #f8f9fa;
-            --bg-card: #ffffff;
-            --text-main: #111827;
-            --text-sub: #6b7280;
-            --accent: #2563eb; /* Professional Blue */
-            --border: #e5e7eb;
-            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --bg-body: #000000;
+            --bg-card: #0a0a0a;
+            --text-main: #ffffff;
+            --text-sub: #888888;
+            --accent: #D71920; /* Nothing Red */
+            --border: #333333;
+            --dot-color: #222;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'VT323', monospace; text-transform: uppercase; }
 
-        body { background-color: var(--bg-body); color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden; }
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            display: flex; 
+            min-height: 100vh; 
+            overflow-x: hidden;
+            /* Nothing Dot Pattern Background */
+            background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* --- SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
         /* --- SIDEBAR --- */
         .sidebar {
-            width: var(--sidebar-width);
-            background: var(--bg-card);
+            width: 260px;
+            background: rgba(0,0,0,0.95);
             border-right: 1px solid var(--border);
             height: 100vh; position: fixed; top: 0; left: 0;
             display: flex; flex-direction: column; padding: 24px; z-index: 100;
+            backdrop-filter: blur(10px);
             transition: transform 0.3s ease;
         }
 
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
-        .logo i { color: var(--accent); }
+        .logo { 
+            font-size: 2rem; letter-spacing: 2px; color: var(--text-main); margin-bottom: 40px; 
+            border-bottom: 1px dotted var(--border); padding-bottom: 20px;
+        }
+        .logo span { color: var(--accent); }
 
-        .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+        .nav-links { list-style: none; display: flex; flex-direction: column; gap: 10px; flex: 1; }
         
         .nav-item {
-            padding: 12px 16px; border-radius: 8px; color: var(--text-sub);
-            cursor: pointer; font-weight: 500; display: flex; align-items: center; gap: 12px; transition: all 0.2s;
+            padding: 15px; border: 1px solid transparent; border-radius: 30px; 
+            color: var(--text-sub); cursor: pointer; font-size: 1.2rem;
+            display: flex; align-items: center; gap: 15px; transition: all 0.2s;
         }
-        .nav-item:hover { background: #eff6ff; color: var(--accent); }
-        .nav-item.active { background: var(--accent); color: #fff; }
+        .nav-item:hover { color: var(--text-main); border-color: var(--border); }
+        .nav-item.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
         /* --- MAIN CONTENT --- */
         .main-content {
-            margin-left: var(--sidebar-width); flex: 1; padding: 40px;
+            margin-left: 260px; flex: 1; padding: 40px;
             display: flex; flex-direction: column; min-height: 100vh;
-            transition: margin 0.3s ease;
         }
 
-        header { margin-bottom: 40px; }
-        header h1 { font-size: 2rem; margin-bottom: 10px; }
-        header p { color: var(--text-sub); }
+        header { margin-bottom: 40px; border-bottom: 1px dotted var(--border); padding-bottom: 20px; }
+        header h1 { font-size: 3rem; line-height: 1; letter-spacing: 1px; }
+        header p { color: var(--text-sub); font-size: 1.2rem; margin-top: 5px; }
 
-        /* Ad Placeholder Styling */
+        /* --- AD SLOT (RETRO STYLE) --- */
         .ad-slot {
-            width: 100%; height: auto; min-height: 90px;
-            background: #f3f4f6; border-radius: 8px;
+            width: 100%; min-height: 100px; 
+            background: repeating-linear-gradient(45deg, #111, #111 10px, #1a1a1a 10px, #1a1a1a 20px);
+            border: 1px dashed var(--border); border-radius: 15px;
             display: flex; align-items: center; justify-content: center;
-            color: #9ca3af; font-size: 0.9rem; letter-spacing: 1px;
-            margin-bottom: 30px; border: 1px dashed #cbd5e1;
-            overflow: hidden;
+            color: #444; font-size: 1.2rem; margin-bottom: 30px;
         }
 
-        /* --- SECTIONS --- */
+        /* --- SECTIONS & CARDS --- */
         .section { display: none; animation: fadeIn 0.4s ease; }
         .section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- TABLES & GRIDS --- */
-        .data-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 30px; }
-        .table-header { padding: 20px; border-bottom: 1px solid var(--border); background: #f9fafb; display: flex; justify-content: space-between; align-items: center; }
-        .file-row { padding: 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-        .file-info { display: flex; align-items: center; gap: 15px; }
-        .file-icon { width: 40px; height: 40px; background: #eff6ff; color: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-        .btn-download { padding: 8px 16px; border: 1px solid var(--border); border-radius: 6px; background: #fff; color: var(--text-main); font-weight: 600; cursor: pointer; text-decoration: none; font-size: 0.9rem; }
-        
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
-        .article-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); cursor: pointer; transition: 0.3s; }
-        .card-img { height: 160px; background: #e5e7eb; width: 100%; object-fit: cover; }
-        .card-body { padding: 20px; }
+        
+        .retro-card { 
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; 
+            padding: 25px; transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .retro-card:hover { border-color: var(--text-main); transform: translateY(-3px); }
+        .retro-card h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .retro-card p { opacity: 0.6; font-size: 1.1rem; text-transform: none; line-height: 1.4; }
+        
+        .tag { font-size: 0.9rem; background: #222; padding: 2px 8px; border-radius: 5px; color: var(--accent); border: 1px solid #333; display: inline-block; margin-bottom: 10px; }
 
-        /* --- LEGAL PAGES STYLE --- */
-        .legal-content { background: #fff; padding: 40px; border-radius: 12px; border: 1px solid var(--border); line-height: 1.6; }
-        .legal-content h2 { margin-top: 20px; margin-bottom: 10px; font-size: 1.2rem; }
-        .legal-content ul { margin-left: 20px; margin-bottom: 15px; color: var(--text-sub); list-style: none; }
-        .legal-content p { color: var(--text-sub); margin-bottom: 15px; }
-        .legal-content a { color: var(--accent); text-decoration: none; font-weight: 600; }
+        /* --- TABLE STYLE --- */
+        .file-list { margin-top: 20px; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
+        .file-row { 
+            padding: 20px; border-bottom: 1px solid var(--border); background: #050505;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .file-row:last-child { border-bottom: none; }
+        .btn-dl { 
+            background: transparent; border: 1px solid var(--text-main); color: var(--text-main);
+            padding: 8px 20px; border-radius: 20px; cursor: pointer; font-size: 1.1rem; transition: 0.2s;
+        }
+        .btn-dl:hover { background: var(--text-main); color: #000; }
 
         /* --- FOOTER --- */
         .main-footer {
-            margin-top: auto; padding-top: 40px;
-            border-top: 1px solid var(--border);
-            text-align: center;
+            margin-top: auto; padding-top: 40px; border-top: 1px dotted var(--border);
+            text-align: center; color: var(--text-sub);
         }
-        .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
-        .footer-links a { color: var(--text-sub); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: 0.2s; cursor: pointer; }
+        .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; }
+        .footer-links a { color: var(--text-sub); text-decoration: none; font-size: 1.2rem; cursor: pointer; }
         .footer-links a:hover { color: var(--accent); }
-        .copyright { font-size: 0.8rem; color: #9ca3af; }
 
         /* --- MOBILE --- */
-        .mobile-toggle { display: none; position: fixed; top: 15px; right: 20px; z-index: 200; background: var(--bg-card); padding: 10px; border-radius: 8px; border: 1px solid var(--border); }
+        .mobile-toggle { display: none; position: fixed; top: 15px; right: 20px; z-index: 200; background: #000; color: #fff; padding: 10px 15px; border-radius: 50%; border: 1px solid var(--border); }
+        
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); }
-            .sidebar.open { transform: translateX(0); box-shadow: 10px 0 20px rgba(0,0,0,0.1); }
-            .main-content { margin-left: 0; padding: 20px; padding-top: 70px; }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 20px; padding-top: 80px; }
             .mobile-toggle { display: block; }
         }
     </style>
@@ -123,121 +143,124 @@
 <div class="mobile-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></div>
 
 <aside class="sidebar" id="sidebar">
-    <div class="logo"><i class="fa-brands fa-hubspot"></i> TechBase</div>
+    <div class="logo">NOTHING<span>ARCHIVE</span></div>
     <ul class="nav-links">
-        <li class="nav-item active" onclick="showSection('dashboard', this)"><i class="fa-solid fa-house"></i> Dashboard</li>
-        <li class="nav-item" onclick="showSection('firmware', this)"><i class="fa-solid fa-download"></i> Firmware</li>
-        <li class="nav-item" onclick="showSection('wallpapers', this)"><i class="fa-solid fa-image"></i> Wallpapers</li>
-        <li class="nav-item" onclick="showSection('tools', this)"><i class="fa-solid fa-toolbox"></i> Flash Tools</li>
-        <li class="nav-item" onclick="showSection('contact', this)"><i class="fa-solid fa-envelope"></i> Contact</li>
+        <li class="nav-item active" onclick="showSection('dashboard', this)"><i class="fa-solid fa-table-columns"></i> DASHBOARD</li>
+        <li class="nav-item" onclick="showSection('firmware', this)"><i class="fa-solid fa-microchip"></i> SYSTEM (OTA)</li>
+        <li class="nav-item" onclick="showSection('wallpapers', this)"><i class="fa-solid fa-image"></i> GALLERY</li>
+        <li class="nav-item" onclick="showSection('tools', this)"><i class="fa-solid fa-terminal"></i> TOOLS</li>
+        <li class="nav-item" onclick="showSection('contact', this)"><i class="fa-solid fa-envelope"></i> CONTACT</li>
     </ul>
 </aside>
 
 <main class="main-content">
     
-    <div class="ad-slot">
-        <p style="opacity:0.5;">ADVERTISEMENT SPACE</p>
-    </div>
+    <div class="ad-slot">/// ADSENSE SPACE ///</div>
 
     <div id="dashboard" class="section active">
-        <header><h1>Overview</h1><p>Latest updates and community announcements.</p></header>
+        <header><h1>SYSTEM STATUS</h1><p>COMMUNITY UPDATES & LOGS</p></header>
         <div class="grid-3">
-            <div class="article-card">
-                <div style="height:100px; background:#dbeafe; display:flex; align-items:center; justify-content:center; color:#2563eb; font-size:2rem;"><i class="fa-solid fa-bolt"></i></div>
-                <div class="card-body"><h3>New OTA Available</h3><p>Version 2.5.1 adds battery improvements and camera fixes.</p></div>
+            <div class="retro-card">
+                <span class="tag">● LIVE</span>
+                <h3>NOS 2.6 BETA</h3>
+                <p>Rollout started for Phone (2). Check Firmware section.</p>
             </div>
-            <div class="article-card">
-                <div style="height:100px; background:#fce7f3; display:flex; align-items:center; justify-content:center; color:#db2777; font-size:2rem;"><i class="fa-solid fa-palette"></i></div>
-                <div class="card-body"><h3>Icon Pack Update</h3><p>Added 50+ new monochrome icons for the launcher.</p></div>
+            <div class="retro-card">
+                <span class="tag">● NEWS</span>
+                <h3>CMF WATCH PRO</h3>
+                <p>New custom watch faces added to the gallery.</p>
             </div>
-            <div class="article-card">
-                <div style="height:100px; background:#dcfce7; display:flex; align-items:center; justify-content:center; color:#16a34a; font-size:2rem;"><i class="fa-solid fa-shield"></i></div>
-                <div class="card-body"><h3>Safety Net Pass</h3><p>Guide to pass SafetyNet on rooted devices.</p></div>
+            <div class="retro-card">
+                <span class="tag">● GUIDE</span>
+                <h3>ROOT ACCESS</h3>
+                <p>Updated guide for Magisk installation without data loss.</p>
             </div>
         </div>
     </div>
 
     <div id="firmware" class="section">
-        <header><h1>Firmware Repository</h1><p>Official OTA zips and boot images.</p></header>
-        <div class="data-card">
-            <div class="table-header"><h3>Latest Releases</h3></div>
-            <div class="file-list">
-                <div class="file-row"><div class="file-info"><div class="file-icon"><i class="fa-brands fa-android"></i></div><div class="file-meta"><h4>Nothing OS 2.5.2 (Global)</h4><span>Size: 2.1 GB • Updated: Today</span></div></div><a href="#" class="btn-download">Download</a></div>
-                <div class="file-row"><div class="file-info"><div class="file-icon"><i class="fa-brands fa-android"></i></div><div class="file-meta"><h4>Nothing OS 2.5.0 (Europe)</h4><span>Size: 2.0 GB • Updated: Yesterday</span></div></div><a href="#" class="btn-download">Download</a></div>
+        <header><h1>FIRMWARE HUB</h1><p>OFFICIAL OTA ZIPS</p></header>
+        <div class="file-list">
+            <div class="file-row">
+                <div>
+                    <h3 style="font-size:1.4rem;">NOTHING OS 2.5.5</h3>
+                    <p style="opacity:0.5; font-size:1rem;">PHONE (2) | GLOBAL | 2.1GB</p>
+                </div>
+                <button class="btn-dl">DOWNLOAD</button>
+            </div>
+            <div class="file-row">
+                <div>
+                    <h3 style="font-size:1.4rem;">NOTHING OS 2.5.2</h3>
+                    <p style="opacity:0.5; font-size:1rem;">PHONE (1) | EEA | 1.8GB</p>
+                </div>
+                <button class="btn-dl">DOWNLOAD</button>
             </div>
         </div>
     </div>
 
     <div id="wallpapers" class="section">
-        <header><h1>Wallpaper Gallery</h1><p>High quality backgrounds curated for OLED screens.</p></header>
+        <header><h1>VISUALS</h1><p>4K OLED WALLPAPERS</p></header>
         <div class="grid-3" id="wallGrid"></div>
     </div>
 
     <div id="tools" class="section">
-        <header><h1>Developer Tools</h1><p>Utilities for advanced users.</p></header>
+        <header><h1>DEBUG TOOLS</h1><p>FOR DEVELOPERS ONLY</p></header>
         <div class="grid-3">
-             <div class="article-card"><div class="card-body"><h3>ADB Platform Tools</h3><p>Essential command line tools for debugging and flashing.</p><button class="btn-download" style="width:100%; margin-top:10px;">Get Tool</button></div></div>
+             <div class="retro-card">
+                 <h3>ADB TOOLS</h3>
+                 <p>Platform tools r34.0.5 for Windows/Mac.</p>
+                 <button class="btn-dl" style="margin-top:15px; width:100%;">GET ZIP</button>
+             </div>
+             <div class="retro-card">
+                 <h3>PAYLOAD DUMPER</h3>
+                 <p>Extract boot.img from OTA files.</p>
+                 <button class="btn-dl" style="margin-top:15px; width:100%;">GET TOOL</button>
+             </div>
         </div>
     </div>
 
     <div id="about" class="section">
-        <header><h1>About TechBase</h1></header>
-        <div class="legal-content">
-            <p>Welcome to <b>TechBase</b>, your number one source for all firmware and development tools. We're dedicated to providing you the best technical resources, with a focus on dependability, security, and ease of use.</p>
-            <p>Founded in 2024, TechBase has come a long way from its beginnings. When we first started out, our passion for "clean software" drove us to start this portal.</p>
-            <p>We hope you enjoy our products as much as we enjoy offering them to you. If you have any questions or comments, please don't hesitate to contact us.</p>
+        <header><h1>ABOUT US</h1></header>
+        <div class="retro-card">
+            <p>Nothing Archive is a fan-made repository designed for the community. We provide clean, direct links to firmware and tools.</p>
+            <p style="margin-top:10px;">We believe in open software and customization.</p>
         </div>
     </div>
 
     <div id="privacy" class="section">
-        <header><h1>Privacy Policy</h1></header>
-        <div class="legal-content">
-            <p>At TechBase, accessible from the web, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by TechBase and how we use it.</p>
-            <h2>Log Files</h2>
-            <p>TechBase follows a standard procedure of using log files. These files log visitors when they visit websites. The information collected includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp.</p>
-            <h2>Cookies and Web Beacons</h2>
-            <p>Like any other website, TechBase uses 'cookies'. These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited.</p>
-            <h2>Google DoubleClick DART Cookie</h2>
-            <p>Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our site and other sites on the internet.</p>
+        <header><h1>PRIVACY LOG</h1></header>
+        <div class="retro-card">
+            <p>We value your privacy. We do not collect personal data. Cookies are used for theme preferences and Google AdSense delivery.</p>
+            <p style="margin-top:10px;">Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to your website or other websites.</p>
         </div>
     </div>
-
+    
     <div id="disclaimer" class="section">
-        <header><h1>Disclaimer</h1></header>
-        <div class="legal-content">
-            <p>If you require any more information or have any questions about our site's disclaimer, please feel free to contact us by email.</p>
-            <h2>Disclaimers for TechBase</h2>
-            <p>All the information on this website - TechBase - is published in good faith and for general information purpose only. TechBase does not make any warranties about the completeness, reliability and accuracy of this information. Any action you take upon the information you find on this website (TechBase), is strictly at your own risk.</p>
-            <p>TechBase will not be liable for any losses and/or damages in connection with the use of our website. We are not affiliated with Nothing Technology Ltd or Google LLC. All trademarks belong to their respective owners.</p>
+        <header><h1>DISCLAIMER</h1></header>
+        <div class="retro-card">
+            <p>We are not affiliated with Nothing Technology Ltd. All files are provided "as is". Flash at your own risk.</p>
         </div>
     </div>
 
     <div id="contact" class="section">
-        <header><h1>Contact Us</h1></header>
-        <div class="legal-content">
-            <p>Have questions, suggestions, or need support? Reach out to us through the channels below:</p>
-            <ul>
-                <li>
-                    <i class="fa-solid fa-envelope" style="margin-right:10px; color:var(--accent);"></i>
-                    <b>Email:</b> <a href="mailto:rkkiller198@gmail.com">rkkiller198@gmail.com</a>
-                </li>
-                <li style="margin-top:15px;">
-                    <i class="fa-brands fa-telegram" style="margin-right:10px; color:var(--accent);"></i>
-                    <b>Telegram:</b> <a href="https://t.me/techiboy_discuss" target="_blank">@techiboy_discuss</a>
-                </li>
+        <header><h1>COMMUNICATION</h1></header>
+        <div class="retro-card">
+            <p style="margin-bottom:15px;">FOR DMCA OR SUPPORT:</p>
+            <ul style="list-style:none;">
+                <li style="margin-bottom:10px;">> EMAIL: <a href="mailto:rkkiller198@gmail.com" style="color:var(--accent);">rkkiller198@gmail.com</a></li>
+                <li>> TELEGRAM: <a href="https://t.me/techiboy_discuss" style="color:var(--accent);">@techiboy_discuss</a></li>
             </ul>
-            <p style="margin-top:20px; font-size:0.9rem; opacity:0.7;">We aim to respond to all inquiries within 24-48 hours.</p>
         </div>
     </div>
 
     <footer class="main-footer">
         <div class="footer-links">
-            <a onclick="showSection('about', null)">About Us</a>
-            <a onclick="showSection('privacy', null)">Privacy Policy</a>
-            <a onclick="showSection('disclaimer', null)">Disclaimer</a>
-            <a onclick="showSection('contact', null)">Contact</a>
+            <a onclick="showSection('about', null)">ABOUT</a>
+            <a onclick="showSection('privacy', null)">PRIVACY</a>
+            <a onclick="showSection('disclaimer', null)">LEGAL</a>
+            <a onclick="showSection('contact', null)">CONTACT</a>
         </div>
-        <p class="copyright">© 2026 TechBase. All rights reserved.</p>
+        <p>© 2026 NOTHING ARCHIVE. COMMUNITY BUILT.</p>
     </footer>
 
 </main>
@@ -252,20 +275,16 @@
         document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
         if(el) {
             el.classList.add('active');
-        } else {
-            // Highlight Contact in Sidebar if clicked from Footer
-            if(sectionId === 'contact') {
-                document.querySelectorAll('.nav-item')[4].classList.add('active');
-            }
+        } else if(sectionId === 'contact') {
+            // Highlight contact if clicked from footer
+            document.querySelectorAll('.nav-item')[4].classList.add('active');
         }
         
         // Show target
         document.getElementById(sectionId).classList.add('active');
-        
-        // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Mobile: Close sidebar
+        // Mobile Logic
         if(window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
 
         // Lazy load wallpapers
@@ -279,12 +298,18 @@
     function loadWallpapers() {
         if(wallsLoaded) return;
         const grid = document.getElementById('wallGrid');
+        // Example Images
         const wallpapers = [
-            { t: "Abstract Neon", u: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&q=80" },
-            { t: "Dark Void", u: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=500&q=80" },
-            { t: "Cyber Lines", u: "https://images.unsplash.com/photo-1515462277126-2dd0c162007a?w=500&q=80" }
+            { t: "GLYPH RED", u: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&q=80" },
+            { t: "VOID BLACK", u: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=500&q=80" },
+            { t: "DIGITAL NOISE", u: "https://images.unsplash.com/photo-1515462277126-2dd0c162007a?w=500&q=80" }
         ];
-        grid.innerHTML = wallpapers.map(w => `<div class="article-card"><img src="${w.u}" class="card-img" loading="lazy"><div class="card-body"><h3>${w.t}</h3><button class="btn-download" onclick="window.open('${w.u}')" style="width:100%">Download</button></div></div>`).join('');
+        grid.innerHTML = wallpapers.map(w => `
+            <div class="retro-card">
+                <img src="${w.u}" style="width:100%; height:200px; object-fit:cover; border:1px solid #333; margin-bottom:15px; filter:grayscale(100%); transition:0.3s;" onmouseover="this.style.filter='grayscale(0%)'" onmouseout="this.style.filter='grayscale(100%)'">
+                <h3>${w.t}</h3>
+                <button class="btn-dl" style="width:100%" onclick="window.open('${w.u}')">SAVE FILE</button>
+            </div>`).join('');
         wallsLoaded = true;
     }
 </script>
