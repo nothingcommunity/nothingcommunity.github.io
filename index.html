@@ -54,7 +54,7 @@
 
     /* PERFORMANCE OPTIMIZATION */
     .bento, footer { content-visibility: auto; contain-intrinsic-size: 1000px; }
-    
+     
     img { 
         -webkit-touch-callout: none !important; user-select: none !important; pointer-events: auto !important;
     }
@@ -99,7 +99,7 @@
     .tile p { opacity: 0.8 !important; font-size: 1rem; position: relative; z-index: 2; }
     .full { grid-column: span 2; }
     @media (min-width: 768px) { .full { grid-column: span 1; } }
-    
+     
     /* ================= MODALS & SCREEN ================= */
     .screen { 
         position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); z-index: 2000; 
@@ -141,12 +141,60 @@
         cursor: pointer; margin-bottom: 15px; font-weight: thin; transition: 0.2s; text-transform: uppercase;
     }
     .pg-btn:hover { border-color: var(--text); }
-    
+     
     /* DOT ARROW CSS */
     .dot-arrow { width: 20px; height: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; }
     .dot-row { display: flex; gap: 2px; }
     .dot { width: 2.5px; height: 2.5px; background: var(--text); border-radius: 50%; }
 
+/* --- COMMUNITY PROJECTS UI --- */
+.project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.p-header {
+    display: flex; align-items: center; gap: 15px;
+    margin-bottom: 15px; border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+}
+
+.p-avatar {
+    width: 55px; height: 55px; border-radius: 50%;
+    object-fit: cover; border: 1px solid var(--border);
+}
+
+.p-info h3 { margin: 0; font-size: 1.4rem; line-height: 1; display: flex; align-items: center; gap: 5px; }
+.p-info span { font-size: 0.9rem; opacity: 0.6; }
+.blue-tick { color: #3b82f6; font-size: 1rem; }
+
+.p-imgs {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 8px; margin: 15px 0;
+}
+
+.p-imgs img {
+    width: 100%; height: 80px; object-fit: cover;
+    border-radius: 12px; border: 1px solid #333; cursor: pointer;
+}
+
+.p-link-btn {
+    display: block; width: 100%; padding: 12px;
+    text-align: center; border: 1px solid var(--accent);
+    color: var(--text); border-radius: 15px;
+    text-decoration: none; font-weight: bold; font-size: 1rem; margin-top: 10px;
+}
+.p-link-btn:hover { background: var(--accent); color: #fff; }
+
+.pfp-select {
+    width: 80px; height: 80px; border-radius: 50%;
+    border: 1px dashed var(--text); display: grid;
+    place-items: center; cursor: pointer;
+    margin: 0 auto 20px; overflow: hidden;
+}
     /* ================= SETUP MODULE CSS (3D SCROLL & SHRINK) ================= */
     .setup-grid-container {
         padding-top: 20px; /* Spacer for 3D feel */
@@ -167,7 +215,7 @@
         filter: blur(2px);
         transform-origin: center center;
     }
-    
+     
     /* Active State for Center Card */
     .setup-card.in-focus {
         transform: scale(1);
@@ -221,7 +269,7 @@
 
     .u-badge { font-size: 0.7rem; background: var(--text); color: var(--bg); padding: 2px 8px; border-radius: 5px; margin-bottom: 5px; display: inline-block; align-self: flex-start; cursor: pointer; }
     .u-badge:active { transform: scale(0.95); } /* Feedback for tap */
-    
+     
     .admin-reply-box { margin-top: 10px; padding: 8px 12px; background: rgba(255, 0, 0, 0.05); border-left: 2px solid var(--accent); border-radius: 10px; font-size: 0.9rem; }
     .admin-tag { color: var(--accent); font-weight: bold; font-size: 0.7rem; display: block; margin-bottom: 2px; }
 
@@ -242,7 +290,7 @@
         color: var(--text);
         max-width: 100%; 
     }
-    
+     
     .reply-info {
         display: flex; 
         flex-direction: column; 
@@ -259,7 +307,7 @@
         display: block;
         width: 100%;
     }
-    
+     
     .close-reply-btn {
         background: none; 
         border: none; 
@@ -278,7 +326,7 @@
     }
     .q-name { font-weight: bold; font-size: 0.75rem; opacity: 0.9; margin-bottom: 2px; }
     .q-text { opacity: 0.7; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    
+     
     .msg-footer { 
         display: none; justify-content: flex-end; align-items: center; gap: 15px; margin-top: 6px; 
         border-top: 1px solid rgba(255,255,255,0.05); padding-top: 5px;
@@ -337,12 +385,12 @@
     .up-box { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 15px; margin-bottom: 12px; }
     .up-box h4 { font-size: 1.4rem; color: var(--text) !important; }
     .up-box p { font-size: 0.9rem; opacity: 0.8 !important; margin-top: 4px; text-transform: none; }
-    
+     
     .sw-display { display: none; align-items: center; gap: 15px; margin: 0 0 12px; padding: 15px; background: var(--card); border-radius: 25px; border: 1px solid var(--border); animation: fadeIn 0.3s ease; }
     .sw-img-box { width: 70px; height: 90px; border-radius: 12px; overflow: hidden; background: var(--card); flex-shrink: 0; }
     .sw-img-box img { width: 120%; height: 100%; object-fit: cover; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    
+     
     .guide-box { border: 1px solid var(--border); border-radius: 22px; margin-bottom: 12px; overflow: hidden; margin-top: 0px; background: var(--card); }
     .guide-header { padding: 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
     .guide-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out, opacity 0.3s ease, padding 0.3s ease; padding: 0 18px; opacity: 0; }
@@ -350,7 +398,7 @@
     .guide-content p { color: var(--text) !important; opacity: 0.8 !important; text-transform: none; font-size: 1.1rem; margin-bottom: 12px; }
 
     .detail-card { background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 25px; margin-top: 2px; animation: fadeIn 0.3s ease; }
-    
+     
     .sc-badge { background: #222; color: #888; padding: 4px 10px; border-radius: 8px; font-size: 0.9rem; border: 1px solid var(--border); }
     .card-row { display: flex; gap: 10px; margin-top: 15px; }
 
@@ -423,14 +471,14 @@
         <div id="setupUploadForm" class="upload-box" style="display:none;">
             <span style="display:block;color:var(--accent);margin-bottom:5px;">1. SCREENSHOTS (DISPLAY)</span>
             <div class="upload-grid">
-                <div class="upload-area" onclick="document.getElementById('ssLockIn').click()"><div id="prevSsLock">LOCK SS</div></div>
-                <div class="upload-area" onclick="document.getElementById('ssHomeIn').click()"><div id="prevSsHome">HOME SS</div></div>
+                <div class="upload-area" onclick="document.getElementById('ssLockIn').click()"><div id="prevSsLock">HOME SS</div></div>
+                <div class="upload-area" onclick="document.getElementById('ssHomeIn').click()"><div id="prevSsHome">LOCK SS</div></div>
             </div>
             
             <span style="display:block;color:var(--accent);margin-bottom:5px;">2. WALLPAPERS (DOWNLOAD)</span>
             <div class="upload-grid">
-                <div class="upload-area" onclick="document.getElementById('wallLockIn').click()"><div id="prevWallLock">LOCK WP</div></div>
-                <div class="upload-area" onclick="document.getElementById('wallHomeIn').click()"><div id="prevWallHome">HOME WP</div></div>
+                <div class="upload-area" onclick="document.getElementById('wallLockIn').click()"><div id="prevWallLock">HOME WP</div></div>
+                <div class="upload-area" onclick="document.getElementById('wallHomeIn').click()"><div id="prevWallHome">LOCK WP</div></div>
             </div>
 
             <input type="file" id="ssLockIn" accept="image/*" hidden onchange="handleImg(this, 'prevSsLock', true)">
@@ -575,6 +623,10 @@
       <h2>PLAYGROUND</h2>
       <div style="margin-top:20px;">
         <div class="pg-btn" onclick="openScreen('presetScr')"><span>CAMERA PRESETS</span><i class="fa-solid fa-camera"></i></div>
+<div class="pg-btn" onclick="openProjectScreen()">
+    <span>COMMUNITY PROJECTS</span>
+    <i class="fa-solid fa-code"></i>
+</div>
       </div>
     </div>
   </div>
@@ -588,6 +640,64 @@
     </div>
   </div>
 
+<div id="projectScr" class="screen">
+    <div class="modal">
+        <button class="close-icon" onclick="closeScreen('projectScr')">×</button>
+        
+        <h2 id="prjHubTitle" onclick="handleProjectAdmin()" style="cursor:pointer; user-select:none;">COMMUNITY HUB</h2>
+        
+        <div style="display:flex; gap:10px; margin-bottom:0px;">
+            <button class="pg-btn" onclick="switchProjectTab('feed')" id="btnFeed" style="background:var(--card); color:var(--text);">EXPLORE</button>
+            <button class="pg-btn" onclick="switchProjectTab('upload')" id="btnUpload" style="background:var(--card); color:var(--text);">UPLOAD</button>
+        </div>
+
+        <div id="projectFeed">
+            <p style="text-align:center; opacity:0.5; margin-top:50px;">FETCHING PROJECTS...</p>
+        </div>
+
+        <div id="projectForm" style="display:none;">
+            <div class="upload-box">
+                <p style="text-align:center; opacity:0.5; margin-bottom:10px;"> AUTHOR PROFILE OR LOGO</p>
+                <label class="pfp-select">
+                    <img id="pfpPrv" src="" style="display:none; width:100%; height:100%; object-fit:cover;">
+                    <i class="fa-solid fa-camera" id="pfpIcon"></i>
+                    <input type="file" hidden accept="image/*" onchange="handlePrjFile(this, 'pfpPrv', 'avatar')">
+                </label>
+
+                <div class="input-group">
+    <input type="text" id="prjAuthor" placeholder="YOUR NAME" maxlength="20">
+</div>
+
+<div class="input-group">
+    <input type="text" id="prjTitle" placeholder="PROJECT TITLE" maxlength="25">
+</div>
+
+<div class="input-group">
+    <textarea id="prjDesc" placeholder="DESCRIPTION" rows="3" maxlength="70"></textarea>
+</div>
+
+<div class="input-group">
+    <input type="text" id="prjUrl" placeholder="PROJECT URL">
+</div>
+
+                <p style="color:var(--accent); font-size:0.9rem; margin:10px 0 5px;">SCREENSHOTS (REQUIRED)</p>
+                <div class="upload-grid" style="grid-template-columns: repeat(3, 1fr); gap:10px;">
+                    <div class="upload-area" style="height:80px; border:1px dashed #555; display:grid; place-items:center;" onclick="document.getElementById('prjImg1').click()"><div id="prv1" style="font-size:0.7rem;">IMG 1</div></div>
+                    <div class="upload-area" style="height:80px; border:1px dashed #555; display:grid; place-items:center;" onclick="document.getElementById('prjImg2').click()"><div id="prv2" style="font-size:0.7rem;">IMG 2</div></div>
+                    <div class="upload-area" style="height:80px; border:1px dashed #555; display:grid; place-items:center;" onclick="document.getElementById('prjImg3').click()"><div id="prv3" style="font-size:0.7rem;">IMG 3</div></div>
+                </div>
+
+                <input type="file" id="prjImg1" hidden onchange="handlePrjFile(this, 'prv1', 'img1')">
+                <input type="file" id="prjImg2" hidden onchange="handlePrjFile(this, 'prv2', 'img2')">
+                <input type="file" id="prjImg3" hidden onchange="handlePrjFile(this, 'prv3', 'img3')">
+
+                <button class="btn" id="prjPushBtn" onclick="pushProjectData()" style="margin-top:20px;">
+                    <div class="progress-bar"></div><span class="btn-text">PUBLISH PROJECT</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
   <div id="wpScr" class="screen">
     <div class="modal">
       <button class="close-icon" onclick="closeScreen('wpScr')">×</button>
@@ -713,13 +823,7 @@
             <b>OPT-OUT:</b> You may choose to decline the use of DART cookies by visiting the Google Ad and Content Network Privacy Policy at <a href="https://policies.google.com/technologies/ads" target="_blank" style="text-decoration:underline;">policies.google.com</a>.
           </div>
 
-          <h3 style="margin-top:20px; font-size:1.1rem;">3. GDPR DATA PROTECTION RIGHTS</h3>
-          <p>We would like to make sure you are fully aware of all of your data protection rights. Every user is entitled to the following:</p>
-          <ul style="margin-left:20px; opacity:0.8; list-style:circle; margin-top:5px;">
-              <li>The right to access – You have the right to request copies of your personal data.</li>
-              <li>The right to rectification – You have the right to request that we correct any information you believe is inaccurate.</li>
-              <li>The right to erasure – You have the right to request that we erase your personal data, under certain conditions.</li>
-          </ul>
+          
 
           <h3 style="margin-top:20px; font-size:1.1rem;">4. CCPA PRIVACY RIGHTS</h3>
           <p>Under the CCPA, among other rights, California consumers have the right to request that a business that collects a consumer's personal data disclose the categories and specific pieces of personal data that a business has collected about consumers.</p>
@@ -737,13 +841,7 @@
         <div class="detail-card">
           <p>By accessing this website, you confirm that you understand and agree to comply with these terms and conditions. Do not continue to use Nothing Space if you do not agree to all of the terms stated on this page.</p>
 
-          <h3 style="margin-top:20px; font-size:1.1rem;">1. INTELLECTUAL PROPERTY</h3>
-          <p>Unless otherwise stated, Nothing Space and/or its licensors own the intellectual property rights for all original material on this website. All intellectual property rights are reserved.</p>
-          <ul style="margin-left:20px; opacity:0.8; list-style:square; margin-top:5px;">
-            <li>You must not republish material from Nothing Space.</li>
-            <li>You must not sell, rent, or sub-license material from Nothing Space.</li>
-            <li>You must not reproduce, duplicate or copy material from Nothing Space without permission.</li>
-          </ul>
+   
 
           <h3 style="margin-top:20px; font-size:1.1rem;">2. LIMITATION OF LIABILITY</h3>
           <p>The content and tools on Nothing Space are provided "as is". We make no warranties, expressed or implied.</p>
@@ -792,17 +890,7 @@
         <div class="detail-card">
           <p style="text-align:center; margin-bottom:20px;">Have a suggestion for the site, found a broken link, or have a DMCA request? Choose a method below.</p>
           
-          <div style="background:rgba(0, 136, 204, 0.1); border:1px solid #0088cc; padding:15px; border-radius:15px; text-align:center; margin-bottom:15px;">
-            <i class="fa-brands fa-telegram" style="font-size:2.5rem; color:#0088cc; display:block; margin-bottom:5px;"></i>
-            <p style="opacity:0.6; margin-bottom:5px; font-size:0.8rem;">JOIN OUR COMMUNITY CHANNEL</p>
-            <a href="https://t.me/AskRohit_bot" target="_blank" style="color:#fff; background:#0088cc; padding:8px 15px; border-radius:5px; text-decoration:none; font-weight:bold; display:inline-block;">OPEN TELEGRAM <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-          </div>
-
-          <div style="background:rgba(255,255,255,0.05); border:1px solid var(--border); padding:15px; border-radius:15px; text-align:center;">
-            <i class="fa-solid fa-envelope" style="font-size:1.5rem; display:block; margin-bottom:5px;"></i>
-            <p style="opacity:0.6; margin-bottom:5px; font-size:0.8rem;">OFFICIAL SUPPORT EMAIL</p>
-            <a href="mailto:rkkiller298@gmail.com" style="color:var(--text); text-decoration:underline; font-size:1.2rem;">rkkiller298@gmail.com</a>
-          </div>
+          
 
           <h3 style="margin-top:20px; font-size:1.1rem; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">OPERATIONAL DETAILS</h3>
           <ul style="margin-left:20px; opacity:0.8; list-style:square; margin-top:10px;">
@@ -828,451 +916,68 @@
             <p style="margin-top: 20px; font-size: 0.8rem; color: var(--text-sec);">© 2026 Nothing Space. Designed in India.</p>
         </div>
            </footer>
-  <script>
-    /* ================= CONFIG & GLOBALS ================= */
-    const CONFIG = {
-        BETA_TOOL_URL: "https://github.com/nothingcommunity/Testing/raw/refs/heads/main/Apps/Beta%20Updates%20Hub.apk",
-        SOFTWARE: {}, SERVICE_DB: {}, WALLPAPERS: []
-    };
-    const DB_URL = "https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat.json";
-    const SETUP_DB_URL = "https://nothingcommunity-7664f-default-rtdb.firebaseio.com/setups.json";
-    const ADMIN_UUID = "uid_mkkuzv0gqnf16fsd3fe";
-    
-    let SERVICE_DB = {}; 
-    let currentPlaylist = [], currentIndex = 0, lastPlayedArt = "";
-    let imgStore = { ssHome: null, ssLock: null, wallHome: null, wallLock: null };
-    let currentReply = null; 
+  <script type="module">
+    // 1. FIREBASE IMPORTS
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    // ================= INITIALIZATION =================
-    window.addEventListener('load', () => {
-        applyAutoTheme();
-        createStars(); 
-        createMoon();
-        checkVerifyStatus(); 
-        setTimeout(() => { initSoftwareData(); initServiceData(); loadMessages(); }, 100);
+    // 2. AAPKA CONFIGURATION (Corrected)
+    const firebaseConfig = {
+        apiKey: "AIzaSyALygnN5HdKg7M0hjT8O-duExi8oFNmK-I",
+        authDomain: "nothingcommunity-7664f.firebaseapp.com",
+        databaseURL: "https://nothingcommunity-7664f-default-rtdb.firebaseio.com",
+        projectId: "nothingcommunity-7664f",
+        storageBucket: "nothingcommunity-7664f.firebasestorage.app",
+        messagingSenderId: "561784889132",
+        appId: "1:561784889132:web:613ad040dda985d0fb5689",
+        measurementId: "G-2PTRBJQMHQ"
+    };
+
+    // 3. APP START
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    let globalAuthToken = ""; 
+
+    // 4. AUTO LOGIN (Security Key Lena)
+    signInAnonymously(auth)
+    .then((userCredential) => {
+        console.log("✅ Logged in:", userCredential.user.uid);
+        return userCredential.user.getIdToken();
+    })
+    .then((token) => {
+        globalAuthToken = token; 
+        loadMessages();      // Chat load karo
+        checkVerifyStatus(); // Verification check karo
+        
+        // --- TILES FIX: Login ke baad turant load karo ---
+        window.initPresetData(); 
+        window.initWallpaperData();
+    })
+    .catch((error) => {
+        console.error("❌ Login Failed:", error);
     });
 
-    /* ================= THEME & UI ================= */
-    function applyAutoTheme() {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
-        updateThemeIcon(prefersDark ? 'dark' : 'light');
-    }
-    function toggleTheme() {
-        const root = document.documentElement;
-        const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', newTheme);
-        updateThemeIcon(newTheme);
-    }
-    function updateThemeIcon(theme) { document.getElementById('t-icon').className = theme === 'dark' ? "fa-solid fa-circle" : "fa-solid fa-sun"; }
+    /* ================= CHAT & SECURITY LOGIC ================= */
 
-    function createStars() {
-        requestAnimationFrame(() => {
-            const field = document.getElementById('starField'); field.innerHTML = ''; const fragment = document.createDocumentFragment();
-            const count = window.innerWidth < 768 ? 80 : 250; 
-            for(let i=0; i < count; i++) {
-                const s = document.createElement('div'); s.className = 'star';
-                const size = Math.random() * 3;
-                s.style.cssText = `width:${size}px; height:${size}px; top:${Math.random()*100}%; left:${Math.random()*100}%; animation: blink ${2+Math.random()*3}s infinite; opacity:${Math.random()}`;
-                fragment.appendChild(s);
-            }
-            field.appendChild(fragment);
-        });
-    }
-    function createMoon() { if(!document.querySelector('.moon')) { const moon = document.createElement('div'); moon.className = 'moon'; document.body.appendChild(moon); } }
+    const DB_URL = "https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat.json";
+    const ADMIN_UUID = "uid_mkkuzv0gqnf16fsd3fe"; 
 
-    function attachScrollAnimation() {
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.remove('hidden-state'); entry.target.classList.add('scroll-active'); observer.unobserve(entry.target); } }); }, { threshold: 0.1 });
-        document.querySelectorAll('.wp-card').forEach(card => { card.classList.add('hidden-state'); observer.observe(card); });
-    }
-
-    /* ================= NAVIGATION ================= */
-    function openScreen(id) {
-        const s = document.getElementById(id); if (!s) return;
-        s.style.display = 'flex'; setTimeout(() => { s.classList.add('active'); }, 10);
-        if(id === 'wpScr') initWallpaperData();
-        if(id === 'presetScr') initPresetData();
-        if(id === 'setupScr') loadSetups();
-    }
-
-    function closeScreen(id) {
-        const s = document.getElementById(id); if (!s) return;
-        s.classList.remove('active'); 
-        setTimeout(() => { s.style.display = 'none'; if(id === 'wpScr') { const aiSec = document.getElementById('aiSection'); if(aiSec) aiSec.style.display = 'none'; } }, 400);
-    }
-    function toggleAI() { const section = document.getElementById('aiSection'); section.style.display = (section.style.display === 'none') ? 'block' : 'none'; }
-    function toggleUpload() { const f = document.getElementById('setupUploadForm'); f.style.display = (f.style.display === 'none') ? 'block' : 'none'; }
-
-    /* ================= CUSTOM SELECTOR LOGIC ================= */
-    function openDeviceMenu() {
-        const devices = [
-            { name: "Nothing PHONE (1)", val: "p1" }, { name: "Nothing PHONE (2)", val: "p2" }, { name: "Nothing PHONE (2A)", val: "p2a" },
-            { name: "Nothing PHONE (2A) PLUS", val: "p2aplus" }, { name: "Nothing PHONE (3)", val: "p3" }, { name: "Nothing PHONE (3A)", val: "p3a" },
-            { name: "Nothing PHONE (3A) PRO", val: "p3apro" }, { name: "Nothing PHONE (3A) LITE", val: "p3alite" }, { name: "CMF PHONE 1", val: "cmf1" }, { name: "CMF PHONE 2 PRO", val: "cmf2pro" }
-        ];
-        openUniversalSelector("CHOOSE DEVICE", devices, (selected) => {
-            document.getElementById('swSelect').value = selected.val;
-            document.getElementById('deviceTriggerText').innerText = selected.name;
-            showLogs(); 
-        });
-    }
-
-    function openStateMenu() {
-        const states = ["ANDHRA PRADESH", "ASSAM", "BIHAR", "CHANDIGARH", "CHHATTISGARH", "DELHI", "GOA", "GUJARAT", "HARYANA", "HIMACHAL PRADESH", "JAMMU & KASHMIR", "JHARKHAND", "KARNATAKA", "KERALA", "MADHYA PRADESH", "MAHARASHTRA", "MEGHALAYA", "NAGALAND", "ODISHA", "PUDUCHERRY", "PUNJAB", "RAJASTHAN", "TAMIL NADU", "TELANGANA", "TRIPURA", "UTTAR PRADESH", "UTTARAKHAND", "WEST BENGAL"].map(s => ({ name: s, val: s }));
-        openUniversalSelector("SELECT STATE", states, (selected) => {
-            document.getElementById('state').value = selected.val;
-            document.getElementById('stateTriggerText').innerText = selected.name;
-            document.getElementById('city').value = ""; document.getElementById('cityTriggerText').innerText = "SELECT CITY"; document.getElementById('scInfo').innerHTML = "";
-            loadCitiesCustom(); 
-        });
-    }
-
-    function openCityMenu() {
-        const s = document.getElementById('state').value; if(!s || !SERVICE_DB[s]) return;
-        const rawCities = [...new Set(Object.keys(SERVICE_DB[s]).map(c => c.split('_')[0]))].sort();
-        const cityList = rawCities.map(c => ({ name: c, val: c }));
-        openUniversalSelector("SELECT CITY", cityList, (selected) => {
-            document.getElementById('city').value = selected.val;
-            document.getElementById('cityTriggerText').innerText = selected.name;
-            showDetails(); 
-        });
-    }
-    function loadCitiesCustom() { const s = document.getElementById('state').value; document.getElementById('cityGroup').style.display = (!s || !SERVICE_DB[s]) ? 'none' : 'block'; }
-
-    function openUniversalSelector(title, items, callback) {
-        const titleEl = document.getElementById('selectorTitle'); const listEl = document.getElementById('selectorList');
-        titleEl.innerText = title; listEl.innerHTML = "";
-        items.forEach(item => {
-            const div = document.createElement('div'); div.className = "selector-item";
-            div.innerHTML = `<span>${item.name}</span> <i class="fa-solid fa-arrow-right" style="font-size:0.8rem; opacity:0.5;"></i>`;
-            div.onclick = () => { if(navigator.vibrate) navigator.vibrate(30); callback(item); closeScreen('selectorScr'); };
-            listEl.appendChild(div);
-        });
-        openScreen('selectorScr');
-    }
-
-    /* ================= DOWNLOAD LOGIC ================= */
-    async function runDownload(btn, input) {
-        const bar = btn.querySelector('.progress-bar'); const txt = btn.querySelector('.btn-text'); const oldTxt = txt.innerText; let finalUrl = "";
-        if (input === 'BETA_TOOL') finalUrl = CONFIG.BETA_TOOL_URL;
-        else if (input === 'OTA_ZIP') { const device = document.getElementById('swSelect').value; if(!device) { alert("PLEASE SELECT A DEVICE!"); return; } finalUrl = CONFIG.SOFTWARE[device]?.url; } 
-        else finalUrl = input;
-        if (!finalUrl || finalUrl === "#") { alert("LINK NOT FOUND!"); return; }
-        btn.style.pointerEvents = 'none'; txt.innerText = 'PROCESSING...'; bar.style.transition = 'width 1.5s linear'; bar.style.width = '100%';
-        const isZip = finalUrl.toLowerCase().endsWith('.zip') || finalUrl.toLowerCase().endsWith('.apk');
-        if (isZip) {
-            setTimeout(() => { const link = document.createElement('a'); link.href = finalUrl; link.target = "_blank"; document.body.appendChild(link); link.click(); document.body.removeChild(link); finishDownload(btn, txt, bar, oldTxt); }, 1000);
-        } else {
-            try {
-                const response = await fetch(finalUrl); const blob = await response.blob(); const blobUrl = window.URL.createObjectURL(blob); const link = document.createElement('a'); link.href = blobUrl; link.download = "NothingSpace_" + Date.now() + ".png"; document.body.appendChild(link); link.click(); document.body.removeChild(link); window.URL.revokeObjectURL(blobUrl); finishDownload(btn, txt, bar, oldTxt);
-            } catch (err) { window.open(finalUrl, '_blank'); finishDownload(btn, txt, bar, oldTxt); }
-        }
-    }
-    function finishDownload(btn, txt, bar, oldTxt) { txt.innerText = "DONE ✓"; setTimeout(() => { bar.style.transition = 'none'; bar.style.width = '0%'; txt.innerText = oldTxt; btn.style.pointerEvents = 'all'; }, 1000); }
-
-    /* ================= SOFTWARE & SERVICE DATA ================= */
-    async function initSoftwareData() { try { const response = await fetch("https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data.json"); const data = await response.json(); if (data) CONFIG.SOFTWARE = data; } catch (err) { console.error("SW Error:", err); } }
-    function showLogs() {
-        const m = document.getElementById('swSelect').value; const box = document.getElementById('logBox'), disp = document.getElementById('swDisplay');
-        if(!m || !CONFIG.SOFTWARE[m]) { box.style.display = 'none'; disp.style.display = 'none'; return; }
-        const data = CONFIG.SOFTWARE[m]; document.getElementById('swPhoneImg').src = data.img; document.getElementById('swPhoneTitle').innerText = data.disp;
-        disp.style.display = 'flex'; document.getElementById('swList').innerHTML = (data.logs && Array.isArray(data.logs)) ? data.logs.map(l => `<li>${l}</li>`).join('') : "<li>Details not available</li>"; box.style.display = 'block';
-    }
-    function toggleAccordion() { document.getElementById('accContent').classList.toggle('open'); }
-    async function initServiceData() { try { const response = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Service%20Centre/service_centre.json"); SERVICE_DB = await response.json(); } catch (err) { console.error("Service Data Error"); } }
-    function showDetails() {
-        const s = document.getElementById('state').value, c = document.getElementById('city').value, scInfo = document.getElementById('scInfo');
-        if(!c || !SERVICE_DB[s]) return; scInfo.innerHTML = ''; 
-        Object.keys(SERVICE_DB[s]).filter(key => key === c || key.startsWith(c + "_")).forEach(key => {
-            const d = SERVICE_DB[s][key]; 
-            scInfo.innerHTML += `<div class="detail-card"><div style="display:flex;justify-content:space-between;margin-bottom:10px;"><h3 style="font-size:1.4rem;">${d.n}</h3><span class="sc-badge">ID: ${d.c}</span></div><p style="text-transform:none;opacity:0.7;font-size:1rem;margin-bottom:15px;"><span style="font-size:1.2rem;">${d.a}</p><div style="font-size:0.9rem;margin-bottom:15px;"><p>🕒 TIME: ${d.t}</p><p>🚫 OFF : ${d.o}</p></div><div class="card-row"><button class="btn" style="flex:1;padding:12px;" onclick="window.open('tel:${d.p}')">CALL</button><button class="btn" style="flex:1;padding:12px;" onclick="window.open('${d.m}')">MAPS</button></div></div>`;
-        });
-    }
-    let sw_timer; function startSoftwareLogic() { sw_timer = setTimeout(() => { if(navigator.vibrate) navigator.vibrate(50); openSoftwareMenu(); }, 500); }
-    function cancelSoftwareLogic() { clearTimeout(sw_timer); }
-    async function openSoftwareMenu() {
-        // ADMIN CHECK FOR SOFTWARE TRIGGER
-        if(userUUID !== ADMIN_UUID) return; 
-
-        const id = document.getElementById('swSelect').value; const pass = prompt("🔐 SOFTWARE ADMIN PASSWORD:");
-        if(stringToHash(pass) === "1540218401") {
-            if(!id) { if(confirm("🆕 ADD NEW DEVICE?")) { const newId = prompt("Unique ID:"); if(!newId) return; const payload = { disp: prompt("Name:"), img: prompt("Img URL:"), url: prompt("Zip Link:"), logs: [prompt("Note:")] }; await fetch(`https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data/${newId}.json`, {method:'PUT', body:JSON.stringify(payload)}); alert("ADDED!"); initSoftwareData(); } return; }
-            const cur = CONFIG.SOFTWARE[id]; const choice = prompt(`EDIT ${cur.disp}:\n1.LINK\n2.NAME\n3.IMG\n4.NOTE`); let load = {};
-            if(choice==="1") load={url:prompt("URL:", "")}; if(choice==="2") load={disp:prompt("NAME:", "")}; if(choice==="3") load={img:prompt("IMG:", "")};
-            if(choice==="4") { const raw = prompt("NOTE (| for new line):", ""); if(raw) load={logs: raw.split('|').map(s=>s.trim())}; }
-            if(Object.keys(load).length) { await fetch(`https://nothingsoftware-3cc7c-default-rtdb.firebaseio.com/software_data/${id}.json`, {method:'PATCH', body:JSON.stringify(load)}); alert("SAVED!"); initSoftwareData(); showLogs(); }
-        } else { if(pass) alert("WRONG PASSWORD"); }
-    }
-
-    /* ================= MUSIC MODULE ================= */
-    async function searchMusic() {
-        const query = document.getElementById('mQuery').value; const btn = document.getElementById('mSearchBtn'); const card = document.getElementById('music-card');
-        if (!query) return; const originalBtn = btn.innerHTML; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
-        try {
-            const _0x1 = "aHR0cHM6Ly9pdHVuZXMuYXBwbGUuY29tL3NlYXJjaD9saW1pdD0yNTAmZW50aXR5PXNvbmcmdGVybT0="; 
-            const res = await fetch(`${atob(_0x1)}${encodeURIComponent(query)}`); 
-            const data = await res.json();
-            if (data.results.length > 0) { 
-                currentPlaylist = data.results.map(song => ({ 
-                    url: song.previewUrl, 
-                    art: song.artworkUrl100.replace('100x100', '400x400'), 
-                    title: song.trackName.replace(/mzaf_\d+/g, "Nothing TRACK").toUpperCase(), 
-                    artist: song.artistName
-                })); 
-                currentIndex = 0; card.style.display = "block"; loadSong(0); 
-            } else alert("Nothing FOUND");
-        } catch (e) { console.error(e); } finally { btn.innerHTML = originalBtn; }
-    }
-
-    function loadSong(index) {
-        if (!currentPlaylist[index]) return; const song = currentPlaylist[index]; const player = document.getElementById('mPlayer');
-        document.getElementById('mArt').src = song.art; document.getElementById('mTitle').innerText = song.title; document.getElementById('mArtist').innerText = song.artist; lastPlayedArt = song.art; if(document.getElementById('mini-art')) document.getElementById('mini-art').src = lastPlayedArt; 
-        player.src = song.url; player.load(); togglePlay(true);
-        if ('mediaSession' in navigator) { navigator.mediaSession.metadata = new MediaMetadata({ title: song.title, artist: song.artist, album: "Nothing Space", artwork: [{ src: song.art, sizes: '512x512', type: 'image/jpeg' }] }); navigator.mediaSession.setActionHandler('play', function() { togglePlay(true); }); navigator.mediaSession.setActionHandler('pause', function() { togglePlay(false); }); navigator.mediaSession.setActionHandler('previoustrack', prevSong); navigator.mediaSession.setActionHandler('nexttrack', nextSong); }
-    }
-
-    function togglePlay(forcePlay = false) {
-        const player = document.getElementById('mPlayer'); const icon = document.querySelector('#play-pause i'); const art = document.getElementById('mArt');
-        if (player.paused || forcePlay) { player.play().catch(()=>{}); icon.className = "fa-solid fa-circle-pause"; art.classList.add('spinning'); if('mediaSession' in navigator) navigator.mediaSession.playbackState = "playing"; } 
-        else { player.pause(); icon.className = "fa-solid fa-circle-play"; art.classList.remove('spinning'); if('mediaSession' in navigator) navigator.mediaSession.playbackState = "paused"; }
-    }
-
-    function nextSong() { if(currentPlaylist.length) { currentIndex = (currentIndex + 1) % currentPlaylist.length; loadSong(currentIndex); } }
-    function prevSong() { if(currentPlaylist.length) { currentIndex = (currentIndex - 1 + currentPlaylist.length) % currentPlaylist.length; loadSong(currentIndex); } }
-    function handleMusicClose() { closeScreen('musicScr'); if (!document.getElementById('mPlayer').paused) { document.getElementById('mini-player').style.display = 'block'; document.getElementById('mini-art').src = lastPlayedArt; document.getElementById('mini-art').classList.add('spinning'); } }
-    function restorePlayer() { document.getElementById('mini-player').style.display = 'none'; openScreen('musicScr'); }
-
-    async function downloadCurrentSong() {
-        const song = currentPlaylist[currentIndex]; const btn = document.querySelector('#music-card .btn'); if(!song) return; btn.style.pointerEvents = "none"; btn.innerText = "FETCHING...";
-        try { const response = await fetch(song.url); const blob = await response.blob(); const url = window.URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `${song.title.replace(/[^a-zA-Z0-9\s]/g, '').trim()} - NothingSpace.mp3`; document.body.appendChild(a); a.click(); document.body.removeChild(a); window.URL.revokeObjectURL(url); btn.innerText = "DONE ✓"; } catch (e) { window.open(song.url, '_blank'); btn.innerText = "OPENED"; } setTimeout(() => { btn.innerText = "DOWNLOAD"; btn.style.pointerEvents = "all"; }, 2000); 
-    }
-
-    /* ================= SETUP/LAYOUTS MODULE ================= */
-    function handleImg(input, prevId, isScreen) {
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = new Image();
-                img.src = e.target.result;
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    const maxWidth = isScreen ? 400 : 1080; 
-                    const scale = maxWidth / img.width;
-                    canvas.width = maxWidth;
-                    canvas.height = img.height * scale;
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    const res = canvas.toDataURL('image/jpeg', 0.7);
-                    
-                    if(prevId === 'prevSsLock') imgStore.ssLock = res;
-                    if(prevId === 'prevSsHome') imgStore.ssHome = res;
-                    if(prevId === 'prevWallLock') imgStore.wallLock = res;
-                    if(prevId === 'prevWallHome') imgStore.wallHome = res;
-
-                    document.getElementById(prevId).innerHTML = `<img src="${res}" style="width:100%; height:100%; object-fit:contain;">`;
-                }
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    async function submitSetup() {
-        const title = document.getElementById('setupTitle').value;
-        const btn = document.getElementById('submitBtn');
-
-        if(!title || !imgStore.ssLock || !imgStore.ssHome || !imgStore.wallLock || !imgStore.wallHome) {
-            alert("ERROR: Please upload all 4 required images (Home/Lock Screenshots & Wallpapers)!");
-            return;
-        }
-
-        if (!savedName || savedName === "USER") {
-            let enterName = prompt("ENTER YOUR NAME");
-            if (!enterName || enterName.trim() === "") return; 
-            savedName = enterName.trim().toUpperCase();
-            localStorage.setItem('ns_user_fixed', savedName); 
-        }
-
-        btn.innerText = "UPLOADING..."; btn.style.pointerEvents = "none";
-
-        const data = {
-            title: title.toUpperCase(),
-            desc: document.getElementById('setupDesc').value,
-            ssLock: imgStore.ssLock,
-            ssHome: imgStore.ssHome, 
-            wallLock: imgStore.wallLock,
-            wallHome: imgStore.wallHome,
-            likes: 0,
-            uuid: userUUID,
-            author: savedName,
-            date: Date.now()
-        };
-
-        try {
-            await fetch(SETUP_DB_URL, { method: 'POST', body: JSON.stringify(data) });
-            alert("UPLOADED! 🎉"); location.reload();
-        } catch(e) {
-            alert("FAIL"); btn.innerText = "RETRY"; btn.style.pointerEvents = "all";
-        }
-    }
-
-    /* --- UPDATED SETUP LOADING WITH 3D EFFECT & DELETE LOGIC --- */
-    async function loadSetups() {
-        const grid = document.getElementById('setupGrid');
-        const modal = document.querySelector('#setupScr .modal'); 
-
-        try {
-            const res = await fetch(SETUP_DB_URL);
-            const data = await res.json();
-            
-            if(!data) { 
-                grid.innerHTML = "<p style='text-align:center'>NO SETUPS YET</p>"; 
-                return; 
-            }
-            
-            const list = Object.keys(data).map(k => ({id:k, ...data[k]}));
-            list.sort((a,b) => (b.likes||0) - (a.likes||0)); 
-
-            grid.innerHTML = list.map(p => {
-                const isMine = p.uuid === userUUID;
-                const isAdmin = userUUID === ADMIN_UUID;
-                const liked = localStorage.getItem('l_'+p.id) ? 'liked' : '';
-                const displayName = p.author ? p.author : (isMine ? 'YOU' : 'USER');
-
-                // Logic: Show delete if it is mine OR I am Admin
-                const showDelete = isMine || isAdmin; 
-
-                return `
-                <div class="setup-card">
-                    <div class="setup-header">
-                        <h3>${p.title}</h3>
-                        <span style="opacity:0.5; font-size:0.8rem; border:1px solid #333; padding:2px 6px; border-radius:4px;">${displayName}</span>
-                    </div>
-                    <div class="phone-showcase">
-                        <div class="phone-frame" onclick="selectFrame(this, '${p.wallHome}', '${p.title}_LOCK')">
-                            <img src="${p.ssHome}">
-                        </div>
-                        ${p.ssLock ? `<div class="phone-frame" onclick="selectFrame(this, '${p.wallLock}', '${p.title}_HOME')"><img src="${p.ssLock}"></div>` : ''}
-                    </div>
-                    <button class="dl-btn">DOWNLOAD WALLPAPER</button>
-                    <p style="margin:15px 0 10px; opacity:0.8; font-size:0.9rem;">${p.desc || ''}</p>
-                    <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #222; padding-top:15px;">
-                        <button class="like-btn ${liked}" onclick="doLike('${p.id}', ${p.likes||0}, this)">
-                            <i class="fa-solid fa-heart"></i> <span>${p.likes||0}</span>
-                        </button>
-                        
-                        ${showDelete ? `
-                            <div onclick="deleteSetup('${p.id}', '${p.uuid}')" style="cursor:pointer; padding:8px; background:rgba(255,0,0,0.1); border-radius:8px;">
-                                <i class="fa-solid fa-trash" style="color:#ff4444;"></i>
-                            </div>` 
-                        : ''}
-                    </div>
-                </div>`;
-            }).join('');
-
-            // Attach the 3D Scroll Effect
-            setTimeout(() => {
-                attachFocusScroll(modal);
-            }, 200);
-
-        } catch(e) { 
-            console.error(e);
-            grid.innerHTML = "<p style='text-align:center'>ERROR LOADING</p>"; 
-        }
-    }
-
-    /* --- NEW 3D SCROLL EFFECT LOGIC (Fade + Shrink) --- */
-    function attachFocusScroll(modal) {
-        if(!modal) return;
-
-        const handleScroll = () => {
-            const cards = document.querySelectorAll('.setup-card');
-            const modalCenter = modal.getBoundingClientRect().top + (modal.clientHeight / 2);
-
-            cards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const cardCenter = rect.top + (rect.height / 2);
-                const dist = Math.abs(modalCenter - cardCenter);
-                
-                // If card is near center (200px range), focus it. Else shrink it.
-                if (dist < 200) {
-                    card.classList.add('in-focus');
-                } else {
-                    card.classList.remove('in-focus');
-                }
-            });
-        };
-
-        modal.removeEventListener('scroll', handleScroll); 
-        modal.addEventListener('scroll', handleScroll);
-        
-        // Initial Check
-        handleScroll();
-    }
-
-    async function deleteSetup(id, postUUID) {
-        const isMine = postUUID === userUUID;
-        const isAdmin = userUUID === ADMIN_UUID;
-
-        if (isAdmin) {
-             // Admin Logic: Needs Password
-             const pass = prompt("ADMIN PASSWORD:");
-             if (stringToHash(pass) === "1540218370") {
-                await performDelete(id);
-             } else {
-                alert("WRONG PASSWORD");
-             }
-        } else if (isMine) {
-            // User Logic: Simple Confirm
-            if(confirm("DELETE YOUR SETUP?")) {
-                await performDelete(id);
-            }
-        }
-    }
-
-    async function performDelete(id) {
-        try {
-            await fetch(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/setups/${id}.json`, { method: 'DELETE' });
-            alert("DELETED!"); loadSetups();
-        } catch(e) { alert("ERROR"); }
-    }
-
-    function selectFrame(frame, wallUrl, name) {
-        const wasActive = frame.classList.contains('active');
-        document.querySelectorAll('.phone-frame').forEach(f => f.classList.remove('active'));
-        document.querySelectorAll('.dl-btn').forEach(b => b.style.display = 'none');
-        if (!wasActive) {
-            frame.classList.add('active');
-            const card = frame.closest('.setup-card');
-            const btn = card.querySelector('.dl-btn');
-            if(btn) {
-                btn.style.display = 'block';
-                btn.onclick = () => {
-                    const a = document.createElement('a'); a.href = wallUrl; a.download = name+".jpg";
-                    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-                };
-            }
-        }
-    }
-
-    async function doLike(id, n, btn) {
-        if(localStorage.getItem('l_'+id)) return;
-        localStorage.setItem('l_'+id, '1');
-        btn.classList.add('liked');
-        btn.querySelector('span').innerText = n+1;
-        await fetch(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/setups/${id}.json`, { 
-            method:'PATCH', body:JSON.stringify({likes:n+1}) 
-        });
-    }
-
-    /* ================= CHAT MODULE ================= */
     let userUUID = localStorage.getItem('ns_user_uuid');
     if (!userUUID) { userUUID = 'uid_' + Date.now().toString(36) + Math.random().toString(36).substr(2); localStorage.setItem('ns_user_uuid', userUUID); }
     let savedName = localStorage.getItem('ns_user_fixed') || "";
     let selectedImgBase64 = "";
+    let currentReply = null;
+
+    // Helper: URL mein Token jodna
+    function getAuthUrl(url) {
+        if (!globalAuthToken) return url; // Agar login nahi hua toh normal URL bhejo
+        return url + (url.includes('?') ? "&auth=" : "?auth=") + globalAuthToken;
+    }
 
     async function checkVerifyStatus() {
+        if(!globalAuthToken) return;
         try {
-            const res = await fetch("https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users.json");
+            const res = await fetch(getAuthUrl("https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users.json"));
             const v = await res.json() || {};
             if(v[userUUID] === true) {
                 document.getElementById('imgUploadBtn').style.display = 'block';
@@ -1282,12 +987,14 @@
         } catch(e) {}
     }
 
-    function handleFileSelect() {
+    // --- WINDOW FUNCTIONS (HTML buttons ke liye) ---
+
+    window.handleFileSelect = function() {
         const fileInput = document.getElementById('imgInput');
         const file = fileInput.files[0];
         if (!file) return;
 
-        fetch("https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users.json")
+        fetch(getAuthUrl("https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users.json"))
         .then(res => res.json())
         .then(verifiedList => {
             verifiedList = verifiedList || {};
@@ -1321,23 +1028,22 @@
             fileInput.value = "";
         });
     }
-    function clearImage() { document.getElementById('imgInput').value = ""; document.getElementById('imgPreview').style.display = 'none'; selectedImgBase64 = ""; }
+
+    window.clearImage = function() { document.getElementById('imgInput').value = ""; document.getElementById('imgPreview').style.display = 'none'; selectedImgBase64 = ""; }
     
-    // NEW REPLY FUNCTIONS
-    function initReply(id, name, text) {
+    window.initReply = function(id, name, text) {
         currentReply = { id: id, name: name, text: text };
         document.getElementById('replyBanner').style.display = 'flex';
         document.getElementById('replyText').innerText = name + ": " + text;
         document.getElementById('userMsg').focus();
     }
 
-    function cancelReply() {
+    window.cancelReply = function() {
         currentReply = null;
         document.getElementById('replyBanner').style.display = 'none';
     }
 
-    // SCROLL TO MSG FUNCTION
-    function scrollToMsg(id) {
+    window.scrollToMsg = function(id) {
         const target = document.getElementById(`msg-${id}`);
         if (target) {
             target.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1346,11 +1052,13 @@
             target.style.background = "rgba(255, 0, 0, 0.2)"; 
             setTimeout(() => { target.style.background = originalBg; }, 1000);
         } else {
-            alert("Message not found (might be deleted or not loaded).");
+            alert("Message not found.");
         }
     }
 
-    async function sendMsg() {
+    window.sendMsg = async function() {
+        if(!globalAuthToken) { alert("Still connecting... please wait a sec."); return; }
+
         const input = document.getElementById('userMsg'); const btn = document.getElementById('sendBtn'); 
         let msg = input.value.trim();
         
@@ -1364,36 +1072,45 @@
             image: selectedImgBase64, 
             reply: "", 
             timestamp: Date.now(), 
-            uuid: userUUID, 
+            uuid: userUUID,
+            senderId: auth.currentUser ? auth.currentUser.uid : userUUID, // SECURITY KEY
             isVerified: false,
             quoted: currentReply ? { id: currentReply.id, name: currentReply.name, text: currentReply.text } : null 
         };
 
         const originalHTML = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="red-dot-loader"></span>';
         try {
-            const banCheck = await fetch(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${userUUID}.json`); const isBanned = await banCheck.json(); if (isBanned === true) { alert("🚫 YOU ARE BANNED."); return; }
-            await fetch(DB_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); 
+            const banCheck = await fetch(getAuthUrl(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${userUUID}.json`)); 
+            const isBanned = await banCheck.json(); if (isBanned === true) { alert("🚫 YOU ARE BANNED."); return; }
+            
+            await fetch(getAuthUrl(DB_URL), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); 
+            
             input.value = ""; clearImage(); cancelReply(); await loadMessages(); 
-        } catch (e) { alert("FAILED"); } finally { btn.disabled = false; btn.innerHTML = originalHTML; }
+        } catch (e) { alert("FAILED: " + e.message); console.error(e); } finally { btn.disabled = false; btn.innerHTML = originalHTML; }
     }
 
-    function toggleMsgActions(bubble) {
+    window.toggleMsgActions = function(bubble) {
         const isActive = bubble.classList.contains('active-actions');
         document.querySelectorAll('.msg-bubble').forEach(b => b.classList.remove('active-actions'));
         if(!isActive) bubble.classList.add('active-actions');
     }
 
-    async function deleteMyMsg(id) {
+    window.deleteMyMsg = async function(id) {
+        if(!globalAuthToken) return;
         if(!confirm("DELETE?")) return;
         try {
-            await fetch(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${id}.json`, { method: 'DELETE' });
+            await fetch(getAuthUrl(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${id}.json`), { method: 'DELETE' });
             loadMessages();
         } catch(e) { alert("ERROR"); }
     }
 
     async function loadMessages() {
+        if(!globalAuthToken) return;
         try {
-            const [chatRes, verifyRes] = await Promise.all([ fetch(DB_URL), fetch("https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users.json") ]);
+            const [chatRes, verifyRes] = await Promise.all([ 
+                fetch(getAuthUrl(DB_URL)), 
+                fetch(getAuthUrl("https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users.json")) 
+            ]);
             const data = await chatRes.json(); const verifiedData = await verifyRes.json() || {}; const board = document.getElementById('msgBoard');
             if (!data) { board.innerHTML = '<p style="opacity:0.4; text-align:center;">NO MESSAGES YET.</p>'; return; }
             const messages = Object.keys(data).map(key => ({ id: key, ...data[key] }));
@@ -1440,28 +1157,21 @@
         } catch (e) { console.log(e); }
     }
 
-    /* === NEW TAP LOGIC FOR ADMIN === */
+    /* === ADMIN LOGIC === */
     let adminTapCount = 0;
     let adminTapTimer;
 
-    function handleAdminTap(event, id, name, verified, uuid) {
+    window.handleAdminTap = function(event, id, name, verified, uuid) {
         event.stopPropagation(); 
-
-        // STRICT ADMIN CHECK HERE
         if (userUUID !== ADMIN_UUID) return;
-
         adminTapCount++;
-        
         clearTimeout(adminTapTimer);
-
         if (adminTapCount === 2) {
             adminTapCount = 0; 
             if (navigator.vibrate) navigator.vibrate([50, 50, 50]); 
             adminControl(id, name, verified, uuid); 
         } else {
-            adminTapTimer = setTimeout(() => {
-                adminTapCount = 0;
-            }, 400);
+            adminTapTimer = setTimeout(() => { adminTapCount = 0; }, 400);
         }
     }
 
@@ -1469,20 +1179,21 @@
         const pass = prompt("ADMIN PASSWORD:"); if (!pass) return;
         if (stringToHash(pass) === "1540218370") {
             const action = prompt(`MANAGE: ${currentName}\nUUID: ${targetUUID ? 'FOUND' : 'MISSING'}\n\n1.REPLY 2.DELETE ALL 3.DELETE SINGLE 4.${currentStatus ? 'UNVERIFY' : 'VERIFY'} 5.BAN 6.UNBAN`);
-            const url = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${msgId}.json`;
-            const banUrl = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${targetUUID}.json`;
-            const verifyUrl = `https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users/${targetUUID}.json`;
+            
+            const url = getAuthUrl(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${msgId}.json`);
+            const banUrl = getAuthUrl(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/banned/${targetUUID}.json`);
+            const verifyUrl = getAuthUrl(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/verified_users/${targetUUID}.json`);
             
             if (action === "1") { const txt = prompt("REPLY:"); if(txt) await fetch(url, { method: 'PATCH', body: JSON.stringify({ reply: txt }) }); }
             else if (action === "2") { 
                 if(targetUUID && confirm("⚠️ DELETE ALL MESSAGES FROM THIS USER?")) {
-                    const allMsgRes = await fetch(DB_URL);
+                    const allMsgRes = await fetch(getAuthUrl(DB_URL));
                     const allData = await allMsgRes.json();
                     if(allData) {
                         const promises = [];
                         Object.keys(allData).forEach(key => {
                             if(allData[key].uuid === targetUUID) {
-                                promises.push(fetch(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${key}.json`, { method: 'DELETE' }));
+                                promises.push(fetch(getAuthUrl(`https://nothingcommunity-7664f-default-rtdb.firebaseio.com/chat/${key}.json`), { method: 'DELETE' }));
                             }
                         });
                         await Promise.all(promises);
@@ -1499,9 +1210,36 @@
     }
 
     function stringToHash(string) { let hash = 0; if (string.length === 0) return hash; for (let i = 0; i < string.length; i++) { const char = string.charCodeAt(i); hash = ((hash << 5) - hash) + char; hash = hash & hash; } return hash.toString(); }
-    async function initPresetData() { const grid = document.getElementById('presetGrid'); grid.innerHTML = "<p style='padding:20px; text-align:center;'>LOADING PRESETS...</p>"; try { const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Camera%20Presets/Presets/presets.json"); const data = await res.json(); grid.innerHTML = data.map(p => `<div class="wp-card"><img src="${p.img}" loading="lazy" width="200" height="250"><div class="wp-overlay"><p>${p.id || 'PRESET'}</p><button class="btn" onclick="runDownload(this, '${p.url}')"><div class="progress-bar"></div><span class="btn-text">GET</span></button></div></div>`).join(''); setTimeout(attachScrollAnimation, 100); } catch(e) { grid.innerHTML = "ERROR"; } }
-    async function initWallpaperData() { const grid = document.getElementById('wallpaperGrid'); grid.innerHTML = "<p style='padding:20px; text-align:center;'>LOADING WALLPAPERS...</p>"; try { const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Wallpapers/Walls/wallpapers.json"); const data = await res.json(); const walls = Array.isArray(data) ? data : data.wallpapers; grid.innerHTML = walls.map(w => `<div class="wp-card"><img src="${w.img}" loading="lazy" width="200" height="250"><div class="wp-overlay"><button class="btn" onclick="runDownload(this, '${w.url}')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD</span></button></div></div>`).join(''); setTimeout(attachScrollAnimation, 100); } catch(e) { grid.innerHTML = "ERROR LOADING"; } }
-    async function generateAIWall() {
+
+    /* === WALLPAPERS & AI LOGIC === */
+
+    // 1. PRESETS
+    window.initPresetData = async function() { 
+        const grid = document.getElementById('presetGrid'); 
+        if(!grid) return;
+        grid.innerHTML = "<p style='padding:20px; text-align:center;'>LOADING PRESETS...</p>"; 
+        try { 
+            const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Camera%20Presets/Presets/presets.json"); 
+            const data = await res.json(); 
+            grid.innerHTML = data.map(p => `<div class="wp-card"><img src="${p.img}" loading="lazy" width="200" height="250"><div class="wp-overlay"><p>${p.id || 'PRESET'}</p><button class="btn" onclick="window.runDownload(this, '${p.url}')"><div class="progress-bar"></div><span class="btn-text">GET</span></button></div></div>`).join(''); 
+        } catch(e) { grid.innerHTML = "ERROR"; } 
+    }
+
+    // 2. WALLPAPERS
+    window.initWallpaperData = async function() { 
+        const grid = document.getElementById('wallpaperGrid'); 
+        if(!grid) return;
+        grid.innerHTML = "<p style='padding:20px; text-align:center;'>LOADING WALLPAPERS...</p>"; 
+        try { 
+            const res = await fetch("https://raw.githubusercontent.com/nothingcommunity/Testing/main/Wallpapers/Walls/wallpapers.json"); 
+            const data = await res.json(); 
+            const walls = Array.isArray(data) ? data : data.wallpapers; 
+            grid.innerHTML = walls.map(w => `<div class="wp-card"><img src="${w.img}" loading="lazy" width="200" height="250"><div class="wp-overlay"><button class="btn" onclick="window.runDownload(this, '${w.url}')"><div class="progress-bar"></div><span class="btn-text">DOWNLOAD</span></button></div></div>`).join(''); 
+        } catch(e) { grid.innerHTML = "ERROR LOADING"; } 
+    }
+
+    // 3. AI GENERATOR
+    window.generateAIWall = async function() {
         const prompt = document.getElementById('aiPrompt').value.trim(); const ratio = document.getElementById('aiRatio').value; const btn = document.getElementById('genBtn'), aiImg = document.getElementById('aiImg'), resultDiv = document.getElementById('aiResult'), bar = btn.querySelector('.progress-bar'), txt = btn.querySelector('.btn-text');
         if (!prompt) { alert("PLEASE ENTER SOMETHING"); return; }
         btn.style.pointerEvents = 'none'; txt.innerText = 'IMAGINING...'; bar.style.transition = 'width 60s cubic-bezier(0.4, 0, 0.2, 1)'; bar.style.width = '90%'; resultDiv.style.display = 'none'; aiImg.style.opacity = '0';
@@ -1509,34 +1247,63 @@
         const seed = Math.floor(Math.random() * 100000); const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt + ", nothing style, minimal, 8k")}?width=${w}&height=${h}&seed=${seed}&nologo=true&model=flux`;
         try { const res = await fetch(url); if (!res.ok) throw new Error("Error"); const blob = await res.blob(); if (blob.size > 1000000) throw new Error("Rate Limit"); aiImg.src = URL.createObjectURL(blob); resultDiv.style.display = 'block'; setTimeout(() => { aiImg.style.opacity = '1'; resultDiv.scrollIntoView({behavior:'smooth'}); }, 100); bar.style.width = '0%'; bar.style.transition = 'none'; txt.innerText = 'GENERATE AGAIN'; } catch (e) { alert("SERVER BUSY. TRY LATER."); bar.style.width = '0%'; bar.style.transition = 'none'; txt.innerText = 'TRY AGAIN'; } finally { btn.style.pointerEvents = 'all'; }
     }
-    async function downloadAIWall(btn) { runDownload(btn, document.getElementById('aiImg').src); }
+    
+    window.downloadAIWall = async function(btn) { window.runDownload(btn, document.getElementById('aiImg').src); }
+    window.runDownload = function(btn, url) { const a = document.createElement('a'); a.href = url; a.download = 'file.jpg'; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
 
-    function openImageViewer(src) {
-        const viewer = document.getElementById('imgViewer');
-        const img = document.getElementById('viewImg');
-        img.src = src;
-        viewer.style.display = 'flex';
-        setTimeout(() => viewer.classList.add('active'), 10);
-    }
-
-    function closeImageViewer() {
-        const viewer = document.getElementById('imgViewer');
-        viewer.classList.remove('active');
-        setTimeout(() => { viewer.style.display = 'none'; document.getElementById('viewImg').src = ""; }, 300);
-    }
-
-    function downloadViewImage() {
-        const src = document.getElementById('viewImg').src;
-        const a = document.createElement('a');
-        a.href = src;
-        a.download = "Nothing_Community_Img_" + Date.now() + ".jpg";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    }
+    window.openImageViewer = function(src) { const viewer = document.getElementById('imgViewer'); const img = document.getElementById('viewImg'); img.src = src; viewer.style.display = 'flex'; setTimeout(() => viewer.classList.add('active'), 10); }
+    window.closeImageViewer = function() { const viewer = document.getElementById('imgViewer'); viewer.classList.remove('active'); setTimeout(() => { viewer.style.display = 'none'; document.getElementById('viewImg').src = ""; }, 300); }
+    window.downloadViewImage = function() { const src = document.getElementById('viewImg').src; const a = document.createElement('a'); a.href = src; a.download = "Nothing_Community_Img_" + Date.now() + ".jpg"; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
 
     document.addEventListener('contextmenu', function(e) { if (e.target.tagName === 'IMG') { e.preventDefault(); } }, false);
     window.ondragstart = function() { return false; };
+    
+    /* ================= STARTUP LOGIC FOR OTHER MODULES ================= */
+    // Ye functions page load hote hi call honge (Auth se pehle) taaki UI blank na rahe
+    window.addEventListener('load', () => {
+       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+       document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+       document.getElementById('t-icon').className = prefersDark ? "fa-solid fa-circle" : "fa-solid fa-sun";
+       
+       // Stars Create karna
+       requestAnimationFrame(() => {
+            const field = document.getElementById('starField'); 
+            if(field) {
+                field.innerHTML = ''; 
+                const count = window.innerWidth < 768 ? 80 : 250;
+                for(let i=0; i < count; i++) {
+                    const s = document.createElement('div'); s.className = 'star';
+                    const size = Math.random() * 3;
+                    s.style.cssText = `width:${size}px; height:${size}px; top:${Math.random()*100}%; left:${Math.random()*100}%; animation: blink ${2+Math.random()*3}s infinite; opacity:${Math.random()}`;
+                    field.appendChild(s);
+                }
+            }
+       });
+       
+       // Moon
+       if(!document.querySelector('.moon')) { const moon = document.createElement('div'); moon.className = 'moon'; document.body.appendChild(moon); }
+    });
+    
+    window.toggleTheme = function() {
+        const root = document.documentElement;
+        const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', newTheme);
+        document.getElementById('t-icon').className = newTheme === 'dark' ? "fa-solid fa-circle" : "fa-solid fa-sun";
+    }
+
+    // --- SCREEN OPEN/CLOSE ---
+    window.openScreen = function(id) {
+        const s = document.getElementById(id); if (!s) return;
+        s.style.display = 'flex'; setTimeout(() => { s.classList.add('active'); }, 10);
+        if(id === 'wpScr') window.initWallpaperData();
+        if(id === 'presetScr') window.initPresetData();
+    }
+
+    window.closeScreen = function(id) {
+        const s = document.getElementById(id); if (!s) return;
+        s.classList.remove('active'); 
+        setTimeout(() => { s.style.display = 'none'; }, 400);
+    }
   </script>
 </body>
 </html>
