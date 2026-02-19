@@ -292,6 +292,12 @@ footer p { opacity: 0.8 !important; }
 @media (min-width: 768px) {
     .desktop-only { display: block; }
 }
+/* ================= DROP UI EXTRA FIXES ================= */
+.status-pill { background:var(--card); border: 1px solid var(--border); color:var(--text); padding:8px 16px; border-radius:50px; font-size:0.9rem; font-weight:bold; display:inline-flex; align-items:center; gap:8px; }
+.disconnect-btn-inline { background: rgba(255,0,0,0.1); color:#ff4444; border:1px solid #ff4444; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem; transition:0.2s; }
+.disconnect-btn-inline:active { transform: scale(0.9); }
+.text-drop-area { width: 100%; background: rgba(255,255,255,0.02); border: 1px dashed var(--border); border-radius: 18px; padding: 15px; color: var(--text); font-family: 'VT323', monospace; font-size: 1.1rem; resize: none; margin-bottom: 10px; outline: none; transition: 0.3s; }
+.text-drop-area:focus { border-color: var(--text); background: rgba(255,255,255,0.05); }
 
 /* Animated File Drop Zone */
 .animated-drop-zone { border: 2px dashed var(--border); border-radius: 25px; height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
@@ -858,17 +864,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="code-box" id="dropMyCode" style="font-size:2rem; letter-spacing:4px; font-weight:bold; color:var(--text); background: var(--card); padding: 10px; border-radius: 10px; border: 1px dashed var(--border);">...</div>
           </div>
           <div id="recvConnectedUI" style="display:none;">
-              <div style="background:var(--card); border: 1px solid var(--border); color:var(--text); padding:10px 20px; border-radius:50px; font-size:1rem; font-weight:bold; display:inline-flex; align-items:center; gap:12px; margin-bottom: 20px;">
-                  <div style="width:12px; height:12px; background:#00ff00; border-radius:50%; box-shadow: 0 0 10px #00ff00;"></div> CONNECTED
+              <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom: 20px;">
+                  <div class="status-pill">
+                      <div style="width:10px; height:10px; background:#00ff00; border-radius:50%; box-shadow: 0 0 10px #00ff00;"></div> RECEIVER CONNECTED
+                  </div>
+                  <button class="disconnect-btn-inline" onclick="disconnectDrop()" title="Disconnect"><i class="fa-solid fa-xmark"></i></button>
               </div>
-              <br>
-              <button class="btn" onclick="disconnectDrop()" style="background:transparent; color:#ff4444; border:2px solid #ff4444; width:100%; border-radius:18px;">DISCONNECT</button>
+
+              <div id="dropTextLogs" style="max-height: 250px; overflow-y: auto; text-align: left; display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px;"></div>
           </div>
       </div>
 
       <div id="sendTab" style="display:none; text-align:center;">
           <div id="senderInitialUI">
-              
               <div class="animated-drop-zone" onclick="startDirectScanner()" id="scannerTrigger" style="margin-bottom: 10px; height: 120px;">
                   <div class="drop-zone-bg-anim"></div>
                   <div class="drop-zone-content">
@@ -876,7 +884,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                       <span style="font-weight:bold; font-size: 1.1rem; letter-spacing:1px;">TAP TO SCAN QR</span>
                   </div>
               </div>
-
               <div id="dropReader" style="margin-bottom: 10px;"></div>
               <p id="scannerLoader" style="display:none; margin: 15px 0; opacity: 0.6; font-size:1.1rem;"><i class="fa-solid fa-spinner fa-spin"></i> STARTING CAMERA...</p>
               
@@ -889,28 +896,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
 
           <div id="dropSendSection" style="display:none; margin-top:5px;">
-              <div style="background:var(--card); border: 1px solid var(--border); color:var(--text); padding:10px 20px; border-radius:50px; font-size:1rem; font-weight:bold; display:inline-flex; align-items:center; gap:12px; margin-bottom: 15px;">
-                  <div style="width:12px; height:12px; background:#00ff00; border-radius:50%; box-shadow: 0 0 10px #00ff00;"></div> CONNECTED
+              
+              <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom: 15px;">
+                  <div class="status-pill">
+                      <div style="width:10px; height:10px; background:#00ff00; border-radius:50%; box-shadow: 0 0 10px #00ff00;"></div> SENDER CONNECTED
+                  </div>
+                  <button class="disconnect-btn-inline" onclick="disconnectDrop()" title="Disconnect"><i class="fa-solid fa-xmark"></i></button>
               </div>
+              
+              <textarea id="dropTextInput" class="text-drop-area" rows="2" placeholder="TYPE OR PASTE TEXT HERE..."></textarea>
               
               <input type="file" id="dropFileInput" multiple hidden onchange="updateDropFileLabel()">
               
-              <div class="animated-drop-zone" onclick="document.getElementById('dropFileInput').click()" style="margin-bottom: 20px;">
+              <div class="animated-drop-zone" onclick="document.getElementById('dropFileInput').click()" style="margin-bottom: 15px; height: 90px;">
                   <div class="drop-zone-bg-anim"></div>
                   <div class="drop-zone-content">
-                      <i class="fa-solid fa-file-circle-plus" id="dropFileIcon"></i>
-                      <span id="dropFileLabel" style="font-weight:bold; opacity: 0.8; font-size: 1.1rem; letter-spacing:1px;">SELECT FILES</span>
+                      <i class="fa-solid fa-file-circle-plus" id="dropFileIcon" style="font-size: 1.8rem;"></i>
+                      <span id="dropFileLabel" style="font-weight:bold; opacity: 0.8; font-size: 1rem; letter-spacing:1px;">SELECT FILES</span>
                   </div>
               </div>
 
-              <div style="display:flex; gap:10px;">
-                  <button class="btn" onclick="sendDropFile()" id="dropSendBtn" style="flex:3; margin: 0; background: var(--text); color: var(--bg); border-radius: 18px; font-size: 1.1rem;"><i class="fa-solid fa-paper-plane"></i> SEND DATA</button>
-                  <button class="btn" onclick="disconnectDrop()" style="flex:1; margin: 0; background:transparent; color:#ff4444; border:2px solid #ff4444; border-radius: 18px;"><i class="fa-solid fa-xmark"></i></button>
-              </div>
+              <button class="btn" onclick="sendDropData()" id="dropSendBtn" style="width: 100%; margin: 0; background: var(--text); color: var(--bg); border-radius: 18px; font-size: 1.2rem;"><i class="fa-solid fa-paper-plane"></i> SEND DATA</button>
           </div>
       </div>
       
-      <div id="dropStatus" style="margin-top:20px; padding:15px; border-radius:12px; background:var(--card); border:1px solid var(--border); display:none; text-align:center; font-weight:bold; font-size: 1.1rem;"></div>
+      <div id="dropStatus" style="margin-top:15px; padding:12px; border-radius:12px; background:var(--card); border:1px solid var(--border); display:none; text-align:center; font-weight:bold; font-size: 1rem;"></div>
     </div>
 </div>
       <div id="aboutScr" class="screen">
@@ -2523,16 +2533,17 @@ async function toggleVerifyProject(id) {
 
     document.addEventListener('contextmenu', function(e) { if (e.target.tagName === 'IMG') { e.preventDefault(); } }, false);
 
-/* ================= SECRET FILE DROP LOGIC (CLEAN UI & SPEED FIX) ================= */
+/* ================= SECRET FILE DROP LOGIC (TEXT + FILE FIXES) ================= */
 let dropPeer = null;
 let dropConn = null;
-let directHtml5Qrcode = null; // Changed from Scanner to direct core logic
+let directHtml5Qrcode = null; 
 let resolveCurrentFile = null; 
 
 let receiveBuffer = [];
 let receivedSize = 0;
 let expectedSize = 0;
 let incomingFileInfo = null;
+let statusTimeoutTimer = null; // Added to handle auto-hide timers
 
 function initDropSystem(forceNew = false) {
     if (forceNew && dropPeer) {
@@ -2561,16 +2572,23 @@ function initDropSystem(forceNew = false) {
             if(navigator.vibrate) navigator.vibrate([30, 30]);
             document.getElementById('recvInitialUI').style.display = 'none';
             document.getElementById('recvConnectedUI').style.display = 'block';
-            showDropStatus("SESSION LOCKED. WAITING... 🔒", "var(--text)", "radar");
+            showDropStatus("SESSION LOCKED. WAITING... 🔒", "var(--text)", "radar", 0, false);
         });
 
         conn.on('data', (data) => {
-            if (data.type === 'header') {
+            // NEW: TEXT HANDLING
+            if (data.type === 'text') {
+                if(navigator.vibrate) navigator.vibrate([30, 30]);
+                appendReceivedText(data.content);
+                showDropStatus("TEXT RECEIVED ✅", "#28a745", "none", 0, true);
+            }
+            // FILE HANDLING
+            else if (data.type === 'header') {
                 receiveBuffer = [];
                 receivedSize = 0;
                 expectedSize = data.size;
                 incomingFileInfo = data;
-                showDropStatus(`PREPARING...`, "var(--text)", "progress", 0);
+                showDropStatus(`PREPARING FILE...`, "var(--text)", "progress", 0, false);
             } 
             else if (data.type === 'chunk') {
                 receiveBuffer.push(data.data);
@@ -2578,7 +2596,7 @@ function initDropSystem(forceNew = false) {
 
                 if (receivedSize === expectedSize || receiveBuffer.length % 5 === 0) {
                     let percent = Math.round((receivedSize / expectedSize) * 100);
-                    showDropStatus(`DOWNLOADING: ${percent}%`, "var(--text)", "progress", percent);
+                    showDropStatus(`DOWNLOADING: ${percent}%`, "var(--text)", "progress", percent, false);
                 }
 
                 if (receivedSize === expectedSize) {
@@ -2593,13 +2611,30 @@ function initDropSystem(forceNew = false) {
                     
                     setTimeout(() => window.URL.revokeObjectURL(url), 5000);
                     conn.send({ type: 'ack' });
-                    showDropStatus("FILE SAVED ✅", "#28a745", "radar");
+                    showDropStatus("FILE SAVED ✅", "#28a745", "none", 0, true);
                 }
             }
         });
         
         conn.on('close', () => { disconnectDrop(true); });
     });
+}
+
+// Function to inject text neatly for the receiver
+function appendReceivedText(text) {
+    const container = document.getElementById('dropTextLogs');
+    const safeText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    
+    // Copy script injected into button
+    const copyCode = `navigator.clipboard.writeText(this.previousElementSibling.innerText); this.innerHTML = '<i class=\\'fa-solid fa-check\\'></i>'; setTimeout(() => this.innerHTML = '<i class=\\'fa-regular fa-copy\\'></i>', 2000);`;
+    
+    const div = document.createElement('div');
+    div.style.cssText = "background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 12px; border-radius: 12px; position: relative; word-wrap: break-word;";
+    div.innerHTML = `
+        <span style="display:block; font-family:'VT323', monospace; font-size:1.1rem; padding-right:35px; white-space: pre-wrap;">${safeText}</span>
+        <button onclick="${copyCode}" style="position:absolute; right:8px; top:8px; background:var(--card); border:1px solid var(--border); color:var(--text); width:30px; height:30px; border-radius:8px; cursor:pointer;"><i class="fa-regular fa-copy"></i></button>
+    `;
+    container.prepend(div);
 }
 
 function switchDropTab(tab) {
@@ -2610,12 +2645,14 @@ function switchDropTab(tab) {
     document.getElementById('recvTab').style.display = tab === 'recv' ? 'block' : 'none';
     document.getElementById('sendTab').style.display = tab === 'send' ? 'block' : 'none';
     
-    // Camera background process stop karna important hai
     if(tab === 'recv') stopDirectScanner();
 }
 
-function showDropStatus(msg, color, animType = "none", percent = 0) {
+// Auto Hide Logic added
+function showDropStatus(msg, color, animType = "none", percent = 0, autoHide = false) {
     const d = document.getElementById('dropStatus');
+    clearTimeout(statusTimeoutTimer); // Clear any existing hide timers
+
     d.style.display = 'block'; 
     d.style.color = color; 
     let animHtml = "";
@@ -2626,14 +2663,20 @@ function showDropStatus(msg, color, animType = "none", percent = 0) {
         animHtml = `<div class="transfer-bar"><div class="transfer-flow"></div></div>`;
     } else if (animType === "progress") {
         animHtml = `
-        <div style="width:100%; max-width:250px; height:8px; background:var(--border); border-radius:10px; margin:15px auto; overflow:hidden;">
+        <div style="width:100%; max-width:250px; height:8px; background:var(--border); border-radius:10px; margin:10px auto; overflow:hidden;">
             <div style="width:${percent}%; height:100%; background:var(--text); transition:width 0.1s ease-out;"></div>
         </div>`;
     }
-    d.innerHTML = `${animHtml} <div style="margin-top:8px;">${msg}</div>`;
+    d.innerHTML = `${animHtml} <div style="margin-top:5px;">${msg}</div>`;
+
+    // Automatically hide after 3 seconds if requested
+    if (autoHide) {
+        statusTimeoutTimer = setTimeout(() => {
+            d.style.display = 'none';
+        }, 3000);
+    }
 }
 
-// 🔥 NEW: Direct Scanner Core Logic (No default buttons/ui)
 function startDirectScanner() {
     const trigger = document.getElementById('scannerTrigger');
     const reader = document.getElementById('dropReader');
@@ -2650,14 +2693,11 @@ function startDirectScanner() {
 
     directHtml5Qrcode.start({ facingMode: "environment" }, config,
         (decodedText) => {
-            // Success Callback
             if(navigator.vibrate) navigator.vibrate(50);
             stopDirectScanner(); 
-            connectDropManual(decodedText); // Connect directly via scanned code
+            connectDropManual(decodedText); 
         },
-        (errorMessage) => {
-            // Ignore ongoing parsing errors
-        }
+        (errorMessage) => {}
     ).then(() => {
         loader.style.display = 'none';
         reader.style.display = 'block';
@@ -2677,16 +2717,14 @@ function stopDirectScanner() {
     }
 }
 
-// Updated function to accept parameter or read from input
 function connectDropManual(scannedCode = null) {
     if(navigator.vibrate) navigator.vibrate(15);
     
-    // Agar QR se code aya h, ya fir input box se liyo
     const code = scannedCode || document.getElementById('manualDropCode').value.trim();
     
     if(!code || code.length !== 8) return alert("Please enter the full 8-digit secure PIN!");
     
-    showDropStatus("VERIFYING... ⏳", "var(--text)", "radar");
+    showDropStatus("VERIFYING... ⏳", "var(--text)", "radar", 0, false);
     
     dropConn = dropPeer.connect(code);
     
@@ -2694,14 +2732,14 @@ function connectDropManual(scannedCode = null) {
         if(navigator.vibrate) navigator.vibrate(30);
         document.getElementById('senderInitialUI').style.display = 'none';
         document.getElementById('dropSendSection').style.display = 'block';
-        showDropStatus("CONNECTION SECURED! 🔗", "#28a745", "none");
+        showDropStatus("CONNECTION SECURED! 🔗", "#28a745", "none", 0, true);
     });
     
     dropConn.on('data', (data) => {
         if (data.type === 'ack' && resolveCurrentFile) resolveCurrentFile(); 
     });
 
-    dropConn.on('error', () => { showDropStatus("INVALID PIN OR EXPIRED ❌", "var(--accent)", "none"); });
+    dropConn.on('error', () => { showDropStatus("INVALID PIN OR EXPIRED ❌", "var(--accent)", "none", 0, true); });
     dropConn.on('close', () => { disconnectDrop(true); });
 }
 
@@ -2727,57 +2765,71 @@ function updateDropFileLabel() {
     }
 }
 
-async function sendDropFile() {
+// ✨ UPDATED: sendDropData (Handles both Text & Files)
+async function sendDropData() {
     const fileInput = document.getElementById('dropFileInput');
+    const textInput = document.getElementById('dropTextInput');
+    
     const files = fileInput.files;
-    if(files.length === 0) return alert("Select at least one file!");
+    const textData = textInput.value.trim();
+
+    if(files.length === 0 && textData === "") return alert("Please enter text or select a file to send!");
     
     const btn = document.getElementById('dropSendBtn');
     btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> SENDING...`; 
     btn.disabled = true;
 
-    const CHUNK_SIZE = 1024 * 1024; 
-    
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        dropConn.send({ type: 'header', filename: file.name, filetype: file.type, size: file.size });
+    // Send TEXT first if available
+    if (textData !== "") {
+        dropConn.send({ type: 'text', content: textData });
+        textInput.value = ""; // clear text box
+    }
 
-        let offset = 0;
-        let chunkCount = 0;
-        
-        while (offset < file.size) {
-            if (dropConn.dataChannel.bufferedAmount > 8388608) {
-                await new Promise(r => setTimeout(r, 0));
-            }
+    // Send FILES if available
+    if (files.length > 0) {
+        const CHUNK_SIZE = 1024 * 1024; 
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            dropConn.send({ type: 'header', filename: file.name, filetype: file.type, size: file.size });
 
-            const slice = file.slice(offset, offset + CHUNK_SIZE);
-            const buffer = await slice.arrayBuffer();
-            dropConn.send({ type: 'chunk', data: buffer });
+            let offset = 0; let chunkCount = 0;
             
-            offset += buffer.byteLength;
-            chunkCount++;
+            while (offset < file.size) {
+                if (dropConn.dataChannel.bufferedAmount > 8388608) await new Promise(r => setTimeout(r, 0));
 
-            if (offset === file.size || chunkCount % 4 === 0) {
-                let percent = Math.round((offset / file.size) * 100);
-                showDropStatus(`SENDING: ${percent}%`, "var(--text)", "progress", percent);
+                const slice = file.slice(offset, offset + CHUNK_SIZE);
+                const buffer = await slice.arrayBuffer();
+                dropConn.send({ type: 'chunk', data: buffer });
+                
+                offset += buffer.byteLength; chunkCount++;
+
+                if (offset === file.size || chunkCount % 4 === 0) {
+                    let percent = Math.round((offset / file.size) * 100);
+                    showDropStatus(`SENDING: ${percent}%`, "var(--text)", "progress", percent, false);
+                }
             }
+            await new Promise(resolve => { resolveCurrentFile = resolve; });
         }
-        
-        await new Promise(resolve => { resolveCurrentFile = resolve; });
+        fileInput.value = ""; 
+        updateDropFileLabel(); 
     }
     
     if(navigator.vibrate) navigator.vibrate([20, 20]);
-    showDropStatus(`ALL DATA SENT! ✅`, "#28a745", "none");
+    // Passing true at the end will trigger auto-hide in 3 seconds!
+    showDropStatus(`ALL DATA SENT! ✅`, "#28a745", "none", 0, true); 
+    
     btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> SEND DATA`; 
     btn.disabled = false;
-    fileInput.value = ""; 
-    updateDropFileLabel(); 
 }
 
 function disconnectDrop(auto = false) {
     if(dropConn) { dropConn.close(); dropConn = null; }
-    stopDirectScanner(); // Ensure scanner stops when disconnected
+    stopDirectScanner(); 
     
+    // Clear old text logs
+    document.getElementById('dropTextLogs').innerHTML = "";
+    document.getElementById('dropTextInput').value = "";
+
     document.getElementById('recvInitialUI').style.display = 'block';
     document.getElementById('recvConnectedUI').style.display = 'none';
     document.getElementById('senderInitialUI').style.display = 'block';
@@ -2788,8 +2840,7 @@ function disconnectDrop(auto = false) {
 
     if(!auto) {
         if(navigator.vibrate) navigator.vibrate([20, 20, 20]);
-        showDropStatus("SESSION DESTROYED 🔴", "var(--accent)", "none");
-        setTimeout(() => document.getElementById('dropStatus').style.display = 'none', 2000);
+        showDropStatus("SESSION DESTROYED 🔴", "var(--accent)", "none", 0, true);
     } else {
         document.getElementById('dropStatus').style.display = 'none';
     }
