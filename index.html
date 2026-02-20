@@ -266,7 +266,6 @@ footer { text-align: center; padding: 5px 30px; opacity: 1 !important; font-size
 footer a { color: var(--text); }
 footer p { opacity: 0.8 !important; }
 #aiSection { display: none; background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 25px; margin-bottom: 20px; animation: fadeIn 0.3s ease; }
-
 /* ================= FILE DROP ENHANCED UI & ANIMATIONS ================= */
 .radar-box { position: relative; width: 60px; height: 60px; margin: 10px auto; display: flex; align-items: center; justify-content: center; }
 .radar-core { width: 15px; height: 15px; background: var(--text); border-radius: 50%; z-index: 2; }
@@ -293,17 +292,11 @@ footer p { opacity: 0.8 !important; }
 .disconnect-btn-inline { background: rgba(255,0,0,0.1); color:#ff4444; border:1px solid #ff4444; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem; transition:0.2s; }
 .disconnect-btn-inline:active { transform: scale(0.9); }
 
-/* Premium Sender UI Updates */
 .action-box { background: rgba(255, 255, 255, 0.02); border: 2px dashed var(--border); border-radius: 20px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
 .action-box:hover, .action-box:focus-within { border-color: var(--text); background: rgba(255, 255, 255, 0.06); transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
 
 @keyframes floatIcon { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px) scale(1.1); } 100% { transform: translateY(0px); } }
 .action-box:hover i.fa-file-circle-plus, .action-box:hover i.fa-qrcode { animation: floatIcon 1.5s ease-in-out infinite; color: var(--text); opacity: 1 !important; }
-
-.btn-shine { position: relative; overflow: hidden; transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
-.btn-shine::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%); transform: rotate(30deg); animation: shine 3s infinite linear; }
-@keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
-.btn-shine:active { transform: scale(0.94); }
 
 .live-dot { width: 10px; height: 10px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00; animation: pulseLive 1.5s infinite; }
 @keyframes pulseLive { 0% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7); } 70% { box-shadow: 0 0 0 8px rgba(0, 255, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0); } }
@@ -311,13 +304,37 @@ footer p { opacity: 0.8 !important; }
 .drop-zone-bg-anim { position: absolute; width: 100px; height: 100px; background: var(--text); filter: blur(50px); opacity: 0; transition: 0.5s; border-radius: 50%; z-index: 0; pointer-events: none; }
 .action-box:hover .drop-zone-bg-anim { opacity: 0.15; }
 
-/* DATA PARTICLES ANIMATION */
-.data-particle { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: #00ff00; box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; opacity: 0; pointer-events: none; }
-@keyframes flyUp { 0% { transform: translateY(0) scale(0.5); opacity: 0; } 20% { opacity: 1; transform: translateY(-20vh) scale(1); } 100% { transform: translateY(-100vh) scale(0.2); opacity: 0; } }
-.particle-send { animation: flyUp cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+#dropSendBtn:active { transform: scale(0.96); }
 
-@keyframes flyDown { 0% { transform: translateY(-10vh) scale(0.2); opacity: 0; } 20% { opacity: 1; transform: translateY(10vh) scale(1); } 100% { transform: translateY(90vh) scale(0.5); opacity: 0; } }
-.particle-recv { animation: flyDown cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+/* ================= CLEAN WHITE FULL SCREEN PARTICLES ================= */
+.data-particle { 
+    position: absolute; 
+    width: 5px; 
+    height: 5px; 
+    border-radius: 50%; 
+    background: #ffffff; /* White Color */
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8); 
+    pointer-events: none; 
+}
+
+/* Sender: Ekdam niche se ekdam upar (Full Screen) */
+@keyframes flyUpFull { 
+    0% { transform: translateY(110vh); opacity: 0; } 
+    10% { opacity: 1; } 
+    90% { opacity: 1; } 
+    100% { transform: translateY(-10vh); opacity: 0; } 
+}
+.particle-send { animation: flyUpFull linear forwards; }
+
+/* Receiver: Ekdam upar se ekdam niche (Full Screen) */
+@keyframes flyDownFull { 
+    0% { transform: translateY(-10vh); opacity: 0; } 
+    10% { opacity: 1; } 
+    90% { opacity: 1; } 
+    100% { transform: translateY(110vh); opacity: 0; } 
+}
+.particle-recv { animation: flyDownFull linear forwards; }
+
 
 
 </style></head>
@@ -859,9 +876,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 <div id="dropScr" class="screen">
-    <div id="particle-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; overflow: hidden;"></div>
+    <div id="particle-container" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; overflow: hidden;"></div>
     
-    <div class="modal">
+    <div class="modal" style="position: relative; z-index: 10;">
       <button class="close-icon" onclick="closeScreen('dropScr')">×</button>
       <h2>FILE DROP</h2>
       <p style="opacity:0.5; margin-bottom:15px; font-size: 0.9rem;">SECURE WIFI DIRECT</p>
@@ -936,7 +953,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   </div>
               </div>
 
-              <button class="btn btn-shine" onclick="sendDropData()" id="dropSendBtn" style="width: 100%; margin: 0; background: var(--text); color: var(--bg); border-radius: 20px; font-size: 1.2rem; padding: 16px; border: none; cursor: pointer; font-weight: bold; letter-spacing: 1px;">
+              <button class="btn" onclick="sendDropData()" id="dropSendBtn" style="width: 100%; margin: 0; background: var(--text); color: var(--bg); border-radius: 20px; font-size: 1.2rem; padding: 16px; border: none; cursor: pointer; font-weight: bold; letter-spacing: 1px; transition: 0.2s;">
                   <i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> SEND DATA
               </button>
           </div>
@@ -2555,7 +2572,7 @@ async function toggleVerifyProject(id) {
 
     document.addEventListener('contextmenu', function(e) { if (e.target.tagName === 'IMG') { e.preventDefault(); } }, false);
 
-/* ================= SECRET FILE DROP LOGIC & PARTICLE ENGINE ================= */
+/* ================= SECRET FILE DROP LOGIC & SMOOTH PARTICLE ENGINE ================= */
 let dropPeer = null;
 let dropConn = null;
 let directHtml5Qrcode = null; 
@@ -2568,39 +2585,46 @@ let incomingFileInfo = null;
 let statusTimeoutTimer = null; 
 let particleTimer = null;
 
-// PARTICLE ANIMATION FUNCTIONS
+// FLAWLESS FULL SCREEN PARTICLE ANIMATION
 function spawnParticles(type) {
     const container = document.getElementById('particle-container');
     if (!container) return;
-    const particleCount = Math.floor(Math.random() * 8) + 8;
+    
+    // Smooth density
+    const particleCount = Math.floor(Math.random() * 5) + 4; 
 
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.classList.add('data-particle');
-        const startX = (window.innerWidth / 2) + (Math.random() * 200 - 100); 
+        
+        // Pure window ke width par random position (Full Screen Horizontal)
+        const startX = Math.random() * window.innerWidth;
         particle.style.left = `${startX}px`;
-        const duration = Math.random() * 1.5 + 1; 
-        const delay = Math.random() * 0.3; 
+        
+        // Full screen cover karne ke liye duration thoda zyada (1.5s to 3s)
+        const duration = Math.random() * 1.5 + 1.5; 
 
         if (type === 'send') {
             particle.classList.add('particle-send');
-            particle.style.bottom = '100px'; 
         } else if (type === 'recv') {
             particle.classList.add('particle-recv');
-            particle.style.top = '0px'; 
         }
 
         particle.style.animationDuration = `${duration}s`;
-        particle.style.animationDelay = `${delay}s`;
+        
+        // YEH HAI FIX: Jaise hi animation khatam hogi element delete ho jayega, kabhi atakne ka chance nahi.
+        particle.onanimationend = () => {
+            particle.remove();
+        };
+
         container.appendChild(particle);
-        setTimeout(() => particle.remove(), (duration + delay) * 1000);
     }
 }
 
 function startParticleStream(type) {
     if(particleTimer) clearInterval(particleTimer);
     spawnParticles(type); 
-    particleTimer = setInterval(() => spawnParticles(type), 400); 
+    particleTimer = setInterval(() => spawnParticles(type), 300); // Har 300ms pe continuously naye particles
 }
 
 function stopParticleStream() {
@@ -2615,7 +2639,6 @@ function initDropSystem(forceNew = false) {
     }
     if (dropPeer) return; 
     
-    // Fast 6-Digit PIN
     const randomId = Math.floor(100000 + Math.random() * 900000).toString();
     dropPeer = new Peer(randomId);
 
@@ -2641,12 +2664,12 @@ function initDropSystem(forceNew = false) {
         conn.on('data', (data) => {
             if (data.type === 'text') {
                 if(navigator.vibrate) navigator.vibrate([30, 30]);
-                spawnParticles('recv'); // Burst for text
+                spawnParticles('recv'); // Text burst
                 appendReceivedText(data.content);
                 showDropStatus("Text received successfully 🎉", "#28a745", "none", 0, true);
             }
             else if (data.type === 'header') {
-                startParticleStream('recv'); // Stream for files
+                startParticleStream('recv'); // File stream
                 receiveBuffer = [];
                 receivedSize = 0;
                 expectedSize = data.size;
@@ -2842,7 +2865,7 @@ async function sendDropData() {
     }
 
     if (files.length > 0) {
-        const CHUNK_SIZE = 64 * 1024; // Faster chunks
+        const CHUNK_SIZE = 64 * 1024; 
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             dropConn.send({ type: 'header', filename: file.name, filetype: file.type, size: file.size });
@@ -2882,7 +2905,7 @@ async function sendDropData() {
 function disconnectDrop(auto = false) {
     if(dropConn) { dropConn.close(); dropConn = null; }
     stopDirectScanner(); 
-    stopParticleStream(); // Failsafe stop
+    stopParticleStream(); 
     
     const sendBtn = document.getElementById('dropSendBtn');
     if (sendBtn) {
