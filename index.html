@@ -875,9 +875,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div id="scInfo"></div>
     </div>
   </div>
+<div id="particle-container" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 99999; overflow: hidden;"></div>
+
 <div id="dropScr" class="screen">
-    <div id="particle-container" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; overflow: hidden;"></div>
-    
     <div class="modal" style="position: relative; z-index: 10;">
       <button class="close-icon" onclick="closeScreen('dropScr')">×</button>
       <h2>FILE DROP</h2>
@@ -962,6 +962,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div id="dropStatus" style="margin-top:15px; padding:12px; border-radius:12px; background:var(--card); border:1px solid var(--border); display:none; text-align:center; font-weight:bold; font-size: 1rem;"></div>
     </div>
 </div>
+
       <div id="aboutScr" class="screen">
       <div class="modal">
         <span class="close-icon" onclick="closeScreen('aboutScr')">×</span>
@@ -2572,7 +2573,7 @@ async function toggleVerifyProject(id) {
 
     document.addEventListener('contextmenu', function(e) { if (e.target.tagName === 'IMG') { e.preventDefault(); } }, false);
 
-/* ================= SECRET FILE DROP LOGIC & SMOOTH PARTICLE ENGINE ================= */
+/* ================= SECRET FILE DROP LOGIC & ANTI-LAG PARTICLE ENGINE ================= */
 let dropPeer = null;
 let dropConn = null;
 let directHtml5Qrcode = null; 
@@ -2585,23 +2586,20 @@ let incomingFileInfo = null;
 let statusTimeoutTimer = null; 
 let particleTimer = null;
 
-// FLAWLESS FULL SCREEN PARTICLE ANIMATION
+// FLAWLESS ANTI-LAG FULL SCREEN PARTICLE ANIMATION
 function spawnParticles(type) {
     const container = document.getElementById('particle-container');
     if (!container) return;
     
-    // Smooth density
     const particleCount = Math.floor(Math.random() * 5) + 4; 
 
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.classList.add('data-particle');
         
-        // Pure window ke width par random position (Full Screen Horizontal)
         const startX = Math.random() * window.innerWidth;
         particle.style.left = `${startX}px`;
         
-        // Full screen cover karne ke liye duration thoda zyada (1.5s to 3s)
         const duration = Math.random() * 1.5 + 1.5; 
 
         if (type === 'send') {
@@ -2612,10 +2610,15 @@ function spawnParticles(type) {
 
         particle.style.animationDuration = `${duration}s`;
         
-        // YEH HAI FIX: Jaise hi animation khatam hogi element delete ho jayega, kabhi atakne ka chance nahi.
+        // METHOD 1: Normal Cleanup
         particle.onanimationend = () => {
-            particle.remove();
+            if(particle.parentNode) particle.remove();
         };
+
+        // METHOD 2: Fail-Safe Cleanup (Prevents lag when tab/modal is hidden)
+        setTimeout(() => {
+            if(particle.parentNode) particle.remove();
+        }, (duration * 1000) + 100);
 
         container.appendChild(particle);
     }
@@ -2624,7 +2627,7 @@ function spawnParticles(type) {
 function startParticleStream(type) {
     if(particleTimer) clearInterval(particleTimer);
     spawnParticles(type); 
-    particleTimer = setInterval(() => spawnParticles(type), 300); // Har 300ms pe continuously naye particles
+    particleTimer = setInterval(() => spawnParticles(type), 300); 
 }
 
 function stopParticleStream() {
@@ -2664,12 +2667,12 @@ function initDropSystem(forceNew = false) {
         conn.on('data', (data) => {
             if (data.type === 'text') {
                 if(navigator.vibrate) navigator.vibrate([30, 30]);
-                spawnParticles('recv'); // Text burst
+                spawnParticles('recv'); 
                 appendReceivedText(data.content);
                 showDropStatus("Text received successfully 🎉", "#28a745", "none", 0, true);
             }
             else if (data.type === 'header') {
-                startParticleStream('recv'); // File stream
+                startParticleStream('recv'); 
                 receiveBuffer = [];
                 receivedSize = 0;
                 expectedSize = data.size;
@@ -2686,7 +2689,7 @@ function initDropSystem(forceNew = false) {
                 }
 
                 if (receivedSize === expectedSize) {
-                    stopParticleStream(); // Stop stream on finish
+                    stopParticleStream(); 
                     if(navigator.vibrate) navigator.vibrate([50, 50]);
                     
                     const blob = new Blob(receiveBuffer, { type: incomingFileInfo.filetype });
@@ -2856,7 +2859,6 @@ async function sendDropData() {
     btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> SENDING...`; 
     btn.disabled = true;
 
-    // Start Particles!
     startParticleStream('send');
 
     if (textData !== "") {
@@ -2892,7 +2894,6 @@ async function sendDropData() {
         updateDropFileLabel(); 
     }
     
-    // Stop Particles!
     stopParticleStream();
     
     if(navigator.vibrate) navigator.vibrate([20, 20]);
