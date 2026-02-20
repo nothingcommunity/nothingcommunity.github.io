@@ -272,6 +272,7 @@ footer p { opacity: 0.8 !important; }
 .radar-core { width: 15px; height: 15px; background: var(--text); border-radius: 50%; z-index: 2; }
 .radar-pulse { position: absolute; inset: 0; border: 2px solid var(--text); border-radius: 50%; animation: radar 1.2s infinite ease-out; }
 @keyframes radar { 0% { transform: scale(0.2); opacity: 1; } 100% { transform: scale(1.2); opacity: 0; } }
+
 .transfer-bar { width: 100%; max-width: 250px; height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; position: relative; margin: 15px auto; }
 .transfer-flow { position: absolute; left: -50%; width: 50%; height: 100%; background: var(--text); animation: dataFlow 0.8s linear infinite; }
 @keyframes dataFlow { 0% { left: -50%; } 100% { left: 100%; } }
@@ -292,17 +293,32 @@ footer p { opacity: 0.8 !important; }
 .disconnect-btn-inline { background: rgba(255,0,0,0.1); color:#ff4444; border:1px solid #ff4444; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem; transition:0.2s; }
 .disconnect-btn-inline:active { transform: scale(0.9); }
 
-.text-drop-area { width: 100%; background: rgba(255,255,255,0.02); border: 1px dashed var(--border); border-radius: 18px; padding: 15px; color: var(--text); font-family: 'VT323', monospace; font-size: 1.1rem; resize: none; margin-bottom: 10px; outline: none; transition: 0.3s; }
-.text-drop-area:focus { border-color: var(--text); background: rgba(255,255,255,0.05); }
+/* Premium Sender UI Updates */
+.action-box { background: rgba(255, 255, 255, 0.02); border: 2px dashed var(--border); border-radius: 20px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+.action-box:hover, .action-box:focus-within { border-color: var(--text); background: rgba(255, 255, 255, 0.06); transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
 
-.animated-drop-zone { border: 2px dashed var(--border); border-radius: 25px; height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
-.animated-drop-zone:hover { border-color: var(--text); background: rgba(255,255,255,0.05); transform: translateY(-2px); }
-.animated-drop-zone:active { transform: scale(0.97); }
-.animated-drop-zone i { font-size: 2.5rem; transition: transform 0.3s ease; margin-bottom: 10px; opacity: 0.8; }
-.animated-drop-zone:hover i { transform: translateY(-5px) scale(1.1); color: var(--text); opacity: 1; }
+@keyframes floatIcon { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px) scale(1.1); } 100% { transform: translateY(0px); } }
+.action-box:hover i.fa-file-circle-plus, .action-box:hover i.fa-qrcode { animation: floatIcon 1.5s ease-in-out infinite; color: var(--text); opacity: 1 !important; }
+
+.btn-shine { position: relative; overflow: hidden; transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+.btn-shine::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%); transform: rotate(30deg); animation: shine 3s infinite linear; }
+@keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
+.btn-shine:active { transform: scale(0.94); }
+
+.live-dot { width: 10px; height: 10px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00; animation: pulseLive 1.5s infinite; }
+@keyframes pulseLive { 0% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7); } 70% { box-shadow: 0 0 0 8px rgba(0, 255, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0); } }
+
 .drop-zone-bg-anim { position: absolute; width: 100px; height: 100px; background: var(--text); filter: blur(50px); opacity: 0; transition: 0.5s; border-radius: 50%; z-index: 0; pointer-events: none; }
-.animated-drop-zone:hover .drop-zone-bg-anim { opacity: 0.15; }
-.drop-zone-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+.action-box:hover .drop-zone-bg-anim { opacity: 0.15; }
+
+/* DATA PARTICLES ANIMATION */
+.data-particle { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: #00ff00; box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; opacity: 0; pointer-events: none; }
+@keyframes flyUp { 0% { transform: translateY(0) scale(0.5); opacity: 0; } 20% { opacity: 1; transform: translateY(-20vh) scale(1); } 100% { transform: translateY(-100vh) scale(0.2); opacity: 0; } }
+.particle-send { animation: flyUp cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+@keyframes flyDown { 0% { transform: translateY(-10vh) scale(0.2); opacity: 0; } 20% { opacity: 1; transform: translateY(10vh) scale(1); } 100% { transform: translateY(90vh) scale(0.5); opacity: 0; } }
+.particle-recv { animation: flyDown cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
 
 </style></head>
 <body>
@@ -843,6 +859,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 <div id="dropScr" class="screen">
+    <div id="particle-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; overflow: hidden;"></div>
+    
     <div class="modal">
       <button class="close-icon" onclick="closeScreen('dropScr')">×</button>
       <h2>FILE DROP</h2>
@@ -866,7 +884,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div id="recvConnectedUI" style="display:none;">
               <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom: 20px;">
                   <div class="status-pill">
-                      <div style="width:10px; height:10px; background:#00ff00; border-radius:50%; box-shadow: 0 0 10px #00ff00;"></div> RECEIVER CONNECTED
+                      <div class="live-dot"></div> RECEIVER CONNECTED
                   </div>
                   <button class="disconnect-btn-inline" onclick="disconnectDrop()" title="Disconnect"><i class="fa-solid fa-xmark"></i></button>
               </div>
@@ -877,7 +895,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div id="sendTab" style="display:none; text-align:center;">
           <div id="senderInitialUI">
-              <div class="animated-drop-zone" onclick="startDirectScanner()" id="scannerTrigger" style="margin-bottom: 10px; height: 120px;">
+              <div class="animated-drop-zone action-box" onclick="startDirectScanner()" id="scannerTrigger" style="margin-bottom: 10px; height: 120px;">
                   <div class="drop-zone-bg-anim"></div>
                   <div class="drop-zone-content">
                       <i class="fa-solid fa-qrcode"></i>
@@ -897,28 +915,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div id="dropSendSection" style="display:none; margin-top:5px;">
               
-              <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom: 15px;">
+              <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom: 25px;">
                   <div class="status-pill">
-                      <div style="width:10px; height:10px; background:#00ff00; border-radius:50%; box-shadow: 0 0 10px #00ff00;"></div> SENDER CONNECTED
+                      <div class="live-dot"></div> SENDER CONNECTED
                   </div>
                   <button class="disconnect-btn-inline" onclick="disconnectDrop()" title="Disconnect"><i class="fa-solid fa-xmark"></i></button>
               </div>
               
               <input type="file" id="dropFileInput" multiple hidden onchange="updateDropFileLabel()">
               
-              <div style="display: flex; gap: 10px; align-items: stretch; margin-bottom: 15px;">
-                  <textarea id="dropTextInput" class="text-drop-area" style="flex: 1; margin: 0; min-height: 90px; padding: 10px; font-size: 1rem;" placeholder="TYPE OR PASTE TEXT..."></textarea>
+              <div style="display: flex; gap: 15px; align-items: stretch; margin-bottom: 25px;">
+                  <div class="action-box" style="flex: 1; display: flex; flex-direction: column;">
+                      <textarea id="dropTextInput" style="width: 100%; height: 100%; min-height: 110px; background: transparent; border: none; padding: 15px; color: var(--text); font-family: 'VT323', monospace; font-size: 1.1rem; resize: none; outline: none;" placeholder="TYPE OR PASTE TEXT..."></textarea>
+                  </div>
                   
-                  <div class="animated-drop-zone" onclick="document.getElementById('dropFileInput').click()" style="flex: 1; margin: 0; height: auto; min-height: 90px; padding: 10px;">
+                  <div class="action-box" onclick="document.getElementById('dropFileInput').click()" style="flex: 1; min-height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; cursor: pointer;">
                       <div class="drop-zone-bg-anim"></div>
-                      <div class="drop-zone-content">
-                          <i class="fa-solid fa-file-circle-plus" id="dropFileIcon" style="font-size: 1.5rem; margin-bottom: 5px;"></i>
-                          <span id="dropFileLabel" style="font-weight:bold; opacity: 0.8; font-size: 0.85rem; letter-spacing:1px; text-align: center; line-height: 1.2;">SELECT FILES</span>
-                      </div>
+                      <i class="fa-solid fa-file-circle-plus" id="dropFileIcon" style="font-size: 2.2rem; margin-bottom: 10px; opacity: 0.7; transition: 0.3s;"></i>
+                      <span id="dropFileLabel" style="font-weight:bold; opacity: 0.9; font-size: 0.9rem; letter-spacing:1px; text-align: center; line-height: 1.3;">SELECT FILES</span>
                   </div>
               </div>
 
-              <button class="btn" onclick="sendDropData()" id="dropSendBtn" style="width: 100%; margin: 0; background: var(--text); color: var(--bg); border-radius: 18px; font-size: 1.2rem;"><i class="fa-solid fa-paper-plane"></i> SEND DATA</button>
+              <button class="btn btn-shine" onclick="sendDropData()" id="dropSendBtn" style="width: 100%; margin: 0; background: var(--text); color: var(--bg); border-radius: 20px; font-size: 1.2rem; padding: 16px; border: none; cursor: pointer; font-weight: bold; letter-spacing: 1px;">
+                  <i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> SEND DATA
+              </button>
           </div>
       </div>
       
@@ -2535,7 +2555,7 @@ async function toggleVerifyProject(id) {
 
     document.addEventListener('contextmenu', function(e) { if (e.target.tagName === 'IMG') { e.preventDefault(); } }, false);
 
-/* ================= SECRET FILE DROP LOGIC (UPDATED & OPTIMIZED) ================= */
+/* ================= SECRET FILE DROP LOGIC & PARTICLE ENGINE ================= */
 let dropPeer = null;
 let dropConn = null;
 let directHtml5Qrcode = null; 
@@ -2546,16 +2566,56 @@ let receivedSize = 0;
 let expectedSize = 0;
 let incomingFileInfo = null;
 let statusTimeoutTimer = null; 
+let particleTimer = null;
 
+// PARTICLE ANIMATION FUNCTIONS
+function spawnParticles(type) {
+    const container = document.getElementById('particle-container');
+    if (!container) return;
+    const particleCount = Math.floor(Math.random() * 8) + 8;
+
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('data-particle');
+        const startX = (window.innerWidth / 2) + (Math.random() * 200 - 100); 
+        particle.style.left = `${startX}px`;
+        const duration = Math.random() * 1.5 + 1; 
+        const delay = Math.random() * 0.3; 
+
+        if (type === 'send') {
+            particle.classList.add('particle-send');
+            particle.style.bottom = '100px'; 
+        } else if (type === 'recv') {
+            particle.classList.add('particle-recv');
+            particle.style.top = '0px'; 
+        }
+
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        container.appendChild(particle);
+        setTimeout(() => particle.remove(), (duration + delay) * 1000);
+    }
+}
+
+function startParticleStream(type) {
+    if(particleTimer) clearInterval(particleTimer);
+    spawnParticles(type); 
+    particleTimer = setInterval(() => spawnParticles(type), 400); 
+}
+
+function stopParticleStream() {
+    if(particleTimer) { clearInterval(particleTimer); particleTimer = null; }
+}
+
+// MAIN SYSTEM INITIALIZATION
 function initDropSystem(forceNew = false) {
     if (forceNew && dropPeer) {
         dropPeer.destroy();
         dropPeer = null;
     }
-    
     if (dropPeer) return; 
     
-    // 6-Digit PIN for faster connection
+    // Fast 6-Digit PIN
     const randomId = Math.floor(100000 + Math.random() * 900000).toString();
     dropPeer = new Peer(randomId);
 
@@ -2581,10 +2641,12 @@ function initDropSystem(forceNew = false) {
         conn.on('data', (data) => {
             if (data.type === 'text') {
                 if(navigator.vibrate) navigator.vibrate([30, 30]);
+                spawnParticles('recv'); // Burst for text
                 appendReceivedText(data.content);
                 showDropStatus("Text received successfully 🎉", "#28a745", "none", 0, true);
             }
             else if (data.type === 'header') {
+                startParticleStream('recv'); // Stream for files
                 receiveBuffer = [];
                 receivedSize = 0;
                 expectedSize = data.size;
@@ -2601,6 +2663,7 @@ function initDropSystem(forceNew = false) {
                 }
 
                 if (receivedSize === expectedSize) {
+                    stopParticleStream(); // Stop stream on finish
                     if(navigator.vibrate) navigator.vibrate([50, 50]);
                     
                     const blob = new Blob(receiveBuffer, { type: incomingFileInfo.filetype });
@@ -2638,7 +2701,14 @@ function appendReceivedText(text) {
     
     copyBtn.onclick = function() {
         if(navigator.vibrate) navigator.vibrate(15);
-        copyDropText(this, text);
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(() => {
+                this.innerHTML = '<i class="fa-solid fa-check" style="color:#00ff00;"></i>';
+                setTimeout(() => { this.innerHTML = '<i class="fa-regular fa-copy"></i>'; }, 2000);
+            }).catch(() => { alert("Copy failed! Please select text manually."); });
+        } else {
+            alert("Copy not supported on this browser context.");
+        }
     };
     
     div.appendChild(textSpan);
@@ -2646,50 +2716,12 @@ function appendReceivedText(text) {
     container.prepend(div);
 }
 
-function copyDropText(btnElement, textToCopy) {
-    if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(textToCopy).then(() => {
-            showCopySuccess(btnElement);
-        }).catch(() => { useFallbackCopy(textToCopy, btnElement); });
-    } else {
-        useFallbackCopy(textToCopy, btnElement);
-    }
-}
-
-function useFallbackCopy(text, btnElement) {
-    let textArea = document.createElement("textarea");
-    textArea.value = text;
-    textArea.style.position = "fixed";
-    textArea.style.left = "-999999px";
-    textArea.style.top = "-999999px";
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-        document.execCommand('copy');
-        showCopySuccess(btnElement);
-    } catch (err) {
-        alert("Copy failed! Please select text manually.");
-    }
-    document.body.removeChild(textArea);
-}
-
-function showCopySuccess(btnElement) {
-    btnElement.innerHTML = '<i class="fa-solid fa-check" style="color:#00ff00;"></i>';
-    setTimeout(() => { btnElement.innerHTML = '<i class="fa-regular fa-copy"></i>'; }, 2000);
-}
-
 function switchDropTab(tab) {
     if(navigator.vibrate) navigator.vibrate(10);
-    
-    // Don't disconnect just because of switching tabs
-    if (!dropPeer) {
-        initDropSystem(false); 
-    }
+    if (!dropPeer) initDropSystem(false); 
     
     document.getElementById('recvTab').style.display = tab === 'recv' ? 'block' : 'none';
     document.getElementById('sendTab').style.display = tab === 'send' ? 'block' : 'none';
-    
     if(tab === 'recv') stopDirectScanner();
 }
 
@@ -2711,9 +2743,7 @@ function showDropStatus(msg, color, animType = "none", percent = 0, autoHide = f
     }
     d.innerHTML = `${animHtml} <div style="margin-top:5px;">${msg}</div>`;
 
-    if (autoHide) {
-        statusTimeoutTimer = setTimeout(() => { d.style.display = 'none'; }, 3000);
-    }
+    if (autoHide) statusTimeoutTimer = setTimeout(() => { d.style.display = 'none'; }, 3000);
 }
 
 function startDirectScanner() {
@@ -2721,12 +2751,8 @@ function startDirectScanner() {
     const reader = document.getElementById('dropReader');
     const loader = document.getElementById('scannerLoader');
 
-    trigger.style.display = 'none';
-    loader.style.display = 'block';
-
-    if (!directHtml5Qrcode) { directHtml5Qrcode = new Html5Qrcode("dropReader"); }
-
-    // Increased FPS for faster scanning
+    trigger.style.display = 'none'; loader.style.display = 'block';
+    if (!directHtml5Qrcode) directHtml5Qrcode = new Html5Qrcode("dropReader");
     const config = { fps: 30, qrbox: { width: 250, height: 250 } };
 
     directHtml5Qrcode.start({ facingMode: "environment" }, config,
@@ -2737,11 +2763,9 @@ function startDirectScanner() {
         },
         (errorMessage) => {}
     ).then(() => {
-        loader.style.display = 'none';
-        reader.style.display = 'block';
+        loader.style.display = 'none'; reader.style.display = 'block';
     }).catch((err) => {
-        loader.style.display = 'none';
-        trigger.style.display = 'flex';
+        loader.style.display = 'none'; trigger.style.display = 'flex';
         alert("Camera access denied or error occurred.");
     });
 }
@@ -2757,13 +2781,10 @@ function stopDirectScanner() {
 
 function connectDropManual(scannedCode = null) {
     if(navigator.vibrate) navigator.vibrate(15);
-    
     const code = scannedCode || document.getElementById('manualDropCode').value.trim();
-    
     if(!code || code.length !== 6) return alert("Please enter the full 6-digit secure PIN!");
     
     showDropStatus("VERIFYING... ⏳", "var(--text)", "radar", 0, false);
-    
     dropConn = dropPeer.connect(code);
     
     dropConn.on('open', () => {
@@ -2773,10 +2794,7 @@ function connectDropManual(scannedCode = null) {
         showDropStatus("CONNECTION SECURED! 🔗", "#28a745", "none", 0, true);
     });
     
-    dropConn.on('data', (data) => {
-        if (data.type === 'ack' && resolveCurrentFile) resolveCurrentFile(); 
-    });
-
+    dropConn.on('data', (data) => { if (data.type === 'ack' && resolveCurrentFile) resolveCurrentFile(); });
     dropConn.on('error', () => { showDropStatus("INVALID PIN OR EXPIRED ❌", "var(--accent)", "none", 0, true); });
     dropConn.on('close', () => { disconnectDrop(true); });
 }
@@ -2806,7 +2824,6 @@ function updateDropFileLabel() {
 async function sendDropData() {
     const fileInput = document.getElementById('dropFileInput');
     const textInput = document.getElementById('dropTextInput');
-    
     const files = fileInput.files;
     const textData = textInput.value.trim();
 
@@ -2816,14 +2833,16 @@ async function sendDropData() {
     btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> SENDING...`; 
     btn.disabled = true;
 
+    // Start Particles!
+    startParticleStream('send');
+
     if (textData !== "") {
         dropConn.send({ type: 'text', content: textData });
         textInput.value = ""; 
     }
 
     if (files.length > 0) {
-        // Optimal chunk size for WebRTC to prevent network congestion
-        const CHUNK_SIZE = 64 * 1024; 
+        const CHUNK_SIZE = 64 * 1024; // Faster chunks
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             dropConn.send({ type: 'header', filename: file.name, filetype: file.type, size: file.size });
@@ -2831,7 +2850,6 @@ async function sendDropData() {
             let offset = 0; let chunkCount = 0;
             
             while (offset < file.size) {
-                // Reduced buffer wait threshold
                 if (dropConn.dataChannel.bufferedAmount > 1048576) await new Promise(r => setTimeout(r, 10));
 
                 const slice = file.slice(offset, offset + CHUNK_SIZE);
@@ -2851,27 +2869,29 @@ async function sendDropData() {
         updateDropFileLabel(); 
     }
     
+    // Stop Particles!
+    stopParticleStream();
+    
     if(navigator.vibrate) navigator.vibrate([20, 20]);
     showDropStatus(`Data sent successfully 🎉`, "#28a745", "none", 0, true); 
     
-    btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> SEND DATA`; 
+    btn.innerHTML = `<i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> SEND DATA`; 
     btn.disabled = false;
 }
 
 function disconnectDrop(auto = false) {
     if(dropConn) { dropConn.close(); dropConn = null; }
     stopDirectScanner(); 
+    stopParticleStream(); // Failsafe stop
     
-    // Resetting Send button
     const sendBtn = document.getElementById('dropSendBtn');
     if (sendBtn) {
-        sendBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> SEND DATA`; 
+        sendBtn.innerHTML = `<i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> SEND DATA`; 
         sendBtn.disabled = false;
     }
 
     document.getElementById('dropTextLogs').innerHTML = "";
     document.getElementById('dropTextInput').value = "";
-
     document.getElementById('recvInitialUI').style.display = 'block';
     document.getElementById('recvConnectedUI').style.display = 'none';
     document.getElementById('senderInitialUI').style.display = 'block';
