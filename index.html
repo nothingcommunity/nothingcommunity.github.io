@@ -276,30 +276,25 @@ footer p { opacity: 0.8 !important; }
 .transfer-flow { position: absolute; left: -50%; width: 50%; height: 100%; background: var(--text); animation: dataFlow 0.8s linear infinite; }
 @keyframes dataFlow { 0% { left: -50%; } 100% { left: 100%; } }
 
-/* Scanner Video feed clean up */
 #dropReader { width: 100%; border-radius: 25px; overflow: hidden; display: none; background: #050505; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); border: 2px solid var(--border); }
 #dropReader video { width: 100% !important; object-fit: cover; border-radius: 25px; transform: scale(1.05); }
 
-/* Unified Input Box for Desktop */
 .desktop-input-group { position: relative; display: flex; align-items: center; width: 100%; max-width: 350px; margin: 0 auto; }
 .desktop-input-group input { width: 100%; padding: 18px 65px 18px 25px; border-radius: 50px; text-align: center; letter-spacing: 4px; font-size: 1.2rem; font-weight: bold; background: var(--card); border: 2px solid var(--border); transition: 0.3s; color: var(--text); outline: none; }
 .desktop-input-group input:focus { border-color: var(--text); }
 .desktop-input-group .inside-btn { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; background: var(--text); color: var(--bg); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: 0.2s; }
 .desktop-input-group .inside-btn:active { transform: translateY(-50%) scale(0.85); }
 
-/* Hide on mobile, show on desktop */
 .desktop-only { display: none; }
-@media (min-width: 350px) {
-    .desktop-only { display: block; }
-}
-/* ================= DROP UI EXTRA FIXES ================= */
+@media (min-width: 350px) { .desktop-only { display: block; } }
+
 .status-pill { background:var(--card); border: 1px solid var(--border); color:var(--text); padding:8px 16px; border-radius:50px; font-size:0.9rem; font-weight:bold; display:inline-flex; align-items:center; gap:8px; }
 .disconnect-btn-inline { background: rgba(255,0,0,0.1); color:#ff4444; border:1px solid #ff4444; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem; transition:0.2s; }
 .disconnect-btn-inline:active { transform: scale(0.9); }
+
 .text-drop-area { width: 100%; background: rgba(255,255,255,0.02); border: 1px dashed var(--border); border-radius: 18px; padding: 15px; color: var(--text); font-family: 'VT323', monospace; font-size: 1.1rem; resize: none; margin-bottom: 10px; outline: none; transition: 0.3s; }
 .text-drop-area:focus { border-color: var(--text); background: rgba(255,255,255,0.05); }
 
-/* Animated File Drop Zone */
 .animated-drop-zone { border: 2px dashed var(--border); border-radius: 25px; height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
 .animated-drop-zone:hover { border-color: var(--text); background: rgba(255,255,255,0.05); transform: translateY(-2px); }
 .animated-drop-zone:active { transform: scale(0.97); }
@@ -307,8 +302,9 @@ footer p { opacity: 0.8 !important; }
 .animated-drop-zone:hover i { transform: translateY(-5px) scale(1.1); color: var(--text); opacity: 1; }
 .drop-zone-bg-anim { position: absolute; width: 100px; height: 100px; background: var(--text); filter: blur(50px); opacity: 0; transition: 0.5s; border-radius: 50%; z-index: 0; pointer-events: none; }
 .animated-drop-zone:hover .drop-zone-bg-anim { opacity: 0.15; }
-.drop-zone-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }</style>
-</head>
+.drop-zone-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+
+</style></head>
 <body>
  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3QQWX28"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -860,8 +856,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div id="recvTab" style="display:none; text-align:center;">
           <div id="recvInitialUI">
               <div id="dropQrCode" style="background:white; padding:15px; display:inline-block; border-radius:15px; margin:10px 0 15px; border: 2px solid var(--border);"></div>
-              <p style="opacity: 0.5; margin-bottom: 5px;">8-DIGIT SECURE PIN</p>
+              <p style="opacity: 0.5; margin-bottom: 5px;">6-DIGIT SECURE PIN</p>
               <div class="code-box" id="dropMyCode" style="font-size:2rem; letter-spacing:4px; font-weight:bold; color:var(--text); background: var(--card); padding: 10px; border-radius: 10px; border: 1px dashed var(--border);">...</div>
+              
+              <button onclick="initDropSystem(true)" style="background:transparent; border:1px solid var(--border); color:var(--text); padding:5px 15px; border-radius:8px; cursor:pointer; margin-top:10px; font-size: 0.9rem; transition: 0.2s;">
+                  <i class="fa-solid fa-rotate-right"></i> REGENERATE PIN
+              </button>
           </div>
           <div id="recvConnectedUI" style="display:none;">
               <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom: 20px;">
@@ -890,7 +890,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <p class="desktop-only" style="opacity:0.4; margin:15px 0; font-size: 0.9rem; letter-spacing: 2px;">— OR —</p>
               
               <div class="desktop-only desktop-input-group">
-                  <input type="text" id="manualDropCode" placeholder="ENTER 8-DIGIT PIN" maxlength="8">
+                  <input type="text" id="manualDropCode" placeholder="ENTER 6-DIGIT PIN" maxlength="6">
                   <button class="inside-btn" onclick="connectDropManual()"><i class="fa-solid fa-arrow-right"></i></button>
               </div>
           </div>
@@ -904,15 +904,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <button class="disconnect-btn-inline" onclick="disconnectDrop()" title="Disconnect"><i class="fa-solid fa-xmark"></i></button>
               </div>
               
-              <textarea id="dropTextInput" class="text-drop-area" rows="2" placeholder="TYPE OR PASTE TEXT HERE..."></textarea>
-              
               <input type="file" id="dropFileInput" multiple hidden onchange="updateDropFileLabel()">
               
-              <div class="animated-drop-zone" onclick="document.getElementById('dropFileInput').click()" style="margin-bottom: 15px; height: 90px;">
-                  <div class="drop-zone-bg-anim"></div>
-                  <div class="drop-zone-content">
-                      <i class="fa-solid fa-file-circle-plus" id="dropFileIcon" style="font-size: 1.8rem;"></i>
-                      <span id="dropFileLabel" style="font-weight:bold; opacity: 0.8; font-size: 1rem; letter-spacing:1px;">SELECT FILES</span>
+              <div style="display: flex; gap: 10px; align-items: stretch; margin-bottom: 15px;">
+                  <textarea id="dropTextInput" class="text-drop-area" style="flex: 1; margin: 0; min-height: 90px; padding: 10px; font-size: 1rem;" placeholder="TYPE OR PASTE TEXT..."></textarea>
+                  
+                  <div class="animated-drop-zone" onclick="document.getElementById('dropFileInput').click()" style="flex: 1; margin: 0; height: auto; min-height: 90px; padding: 10px;">
+                      <div class="drop-zone-bg-anim"></div>
+                      <div class="drop-zone-content">
+                          <i class="fa-solid fa-file-circle-plus" id="dropFileIcon" style="font-size: 1.5rem; margin-bottom: 5px;"></i>
+                          <span id="dropFileLabel" style="font-weight:bold; opacity: 0.8; font-size: 0.85rem; letter-spacing:1px; text-align: center; line-height: 1.2;">SELECT FILES</span>
+                      </div>
                   </div>
               </div>
 
@@ -2533,7 +2535,7 @@ async function toggleVerifyProject(id) {
 
     document.addEventListener('contextmenu', function(e) { if (e.target.tagName === 'IMG') { e.preventDefault(); } }, false);
 
-/* ================= SECRET FILE DROP LOGIC (TEXT + FILE + COPY FIXES) ================= */
+/* ================= SECRET FILE DROP LOGIC (UPDATED & OPTIMIZED) ================= */
 let dropPeer = null;
 let dropConn = null;
 let directHtml5Qrcode = null; 
@@ -2553,7 +2555,8 @@ function initDropSystem(forceNew = false) {
     
     if (dropPeer) return; 
     
-    const randomId = Math.floor(10000000 + Math.random() * 90000000).toString();
+    // 6-Digit PIN for faster connection
+    const randomId = Math.floor(100000 + Math.random() * 900000).toString();
     dropPeer = new Peer(randomId);
 
     dropPeer.on('open', (id) => {
@@ -2579,7 +2582,7 @@ function initDropSystem(forceNew = false) {
             if (data.type === 'text') {
                 if(navigator.vibrate) navigator.vibrate([30, 30]);
                 appendReceivedText(data.content);
-                showDropStatus("text have been received successfully 🎉", "#28a745", "none", 0, true);
+                showDropStatus("Text received successfully 🎉", "#28a745", "none", 0, true);
             }
             else if (data.type === 'header') {
                 receiveBuffer = [];
@@ -2609,7 +2612,7 @@ function initDropSystem(forceNew = false) {
                     
                     setTimeout(() => window.URL.revokeObjectURL(url), 5000);
                     conn.send({ type: 'ack' });
-                    showDropStatus("files have been received successfully 🎉", "#28a745", "none", 0, true);
+                    showDropStatus("Files received successfully 🎉", "#28a745", "none", 0, true);
                 }
             }
         });
@@ -2647,9 +2650,7 @@ function copyDropText(btnElement, textToCopy) {
     if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(textToCopy).then(() => {
             showCopySuccess(btnElement);
-        }).catch(() => {
-            useFallbackCopy(textToCopy, btnElement);
-        });
+        }).catch(() => { useFallbackCopy(textToCopy, btnElement); });
     } else {
         useFallbackCopy(textToCopy, btnElement);
     }
@@ -2675,15 +2676,16 @@ function useFallbackCopy(text, btnElement) {
 
 function showCopySuccess(btnElement) {
     btnElement.innerHTML = '<i class="fa-solid fa-check" style="color:#00ff00;"></i>';
-    setTimeout(() => {
-        btnElement.innerHTML = '<i class="fa-regular fa-copy"></i>';
-    }, 2000);
+    setTimeout(() => { btnElement.innerHTML = '<i class="fa-regular fa-copy"></i>'; }, 2000);
 }
 
 function switchDropTab(tab) {
     if(navigator.vibrate) navigator.vibrate(10);
-    disconnectDrop(true);
-    initDropSystem(true); 
+    
+    // Don't disconnect just because of switching tabs
+    if (!dropPeer) {
+        initDropSystem(false); 
+    }
     
     document.getElementById('recvTab').style.display = tab === 'recv' ? 'block' : 'none';
     document.getElementById('sendTab').style.display = tab === 'send' ? 'block' : 'none';
@@ -2701,8 +2703,6 @@ function showDropStatus(msg, color, animType = "none", percent = 0, autoHide = f
     
     if (animType === "radar") {
         animHtml = `<div class="radar-box"><div class="radar-core"></div><div class="radar-pulse"></div></div>`;
-    } else if (animType === "flow") {
-        animHtml = `<div class="transfer-bar"><div class="transfer-flow"></div></div>`;
     } else if (animType === "progress") {
         animHtml = `
         <div style="width:100%; max-width:250px; height:8px; background:var(--border); border-radius:10px; margin:10px auto; overflow:hidden;">
@@ -2712,9 +2712,7 @@ function showDropStatus(msg, color, animType = "none", percent = 0, autoHide = f
     d.innerHTML = `${animHtml} <div style="margin-top:5px;">${msg}</div>`;
 
     if (autoHide) {
-        statusTimeoutTimer = setTimeout(() => {
-            d.style.display = 'none';
-        }, 3000);
+        statusTimeoutTimer = setTimeout(() => { d.style.display = 'none'; }, 3000);
     }
 }
 
@@ -2726,11 +2724,10 @@ function startDirectScanner() {
     trigger.style.display = 'none';
     loader.style.display = 'block';
 
-    if (!directHtml5Qrcode) {
-        directHtml5Qrcode = new Html5Qrcode("dropReader");
-    }
+    if (!directHtml5Qrcode) { directHtml5Qrcode = new Html5Qrcode("dropReader"); }
 
-    const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+    // Increased FPS for faster scanning
+    const config = { fps: 30, qrbox: { width: 250, height: 250 } };
 
     directHtml5Qrcode.start({ facingMode: "environment" }, config,
         (decodedText) => {
@@ -2763,7 +2760,7 @@ function connectDropManual(scannedCode = null) {
     
     const code = scannedCode || document.getElementById('manualDropCode').value.trim();
     
-    if(!code || code.length !== 8) return alert("Please enter the full 8-digit secure PIN!");
+    if(!code || code.length !== 6) return alert("Please enter the full 6-digit secure PIN!");
     
     showDropStatus("VERIFYING... ⏳", "var(--text)", "radar", 0, false);
     
@@ -2795,7 +2792,7 @@ function updateDropFileLabel() {
             if(name.length > 20) name = name.substring(0, 18) + "...";
             label.innerText = name;
         } else {
-            label.innerText = `${fileInput.files.length} FILES SELECTED`;
+            label.innerText = `${fileInput.files.length} FILES`;
         }
         label.style.color = "var(--text)";
         icon.className = "fa-solid fa-file-circle-check";
@@ -2825,7 +2822,8 @@ async function sendDropData() {
     }
 
     if (files.length > 0) {
-        const CHUNK_SIZE = 1024 * 1024; 
+        // Optimal chunk size for WebRTC to prevent network congestion
+        const CHUNK_SIZE = 64 * 1024; 
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             dropConn.send({ type: 'header', filename: file.name, filetype: file.type, size: file.size });
@@ -2833,7 +2831,8 @@ async function sendDropData() {
             let offset = 0; let chunkCount = 0;
             
             while (offset < file.size) {
-                if (dropConn.dataChannel.bufferedAmount > 8388608) await new Promise(r => setTimeout(r, 0));
+                // Reduced buffer wait threshold
+                if (dropConn.dataChannel.bufferedAmount > 1048576) await new Promise(r => setTimeout(r, 10));
 
                 const slice = file.slice(offset, offset + CHUNK_SIZE);
                 const buffer = await slice.arrayBuffer();
@@ -2853,9 +2852,9 @@ async function sendDropData() {
     }
     
     if(navigator.vibrate) navigator.vibrate([20, 20]);
-    showDropStatus(`Your files have been sent successfully 🎉`, "#28a745", "none", 0, true); 
+    showDropStatus(`Data sent successfully 🎉`, "#28a745", "none", 0, true); 
     
-    btn.innerHTML = `Secure Send 🔒`; 
+    btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> SEND DATA`; 
     btn.disabled = false;
 }
 
@@ -2863,6 +2862,13 @@ function disconnectDrop(auto = false) {
     if(dropConn) { dropConn.close(); dropConn = null; }
     stopDirectScanner(); 
     
+    // Resetting Send button
+    const sendBtn = document.getElementById('dropSendBtn');
+    if (sendBtn) {
+        sendBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> SEND DATA`; 
+        sendBtn.disabled = false;
+    }
+
     document.getElementById('dropTextLogs').innerHTML = "";
     document.getElementById('dropTextInput').value = "";
 
