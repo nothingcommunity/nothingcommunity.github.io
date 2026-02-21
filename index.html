@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta name="google-site-verification" content="ZWidhp29xotLZ2B8B4mHHEtWvixWj6HhA9Uaav06BYA">
+    <script>
+        !function(e,t,a,n,g){e[n]=e[n]||[],e[n].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});var m=t.getElementsByTagName(a)[0],r=t.createElement(a);r.async=!0,r.src="https://www.googletagmanager.com/gtm.js?id=GTM-N3QQWX28",m.parentNode.insertBefore(r,m)}(window,document,"script","dataLayer")
+    </script>
+    <meta charset="UTF-8">
+    <meta name="google-adsense-account" content="ca-pub-1607055557776596">
+    <meta name="viewport" content="width=device-width,initial-scale=1,interactive-widget=resizes-content">
+    <title>Nothing Space - Built Together</title>
+    <meta name="description" content="Nothing Space is an all-in-one platform for Nothing users with service centre info, wallpapers, ringtones, tools, firmware, OTA ZIP updates, camera presets, and community projects.">
+    <meta name="author" content="Nothing Space">
+    <link rel="canonical" href="https://nothingtools.github.io/">
+    <link rel="icon" type="image/svg+xml" href="./icon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload='this.media="all"'>
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3QQWX28" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    
+    <div id="particle-container" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 99999; overflow: hidden;"></div>
+    
+    <div class="stars-container" id="starField"></div>
+    <div class="canvas"></div>
+    
+    <header>
+        <div class="header-top">
+            <div class="logo">
+                <p style="opacity:.4;letter-spacing:2px">ONLY FOR FANS</p>
+                <h1>Nothing<br>Space</h1>
+            </div>
+            <button class="t-toggle" onclick="toggleTheme()" aria-label="Toggle Dark Mode">
+                <i class="fa-solid fa-sun" id="t-icon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="bento">
+        <div class="tile full" onclick='openScreen("dropScr"); toggleDrop("recv")' style="border-color: var(--text);">
+            <h1>FILE DROP</h1>
+            <p>P2P FAST TRANSFER</p>
+        </div>
+
+        <div class="tile full" onclick='openScreen("upScr")'><h1>WEBSITE</h1><p>WHAT'S NEW ADDED</p></div>
+        <div class="tile full" onclick='openScreen("musicScr")'><h1>RINGTONE</h1><p>Preview Your Song</p></div>
+        <div class="tile full" onclick='openScreen("setupScr")'><h1>LAYOUTS</h1><p>RANK & SHARE BUILDS</p></div>
+        <div class="tile full" onclick='openScreen("pgScr")'><h1>PLAYGROUND</h1><p>presets projects</p></div>
+        <div class="tile full" onclick='openScreen("swScr")'><h1>FIRMWARE</h1><p>NOS ZIP FILE</p></div>
+        <div class="tile full" onclick='openScreen("wpScr")'><h1>GALLERY</h1><p>EXCLUSIVe Collection</p></div>
+        <div class="tile full" onclick='openScreen("scScr")'><h1>SUPPORT</h1><p>LOCATE CENTERS</p></div>
+        <div class="tile full" onclick='openScreen("feedbackScr")'><h1>COMMUNITY</h1><p>FEEDBACK & SUGGESTIONS</p></div>
+    </div>
+
+    <div id="dropScr" class="screen">
+        <div class="modal">
+            <button class="close-icon" onclick='closeScreen("dropScr"); dropReset()'>×</button>
+            <h2 style="border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:20px">FILE DROP</h2>
+            
+            <div class="controls" style="display:flex;gap:14px;margin-bottom:15px;flex-wrap:wrap">
+                <button class="tab-btn" id="btnDropRecv" onclick='toggleDrop("recv")'>RECEIVE</button>
+                <button class="tab-btn" id="btnDropSend" onclick='toggleDrop("send")'>SEND</button>
+            </div>
+
+            <div id="dropReceiverUI" style="display:none;">
+                <div class="upload-box" id="recvInitBox" style="text-align:center;">
+                    <p style="opacity:0.6;margin-bottom:15px;font-size:0.9rem;">ASK SENDER TO SCAN QR OR ENTER PIN</p>
+                    
+                    <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:20px;">
+                        <div id="dropQrCode" style="background:#fff;padding:15px;border-radius:18px;border:2px dashed var(--border);margin-bottom:15px;"></div>
+                        <div id="dropRecvCode" style="font-size:2.8rem;font-weight:bold;letter-spacing:6px;color:var(--text);background:var(--card);padding:10px 20px;border-radius:15px;border:1px solid var(--border);">--------</div>
+                    </div>
+                    
+                    <button class="pg-btn" id="dropRegenBtn" onclick="generateDropReceiver()" style="justify-content:center;">REGENERATE PIN</button>
+                </div>
+
+                <div class="upload-box" id="recvProgBox" style="display:none;text-align:center;">
+                    <p style="color:var(--text);margin-bottom:10px;font-weight:bold;">✓ DEVICE CONNECTED</p>
+                    <h3 id="dropRFilename" style="margin-bottom:20px;opacity:0.8;">WAITING FOR DATA...</h3>
+                    
+                    <div style="width:100%;height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:8px;">
+                        <div id="dropRFill" style="height:100%;width:0%;background:var(--text);transition:0.2s linear;"></div>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-size:1rem;font-weight:bold;opacity:0.8;">
+                        <span id="dropRStatus">LISTENING...</span>
+                        <span id="dropRSpeed" style="color:var(--accent);"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dropSenderUI" style="display:none;">
+                <div class="upload-box" id="senderConnectBox">
+                    <p style="text-align:center;opacity:0.6;margin-bottom:10px">CONNECT TO RECEIVER</p>
+                    
+                    <div id="dropReader" style="width:100%; max-width:220px; aspect-ratio:1; border-radius:22px; overflow:hidden; display:none; border:2px solid var(--text); margin:0 auto 15px; background:#000;"></div>
+                    
+                    <div class="upload-area" id="dropScanBtn" style="height:180px; width:100%; max-width:220px; margin:0 auto 15px; border-radius:22px; border:2px dashed var(--border); display:grid; place-items:center; cursor:pointer;" onclick="startDropScanner()">
+                        <div style="text-align:center;">
+                            <i class="fa-solid fa-qrcode" style="font-size:3.5rem; margin-bottom:10px; color:var(--text); opacity:0.8;"></i>
+                            <p style="font-size:1.1rem; margin:0; color:var(--text); font-weight:bold;">TAP TO SCAN</p>
+                        </div>
+                    </div>
+                    
+                    <p style="text-align:center;opacity:0.5;margin:15px 0;">— OR —</p>
+                    
+                    <div style="position:relative; width:100%; max-width:320px; margin:0 auto;">
+                        <input type="text" id="dropInputPin" maxlength="8" placeholder="ENTER 8-DIGIT PIN" style="width:100%; padding:18px 65px 18px 20px; text-align:center; letter-spacing:4px; border-radius:50px; border:2px solid var(--border); background:var(--bg); color:var(--text); font-size:1.3rem; outline:none; font-family: 'VT323', monospace;">
+                        <button id="dropConnectBtnAction" onclick="connectDrop()" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); width:42px; height:42px; border-radius:50%; background:var(--text); color:var(--bg); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.2rem; transition:0.2s;">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="upload-box" id="senderDashBox" style="display:none;">
+                    <p style="text-align:center;color:var(--text);margin-bottom:15px;font-weight:bold;">✓ CONNECTED</p>
+                    
+                    <div class="input-group">
+                        <textarea id="dropTextMsg" placeholder="TYPE MESSAGE OR LINK..." rows="2"></textarea>
+                    </div>
+                    
+                    <input type="file" id="dropFileInput" multiple hidden onchange="updateDropFileLabel()">
+                    <div class="upload-area" style="height:80px; margin-bottom:15px; border:1px dashed var(--text);" onclick="document.getElementById('dropFileInput').click()">
+                        <div id="dropFileLabel" style="font-size:1.2rem;color:var(--text);font-weight:bold;">SELECT FILES</div>
+                    </div>
+
+                    <button class="btn" id="dropSendBtn" onclick="sendDropData()">SEND DATA</button>
+                    
+                    <div id="dropSenderProgress" style="display:none;margin-top:20px;text-align:center;">
+                        <div style="width:100%;height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:8px;">
+                            <div id="dropSFill" style="height:100%;width:0%;background:var(--text);transition:0.2s linear;"></div>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;font-size:1rem;font-weight:bold;opacity:0.8;">
+                            <span id="dropSStatus">SENDING...</span>
+                            <span id="dropSSpeed" style="color:var(--accent);">0 MB/s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="mini.js"></script>
+</body>
+</html>
