@@ -400,4 +400,4 @@ function disconnectDrop(auto = false) {
         document.getElementById('dropStatus').style.display = 'none';
     }
     initDropSystem(true);
-}
+
