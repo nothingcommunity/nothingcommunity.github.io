@@ -1344,24 +1344,33 @@ style="background:none; border:none; padding:0; font:inherit; cursor:pointer; co
     function toggleUpload() { const f = document.getElementById('setupUploadForm'); f.style.display = (f.style.display === 'none') ? 'block' : 'none'; }
 
 function unlockPremiumGrid(btn) {
-    // Button loading
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> OPENING AD...';
-    btn.style.pointerEvents = 'none';
+    try {
+        // Step 1: URL Change (Ad-friendly and No Refresh)
+        // Isse URL ban jayega: yoursite.com/?page=premium
+        window.history.pushState({ path: 'premium' }, '', '?page=premium');
 
-    setTimeout(() => {
-        // URL change karega
-        window.location.href = "?access=premium";
-    }, 500);
-}
+        // Step 2: UI Feedback
+        btn.innerHTML = '<i class="fa-solid fa-box fa-beat"></i> GETTING ACCESS...';
+        btn.style.pointerEvents = 'none';
 
-// Page load hone par check karega
-window.addEventListener("load", function () {
-    const params = new URLSearchParams(window.location.search);
+        // Step 3: Logic Execution
+        setTimeout(() => {
+            if (typeof initWallpaperData === "function") {
+                initWallpaperData('premium');
+            } else {
+                console.error("Function initWallpaperData nahi mila!");
+            }
+            
+            btn.innerHTML = '<i class="fa-solid fa-box-open"></i> PREMIUM UNLOCKED';
+            btn.style.pointerEvents = 'all';
+            
+            if (navigator.vibrate) navigator.vibrate(30);
+        }, 1000);
 
-    if (params.get("access") === "premium") {
-        document.getElementById("premium-grid").style.display = "grid";
+    } catch (e) {
+        console.error("Error in unlockPremiumGrid:", e);
     }
-});
+}
 
     /* ================= CUSTOM SELECTOR LOGIC ================= */
 function openDeviceMenu() {
