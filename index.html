@@ -1344,15 +1344,24 @@ style="background:none; border:none; padding:0; font:inherit; cursor:pointer; co
     function toggleUpload() { const f = document.getElementById('setupUploadForm'); f.style.display = (f.style.display === 'none') ? 'block' : 'none'; }
 
 function unlockPremiumGrid(btn) {
-    // 1. URL change karo (Isse AdSense ad trigger hoga)
-    // Page reload hoga isliye button text sirf 1-2 second dikhega
+    // Button loading
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> OPENING AD...';
     btn.style.pointerEvents = 'none';
 
     setTimeout(() => {
-        window.location.href = "https://nothingcommunity.github.io/?access=premium";
+        // URL change karega
+        window.location.href = "?access=premium";
     }, 500);
 }
+
+// Page load hone par check karega
+window.addEventListener("load", function () {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("access") === "premium") {
+        document.getElementById("premium-grid").style.display = "grid";
+    }
+});
 
     /* ================= CUSTOM SELECTOR LOGIC ================= */
 function openDeviceMenu() {
