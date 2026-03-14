@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+  <meta name="google-adsense-account" content="ca-pub-1607055557776596">
+  
+  <title>Nothing Space - Premium KLWP</title>
+  <meta name="robots" content="noindex, nofollow"> 
+  
+  <link rel="icon" type="image/svg+xml" href="../icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1607055557776596" crossorigin="anonymous"></script>
+
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-N3QQWX28');</script>
+
+  <style>
+    /* 1. ROOT & EXACT THEME COLORS */
+    :root { --bg: #000; --card: #0c0c0c; --text: #fff; --dot-bg: #222; --border: #1a1a1a; --instr: #bbb; --accent: #ff0000; --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1); color-scheme: light dark; }
+    [data-theme="light"] { --bg: #fff; --card: #f5f5f5; --text: #000; --dot-bg: #ddd; --border: #eee; --instr: #333; }
+    [data-theme="dark"] { --bg: #000; --card: #0c0c0c; --text: #fff; --dot-bg: #333; --border: #1a1a1a; --instr: #bbb; }
+
+    /* 2. GLOBAL RESET */
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body { background: var(--bg); color: var(--text); font-family: 'VT323', monospace; transition: background var(--transition); width: 100%; min-height: 100vh; overflow: hidden; }
+    h1, h2, h3, span, button, p { font-family: 'VT323', monospace !important; text-transform: uppercase; }
+
+    /* 3. EXACT BACKGROUND ANIMATIONS */
+    .stars-container { position: fixed; inset: 0; z-index: -1; background: var(--bg); overflow: hidden; pointer-events: none; }
+    .star { position: absolute; background: var(--text); border-radius: 50%; animation: blink 3s infinite; }
+    .canvas { position: fixed; inset: 0; background-image: radial-gradient(var(--dot-bg) 1.2px, transparent 1.2px); background-size: 32px 32px; z-index: -1; opacity: 0.5; pointer-events: none; }
+    
+    @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+    /* 4. PERFECT POPUP/MODAL UI */
+    .screen { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); z-index: 2000; display: flex; align-items: center; justify-content: center; }
+    .modal { background: var(--bg); border: 1px solid var(--border); width: 90%; max-width: 500px; max-height: 90dvh; border-radius: 35px; padding: 30px; position: relative; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; }
+    .close-icon { position: absolute; right: 25px; top: 25px; font-size: 2.2rem; cursor: pointer; opacity: 0.5; transition: 0.2s; z-index: 10; color: var(--text); text-decoration: none; }
+    .close-icon:hover { opacity: 1; color: var(--text); }
+    .modal h2 { margin-bottom: 5px !important; margin-top: 5px !important; line-height: 1; font-size: 2.2rem; }
+
+    /* 5. PREMIUM WALLPAPER GRID & SCROLL ANIMATION CSS */
+    .wp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px; }
+    .wp-card { height: 250px; background: #111; border-radius: 25px; position: relative; overflow: hidden; border: 1px solid var(--border); opacity: 1; transform: translateY(0); transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .wp-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; display: block; }
+    .wp-overlay { position: absolute; bottom: 0; width: 100%; padding: 10px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); text-align: center; }
+    
+    /* SCROLL ANIMATION STATES */
+    .wp-card.hidden-state { opacity: 0; transform: translateY(50px) scale(0.95); }
+    .wp-card.scroll-active { opacity: 1; transform: translateY(0) scale(1); }
+    
+    /* 6. BUTTONS */
+    .btn { position: relative; width: 90%; margin: 5px auto 0; padding: 8px 0; border-radius: 15px; border: none; background: var(--accent) !important; color: #fff; font-size: 1.2rem; cursor: pointer; font-weight: bold; overflow: hidden; display: flex; justify-content: center; align-items: center; transition: 0.2s; }
+    .btn:active { transform: scale(0.95); }
+    .progress-bar { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: rgba(255,255,255,0.2); z-index: 1; }
+    .btn-text { position: relative; z-index: 2; color: #fff !important; opacity: 1 !important; }
+
+    /* CUSTOM SCROLLBAR */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+  </style>
+</head>
+<body>
+
+  <div class="stars-container" id="starField"></div>
+  <div class="canvas"></div>
+
+  <div class="screen" id="premiumScr">
+    <div class="modal">
+      <a href="../index.html" class="close-icon">×</a>
+      
+      <h2>PREMIUM KLWP</h2>
+      <p style="opacity: 0.5; margin-bottom: 10px; font-size: 1.1rem;">EXCLUSIVE PRO GALLERY</p>
+      
+      <div class="wp-grid" id="wallpaperGrid">
+        <p style="text-align: center; grid-column: span 2; padding: 20px; opacity: 0.5;">LOADING DATABASE...</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function applyAutoTheme() {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+  }
+
+  function createStars() {
+      const field = document.getElementById('starField');
+      const count = window.innerWidth < 768 ? 80 : 250; 
+      for(let i=0; i < count; i++) {
+          const s = document.createElement('div');
+          s.className = 'star';
+          const size = Math.random() * 3;
+          s.style.cssText = `width:${size}px; height:${size}px; top:${Math.random()*100}%; left:${Math.random()*100}%; animation-duration: ${2+Math.random()*3}s; opacity:${Math.random()}`;
+          field.appendChild(s);
+      }
+  }
+
+  // 🔥 SCROLL ANIMATION JS 🔥
+  function attachScrollAnimation() {
+      const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.classList.remove('hidden-state');
+                  entry.target.classList.add('scroll-active');
+                  observer.unobserve(entry.target);
+              }
+          });
+      }, { threshold: 0.1 });
+      
+      document.querySelectorAll('.wp-card').forEach(card => {
+          card.classList.add('hidden-state');
+          observer.observe(card);
+      });
+  }
+
+  async function loadPremiumGallery() {
+      const grid = document.getElementById('wallpaperGrid');
+      const targetUrl = "https://raw.githubusercontent.com/nothingtools/nothingtools.github.io/main/Wallpaper/wallpaper.json";
+      
+      try {
+          const res = await fetch(targetUrl);
+          const data = await res.json();
+          const walls = Array.isArray(data) ? data : data.wallpapers;
+          
+          grid.innerHTML = walls.map(w => `
+            <div class="wp-card hidden-state">
+              <img src="${w.img}" loading="lazy" width="200" height="250">
+              <div class="wp-overlay">
+                <button class="btn" style="background: #fff !important;" onclick="runDownload(this, '${w.url}')">
+                  <div class="progress-bar"></div>
+                  <span class="btn-text" style="color: #000 !important; font-weight: bold;"><i class="fa-solid fa-palette"></i> GET theme</span>
+                </button>
+              </div>
+            </div>
+          `).join('');
+          
+          // SCROLL ANIMATION TRIGGER
+          setTimeout(attachScrollAnimation, 100);
+      } catch(e) {
+          grid.innerHTML = "<p style='text-align:center; grid-column:span 2;'>ERROR FETCHING THEMES</p>";
+      }
+  }
+
+  async function runDownload(btn, finalUrl) {
+      if (!finalUrl || finalUrl === "#") return;
+      
+      const bar = btn.querySelector('.progress-bar'); 
+      const txt = btn.querySelector('.btn-text'); 
+      const oldTxt = txt.innerHTML;
+      
+      btn.style.pointerEvents = 'none'; 
+      txt.innerText = 'PROCESSING...'; 
+      bar.style.transition = 'width 1.5s linear'; 
+      bar.style.width = '100%';
+
+      try {
+          const response = await fetch(finalUrl); 
+          const blob = await response.blob(); 
+          const blobUrl = window.URL.createObjectURL(blob); 
+          const link = document.createElement('a'); 
+          link.href = blobUrl; 
+          
+          let fileExt = finalUrl.split('.').pop().split('?')[0];
+          if (!fileExt || fileExt.length > 5) fileExt = "klwp";
+          link.download = "NothingSpace_Premium_" + Date.now() + "." + fileExt;
+          
+          document.body.appendChild(link); 
+          link.click(); 
+          document.body.removeChild(link); 
+          window.URL.revokeObjectURL(blobUrl); 
+          
+          finishDownload(btn, txt, bar, oldTxt);
+      } catch (err) { 
+          window.open(finalUrl, '_blank'); 
+          finishDownload(btn, txt, bar, oldTxt); 
+      }
+  }
+
+  function finishDownload(btn, txt, bar, oldTxt) { 
+      txt.innerText = "DONE ✓"; 
+      setTimeout(() => { 
+          bar.style.transition = 'none'; 
+          bar.style.width = '0%'; 
+          txt.innerHTML = oldTxt; 
+          btn.style.pointerEvents = 'all'; 
+      }, 1000); 
+  }
+
+  window.onload = () => {
+      applyAutoTheme();
+      createStars();
+      loadPremiumGallery();
+  };
+</script>
+</body>
+</html>
