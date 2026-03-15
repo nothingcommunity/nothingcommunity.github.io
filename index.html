@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nothing Space - Update Alerts</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "221f8870-49e4-485e-b72c-2450e110a6dc",
+        });
+      });
+    </script>
+
+    <style>
+        body { font-family: sans-serif; background: #111; color: #fff; padding: 20px; }
+        .m-head { 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: #222; padding: 15px 20px; border-radius: 10px; border: 1px solid #333; 
+            max-width: 400px;
+        }
+        h2 { margin: 0; font-size: 1.5rem; }
+        #fwBellIcon { cursor: pointer; font-size: 1.5rem; color: #fff; transition: 0.3s; opacity: 0.7; }
+        #fwBellIcon:hover { opacity: 1; color: #ffcc00; }
+    </style>
+</head>
+<body>
+
+    <div class="m-head">
+        <h2>SYSTEM UPDATE</h2>
+        <i class="fa-solid fa-bell" id="fwBellIcon" onclick="toggleFwSubscription()" title="Get Update Alerts"></i>
+    </div>
+
+    <p style="margin-top: 20px; color: #aaa; font-size: 0.9rem;">
+        <b>Testing Steps:</b><br><br>
+        1. <i>OneSignalSDKWorker.js</i> GitHub main folder me upload hona chahiye.<br>
+        2. Upar Bell Icon dabao.<br>
+        3. Upar se Chrome ka popup aayega, usme <b>Allow</b> dabao.<br>
+        4. Turant ek Welcome Notification aayega!
+    </p>
+
+    <script>
+        function toggleFwSubscription() {
+            // Yeh code OneSignal ka permission popup trigger karega
+            window.OneSignalDeferred.push(function(OneSignal) {
+                OneSignal.Slidedown.promptPush();
+            });
+        }
+    </script>
+
+</body>
+</html>
