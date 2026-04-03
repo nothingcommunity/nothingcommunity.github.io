@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="2.0" 
+                xmlns:html="http://www.w3.org/TR/REC-html40"
+                xmlns:sitemap="http://www.sitemaps.org/schemas/sitemap/0.9"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes"/>
+  <xsl:template match="/">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+      <head>
+        <title>XML Sitemap - Nothing Space</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style type="text/css">
+          body { font-family: 'Courier New', monospace; background-color: #000; color: #fff; margin: 0; padding: 20px; }
+          .header { background-color: #111; padding: 20px; border: 1px solid #333; border-radius: 10px; margin-bottom: 20px;}
+          h1 { margin: 0; font-size: 24px; color: #ff0000; text-transform: uppercase; }
+          p { color: #888; font-size: 14px; }
+          table { width: 100%; border-collapse: collapse; background-color: #0c0c0c; border: 1px solid #333; border-radius: 10px; overflow: hidden;}
+          th { background-color: #222; text-align: left; padding: 15px; font-size: 14px; text-transform: uppercase; color: #aaa;}
+          td { padding: 15px; border-bottom: 1px solid #222; font-size: 14px; }
+          tr:hover td { background-color: #1a1a1a; }
+          a { color: #fff; text-decoration: none; }
+          a:hover { color: #ff0000; text-decoration: underline; }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <h1>Nothing Space Sitemap</h1>
+          <p>Yeh sitemap search engines (jaise Google) ke liye hai taki woh pages ko easily crawl kar sakein.</p>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>URL</th>
+              <th>Last Modified</th>
+            </tr>
+          </thead>
+          <tbody>
+            <xsl:for-each select="sitemap:urlset/sitemap:url">
+              <tr>
+                <td>
+                  <xsl:variable name="itemURL">
+                    <xsl:value-of select="sitemap:loc"/>
+                  </xsl:variable>
+                  <a href="{$itemURL}">
+                    <xsl:value-of select="sitemap:loc"/>
+                  </a>
+                </td>
+                <td>
+                  <xsl:value-of select="sitemap:lastmod"/>
+                </td>
+              </tr>
+            </xsl:for-each>
+          </tbody>
+        </table>
+      </body>
+    </html>
+  </xsl:template>
+</xsl:stylesheet>
