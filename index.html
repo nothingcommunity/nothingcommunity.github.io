@@ -3,51 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nothing Communit</title>
-<meta name="google-site-verification" content="ZWidhp29xotLZ2B8B4mHHEtWvixWj6HhA9Uaav06BYA" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    <script>
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      OneSignalDeferred.push(async function(OneSignal) {
-        await OneSignal.init({
-          appId: "js",
-        });
-      });
-    </script>
+    <title>AI Background Remover - Nothing Space</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.2.0/dist/imglyRemoveBackground.umd.js"></script>
 
     <style>
-        body { font-family: sans-serif; background: #111; color: #fff; padding: 20px; }
-        .m-head { 
-            display: flex; justify-content: space-between; align-items: center; 
-            background: #222; padding: 15px 20px; border-radius: 10px; border: 1px solid #333; 
-            max-width: 400px;
+        :root {
+            --bg: #000000;
+            --accent: #ff0000;
+            --box: #111111;
+            --border: #333333;
+            --text: #f1f1f1;
         }
-        h2 { margin: 0; font-size: 1.5rem; }
-        #fwBellIcon { cursor: pointer; font-size: 1.5rem; color: #fff; transition: 0.3s; opacity: 0.7; }
-        #fwBellIcon:hover { opacity: 1; color: #ffcc00; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header { font-size: 24px; font-weight: bold; margin-bottom: 30px; letter-spacing: 2px; }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--box);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h1 { margin-top: 0; font-size: 36px; }
+
+        /* Upload Box */
+        #drop-area {
+            border: 2px dashed var(--border);
+            padding: 50px 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+            margin-bottom: 20px;
+        }
+        #drop-area:hover { border-color: var(--accent); }
+
+        /* Image Preview Area with Transparent Checkerboard Pattern */
+        .image-container {
+            position: relative;
+            display: none;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            /* Transparent grid effect */
+            background-image: 
+                repeating-linear-gradient(45deg, #222 25%, transparent 25%, transparent 75%, #222 75%, #222),
+                repeating-linear-gradient(45deg, #222 25%, #111 25%, #111 75%, #222 75%, #222);
+            background-position: 0 0, 10px 10px;
+            background-size: 20px 20px;
+        }
+
+        #preview-img { 
+            width: 100%; 
+            display: block; 
+            object-fit: contain;
+        }
+
+        /* Scanning Red Line Animation */
+        .scanner-line {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            box-shadow: 0 0 20px 2px var(--accent);
+            z-index: 10;
+            animation: scan 2s infinite ease-in-out;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; }
+            50% { top: 98%; }
+            100% { top: 0%; }
+        }
+
+        .btn {
+            background: white;
+            color: black;
+            border: none;
+            padding: 15px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: none;
+            transition: 0.3s;
+        }
+
+        .btn-red { background: var(--accent); color: white; display: inline-block; }
+        .btn-red:disabled { background: #555; cursor: not-allowed; }
+        .btn-download { background: #ffffff; color: #000; }
+
+        #status { 
+            margin-top: 15px; 
+            color: #888; 
+            font-size: 14px; 
+            min-height: 20px;
+        }
+
+        .warning-text {
+            font-size: 12px;
+            color: #ffaa00;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
 
-    <div class="m-head">
-        <h2>SYSTEM UPDATE</h2>
-        <i class="fa-solid fa-bell" id="fwBellIcon" onclick="toggleFwSubscription()" title="Get Update Alerts"></i>
+    <div class="header">NOTHING SPACE / TOOLS</div>
+
+    <div class="container">
+        <h1>AI BACKGROUND REMOVER</h1>
+        <p style="color: #888;">Instantly remove backgrounds in high quality. 100% Free & Private.</p>
+
+        <div id="drop-area">
+            <p style="font-size: 20px; margin: 0;">Tap to upload or Drag & Drop photo</p>
+            <input type="file" id="file-input" hidden accept="image/*">
+        </div>
+
+        <div class="image-container" id="img-wrapper">
+            <div class="scanner-line" id="scanner"></div>
+            <img id="preview-img" src="">
+        </div>
+
+        <div id="status"></div>
+        <p class="warning-text" id="warning-text" style="display: none;">
+            Note: First time usage downloads the AI model (~40MB). Please wait, it might take 1-2 minutes depending on your internet speed. Subsequent uses will be instant.
+        </p>
+
+        <button class="btn btn-red" id="remove-btn" style="display: none;">REMOVE BACKGROUND</button>
+        <button class="btn btn-download" id="download-btn">DOWNLOAD HD PNG</button>
     </div>
 
-    <p style="margin-top: 20px; color: #aaa; font-size: 0.9rem;">
-        <b>Testing Steps:</b><br><br>
-            </p>
-
     <script>
-        function toggleFwSubscription() {
-            // Yeh code
-            window.OneSignalDeferred.push(function(OneSignal) {
-                OneSignal.Slidedown.promptPush();
-            });
-        }
-    </script>
+        const dropArea = document.getElementById('drop-area');
+        const fileInput = document.getElementById('file-input');
+        const previewImg = document.getElementById('preview-img');
+        const imgWrapper = document.getElementById('img-wrapper');
+        const removeBtn = document.getElementById('remove-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const scanner = document.getElementById('scanner');
+        const status = document.getElementById('status');
+        const warningText = document.getElementById('warning-text');
 
+        let originalFile = null;
+
+        // Click to upload
+        dropArea.onclick = () => fileInput.click();
+
+        // Handle image selection
+        fileInput.onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                originalFile = file;
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    previewImg.src = event.target.result;
+                    imgWrapper.style.display = 'block';
+                    dropArea.style.display = 'none';
+                    removeBtn.style.display = 'inline-block';
+                    downloadBtn.style.display = 'none';
+                    status.innerText = "Image Loaded. Ready to process.";
+                    warningText.style.display = 'block'; // Show warning about first time model download
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // Process Background Removal
+        removeBtn.onclick = async () => {
+            if (!originalFile) return;
+
+            // UI Updates for processing state
+            removeBtn.disabled = true;
+            removeBtn.innerText = "PROCESSING AI...";
+            scanner.style.display = 'block';
+            status.innerHTML = "Extracting subject... <br><i>(Please don't close the browser)</i>";
+
+            try {
+                // This is where the magic happens using img.ly library
+                const imageBlob = await imglyRemoveBackground(originalFile);
+                
+                // Convert result to URL and show it
+                const url = URL.createObjectURL(imageBlob);
+                previewImg.src = url;
+                
+                // Reset UI for success
+                scanner.style.display = 'none';
+                removeBtn.style.display = 'none';
+                downloadBtn.style.display = 'inline-block';
+                status.innerText = "Background Removed Successfully!";
+                warningText.style.display = 'none';
+
+            } catch (error) {
+                console.error("Error removing background:", error);
+                status.innerText = "Error: Could not process image. Try a different one.";
+                scanner.style.display = 'none';
+                removeBtn.disabled = false;
+                removeBtn.innerText = "TRY AGAIN";
+            }
+        };
+
+        // Download the processed transparent PNG
+        downloadBtn.onclick = () => {
+            const link = document.createElement('a');
+            link.download = 'NothingSpace-Transparent.png';
+            link.href = previewImg.src;
+            link.click();
+        };
+    </script>
 </body>
 </html>
